@@ -48,14 +48,14 @@ let devServerOptions =
    // Specify a host to use. If you want your server to be
    // accessible externally, specify it like this:
    // Default is 'localhost'.
-   host: '192.168.2.97',
+   host: 'localhost',
 
    // This option allows you to whitelist services that are
    // allowed to access the dev server.
-   allowedHosts: [
-      '192.168.2.*',
-      '192.168.2.',
-   ],
+   //allowedHosts: [
+   //   '192.168.2.*',
+   //   '192.168.2.',
+   //],
 
    // Enables/Disables colors on the console
    // Available on cli only --color
