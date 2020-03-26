@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <script src="./pixi.js"></script>
+    <script src="./pixi_ui.js"></script>
+
+</head>
+<body>
+   <h1>Popover</h1>
+   <p>
+      Add small overlay content, like those found in iOS, to any element for housing secondary information.
+      The Popover plugin is similar to tooltips; it is a pop-up box that appears when the user clicks or
+      touches an element. The difference is that the popover can contain much more content.
+   </p>
+   <p>Let's look at an example of a popover:</p>
+   <canvas id="canvas" class="grayBorder interactive">Canvas not supported</canvas>
+   <script> window.onload = function()
+   {
+      const app = new PIXI.UI.App({
+         view: canvas,
+         autoResize: false,
+         width: 850, height: 450
+      }).setup().run()
+
+      let popover1 = new PIXI.UI.Popover({title: "Popover title", text: "This is the popover text.", x: 150, y: 130})
+      app.scene.addChild(popover1)
+
+      let popover2 = new PIXI.UI.Popover({text: "This is another popover text. It has more words than the first one, some line breaks, \n\nbut no title :-(", x: 50, y: 230, placement: "right", width: 180})
+      app.scene.addChild(popover2)
+
+      let popover3 = new PIXI.UI.Popover({title: "Popover title 3. This title has many words but the Popover has no text...", x: 650, y: 70, placement: "left"})
+      app.scene.addChild(popover3)
+
+      const text4 = `
+Someone must have slandered Josef K., because without him doing something bad
+he would have been arrested one morning. "Like a dog!" He said,
+it was as if shame should survive him. As Gregor Samsa one morning
+awakened from restless dreams, he found himself in his bed
+tremendous vermin transformed. And it was like confirmation to them
+of their new dreams and good intentions, as when they reached their destination
+Daughter rose first and stretched her young body. "It is a
+strange device, ”the officer said to the explorer
+and surveyed him with a kind of admiring look.
+`
+      let popover4 = new PIXI.UI.Popover({title: "Popover title 4", text: text4, x: 650, y: 120, width: 380, placement: "bottom", titleStyle: {
+         fontFamily: 'Arial',
+         fontSize: 40,
+         fontStyle: 'italic',
+         fontWeight: 'bold',
+         fill: ['#6b6acf', '#d7626c'], // gradient
+         stroke: '#393879',
+         strokeThickness: 6,
+         dropShadow: true,
+         dropShadowColor: '#e7bc51',
+         dropShadowBlur: 4,
+         dropShadowAngle: Math.PI / 6,
+         dropShadowDistance: 3,
+         wordWrap: true,
+         wordWrapWidth: 440
+      }, textStyle: {
+         fontFamily: 'Arial',
+         fontSize: 10,
+         fill: "#76a9c9",
+         strokeThickness: 5,
+         wordWrap: true
+      }})
+      app.scene.addChild(popover4)
+
+   } </script>
+</body>

@@ -1,0 +1,76 @@
+<!doctype html>
+<!-- This example demonstrates:                                               -->
+<!--   - Popup buttons                                                        -->
+
+<html lang="en">
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+   <title>PIXI Popup</title>
+
+   <script src="./pixi.js"></script>
+   <script src="./pixi_ui.js"></script>
+</head>
+<body>
+   <h1>Popup</h1>
+   <p>
+       This class represents a popup window that can be used to display an arbitrary view. The popup window is a floating container that appears on top of the current activity.
+   </p>
+   <p>Let's look at some popup examples:</p><br />
+   <canvas id="canvas" class="interactive"></canvas>
+   <p>
+       What you should see: Three popups and a button which opens a popup.
+   </p>
+   <script> window.onload = function()
+   {
+
+      const app = new PIXI.UI.App({
+         view: canvas,
+         width: 900,
+         height: 250,
+         transparent: false,
+         backgroundColor: 0xcccccc
+      }).setup().run()
+
+      let popup1 = new PIXI.UI.Popup({
+         x: 20,
+         y: 20,
+         header: 'Popup'
+      })
+
+      let popup2 = new PIXI.UI.Popup({
+         x: 140,
+         y: 30,
+         padding: 20,
+         header: 'Popup',
+         content: "You can't experience early enough how indispensable you are in the world.",
+         headerStyle: {fill: 0xaa3322},
+         textStyle: {fill: 0x5544ee, fontSize: 10}
+      })
+
+      let popup3 = new PIXI.UI.Popup({
+          x: 330,
+          y: 20,
+          content: "Every day you should at least hear a little song, read a good poem,\nsee a fine painting and,\nif possible, speak a few reasonable words."
+      })
+
+      let button1 = new PIXI.UI.Button({
+          x: 20,
+          y: 160,
+          icon: 'speaker_notes',
+          action: () => {
+             app.scene.addChild(new PIXI.UI.Popup({
+                x: 100,
+                y: 100,
+                closeButton: true,
+                header: 'Art is a mediator of the unspeakable.',
+                stroke: 0x336699,
+                strokeWidth: 3
+            }))
+         }
+      })
+
+      app.scene.addChild(popup1, popup2, popup3)
+      app.scene.addChild(button1)
+   } </script>
+</body>

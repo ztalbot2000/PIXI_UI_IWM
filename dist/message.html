@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+   <title>PIXI Message</title>
+
+   <script src="./pixi.js"></script>
+   <script src="./pixi_ui.js"></script>
+
+</head>
+<body>
+   <h1>Message</h1>
+   <p>
+       A message box is a timed popup window. By default, the message window appears in the upper right corner and disappears after 5 seconds.
+   </p>
+   <p>Let's look at some message examples:</p><br />
+   <canvas id="canvas" class="interactive"></canvas>
+   <p>
+       What you should see: Two buttons which start message windows.
+   </p>
+   <script> window.onload = function()
+   {
+      const app = new PIXI.UI.App({
+         view: canvas,
+         width: 900,
+         height: 250
+      }).setup().run()
+
+      let button1 = new PIXI.UI.Button({
+         x: 0,
+         label: 'Default message',
+         action: e => {
+             const message = new PIXI.UI.Message({
+                 app: app,
+                 header: 'This is the heading',
+                 content: 'And this is the text of the message.'
+             })
+             app.scene.addChild(message)
+         }
+      })
+
+      let button2 = new PIXI.UI.Button({
+         x: 170,
+         label: 'Bottom-centered message',
+         action: e => {
+             const message = new PIXI.UI.Message({
+                 app: app,
+                 content: 'This message has only one Text.',
+                 autoClose: false,
+                 closeButton: true,
+                 align: 'center',
+                 verticalAlign: 'bottom'
+             })
+             app.scene.addChild(message)
+         }
+      })
+
+      let button3 = new PIXI.UI.Button({
+         x: 0,
+         y: 60,
+         label: 'Message from PIXI.UI.App',
+         action: e => {
+             let message = app.message({
+                 content: 'This message immediately disappears.'
+             })
+         }
+      })
+
+      app.scene.addChild(button1, button2)
+      app.scene.addChild(button3)
+   } </script>
+</body>

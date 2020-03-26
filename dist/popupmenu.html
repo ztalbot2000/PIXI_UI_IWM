@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+   <title>PIXI PopupMenu</title>
+
+   <script src="./pixi.js"></script>
+   <script src="./pixi_ui.js"></script>
+
+</head>
+<body>
+   <h1>PopupMenu</h1>
+   <p>
+       A popup menu is a menu in a graphical user interface (GUI) that appears upon user interaction, such as a click or touch operation. A context menu offers a limited set of choices that are available in the current state, or context, of the application to which the menu belongs. Usually the available choices are actions related to the selected object.
+   </p>
+   <p>Let's look at some popup menu examples:</p><br />
+   <canvas id="canvas" class="interactive"></canvas>
+   <p>
+       What you should see: Some buttons whichs open popup menues.
+   </p>
+   <script> window.onload = function()
+   {
+      const app = new PIXI.UI.App({
+          view: canvas,
+          width: 900,
+          height: 250,
+          forceCanvas: true
+      }).setup().run()
+
+      app.loadSprites([
+          './assets/popupmenu-1.jpg',
+          './assets/popupmenu-2.jpg',
+          './assets/popupmenu-3.jpg',
+          './assets/popupmenu-4.jpg',
+          './assets/popupmenu-5.jpg'
+      ], sprites => {
+
+          const buttonGroup1 = new PIXI.UI.ButtonGroup({
+              buttons: [
+                  {icon: './assets/icons/png/flat/looks_1.png', action: () => {
+                      const popupmenu = new PIXI.UI.PopupMenu({
+                          items: [
+                              {label: 'Save', action: () => alert('Saved')},
+                              {label: 'Edit', action: () => alert('Editd')},
+                              {label: 'Clear', action: () => alert('Cleared'), disabled: true}
+                          ]
+                      })
+                      app.scene.addChild(popupmenu)
+                  }},
+                  {icon: './assets/icons/png/flat/looks_2.png', action: () => {
+                      const popupmenu = new PIXI.UI.PopupMenu({
+                          closeButton: true,
+                          closeOnPopup: false,
+                          closeOnAction: true,
+                          items: [
+                              {label: 'Option 1'},
+                              {label: 'Option 2'},
+                              {label: 'Option 3', action: () => {}},
+                              {label: 'Option 4', action: () => {}},
+                              {label: 'Option 5'},
+                              {label: 'Option 6'}
+                          ]
+                      })
+                      popupmenu.x = 400
+                      app.scene.addChild(popupmenu)
+                  }},
+                  {icon: './assets/icons/png/flat/looks_3.png', action: () => {
+                      const popupmenu = new PIXI.UI.PopupMenu({
+                          items: [
+                              {label: 'Option 01', textStyle: {fill: 0x637a38, fontSize: 14}},
+                              {label: 'Option 02', textStyle: {fill: 0x8ca351, fontSize: 14}},
+                              {label: 'Option 03', textStyle: {fill: 0xb5d16a, fontSize: 14}},
+                              {label: 'Option 04', textStyle: {fill: 0xcedc9c, fontSize: 14}},
+                              {label: 'Option 05', textStyle: {fill: 0x8c6e31, fontSize: 14}},
+                              {label: 'Option 06', textStyle: {fill: 0xbda038, fontSize: 14}},
+                              {label: 'Option 07', textStyle: {fill: 0xe7bc51, fontSize: 14}},
+                              {label: 'Option 08', textStyle: {fill: 0xe7cc94, fontSize: 14}},
+                              {label: 'Option 09', textStyle: {fill: 0x843d39, fontSize: 14}},
+                              {label: 'Option 10', textStyle: {fill: 0xae4a4a, fontSize: 14}},
+                              {label: 'Option 11', textStyle: {fill: 0xd7626c, fontSize: 14}},
+                              {label: 'Option 12', textStyle: {fill: 0xe8979c, fontSize: 14}}
+                          ],
+                          x: 155,
+                          margin: 2
+                      })
+                      app.scene.addChild(popupmenu)
+                  }},
+                  {icon: './assets/icons/png/flat/looks_4.png', action: () => {
+
+                      sprites.forEach(sprite => sprite.scale.set(.33, .33))
+
+                      const popupmenu = new PIXI.UI.PopupMenu({
+                          items: [
+                              {content: sprites.get('./assets/popupmenu-1.jpg')},
+                              {content: sprites.get('./assets/popupmenu-2.jpg')},
+                              {content: sprites.get('./assets/popupmenu-3.jpg')},
+                              {content: sprites.get('./assets/popupmenu-4.jpg')},
+                              {content: sprites.get('./assets/popupmenu-5.jpg')}
+                          ],
+                          x: 220,
+                          margin: 2,
+                          padding: 2
+                      })
+                      app.scene.addChild(popupmenu)
+                  }}
+              ]
+          })
+
+          app.scene.addChild(buttonGroup1)
+      }, {resolutionDependent: false})
+   } </script>
+</body>

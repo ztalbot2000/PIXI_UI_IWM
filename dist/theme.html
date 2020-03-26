@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+   <title>PIXI Theme</title>
+
+   <script src="./pixi.js"></script>
+   <script src="./pixi_ui.js"></script>
+
+</head>
+<body>
+   <h1>Theme</h1>
+   <p>
+       The Button class defines a clickable/touchable button. Use custom button styles for actions in forms, dialogs,
+       and more with support for multiple sizes, states, and more. Buttons will appear pressed when active. Make 
+       buttons look inactive by setting the disabled state to true. To allow changing the state between active/inactive, set 
+       the button type to "checkbox".
+   </p>
+   <p>Let's look at some button examples:</p><br />
+   <canvas id="canvas" class="interactive"></canvas>
+   <p>
+       What you should see: Many buttons with very different styling and behaviour.
+   </p>
+   <script> window.onload = function()
+   {
+      const app = new PIXI.UI.App({
+         view: canvas,
+         width: 900,
+         height: 250,
+         transparent: false
+      }).setup().run()
+
+      let buttonDark = new PIXI.UI.Button({
+         x: 10,
+         y: 10,
+         label: 'Button with theme dark',
+         type: 'checkbox'
+      })
+
+      let buttonGroupLight = new PIXI.UI.ButtonGroup({
+         x: 230,
+         y: 10,
+         theme: 'light',
+         buttons: [
+            {label: 'Button with', active: true},
+            {label: 'theme light'}
+         ],
+         type: 'checkbox'
+      })
+
+      let buttonGroupRed = new PIXI.UI.ButtonGroup({
+         x: 480,
+         y: 10,
+         theme: 'red',
+         margin: 0,
+         buttons: [
+            {label: 'Button with', active: true},
+            {label: 'theme red'}
+         ],
+         type: 'radio'
+      })
+
+      let switchDark = new PIXI.UI.Switch({
+         x: 10,
+         y: 90
+      })
+
+      let switchLight = new PIXI.UI.Switch({
+         x: 80,
+         y: 90,
+         theme: 'light'
+      })
+
+      let switchRed = new PIXI.UI.Switch({
+         x: 150,
+         y: 90,
+         theme: 'red'
+      })
+
+      let yellowTheme = new PIXI.UI.Theme({
+         fill: 0xfecd2d,
+         fillActive: 0xfe9727,
+         strokeActive: 0xfecd2d,
+         strokeActiveWidth: 4,
+         textStyle: {
+            fill: 0x5ec7f8
+         },
+         textStyleActive: {
+            fill: 0x5954d3
+         },
+         textStyleLarge: {
+            fontSize: 36
+         }
+      })
+
+      let buttonYellow = new PIXI.UI.Button({
+         x: 10,
+         y: 160,
+         theme: yellowTheme,
+         label: 'Button with theme yellow',
+         type: 'checkbox',
+         action: event => {
+            const modal = new PIXI.UI.Modal({
+               app: app,
+               theme: yellowTheme,
+               header: 'Theme',
+               content: 'Yellow'
+            })
+            app.scene.addChild(modal)
+         }
+      })
+
+      app.scene.addChild(buttonDark, buttonGroupLight, buttonGroupRed)
+      app.scene.addChild(switchDark, switchLight, switchRed)
+      app.scene.addChild(buttonYellow)
+   } </script>
+</body>

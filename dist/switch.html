@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+   <title>PIXI Switch</title>
+
+   <script src="./pixi.js"></script>
+   <script src="./pixi_ui.js"></script>
+
+</head>
+<body>
+   <h1>Switch</h1>
+   <p>A switch is a visual toggle between two mutually exclusive states—on and off.</p>
+   <p><strong>Consider adjusting a switch’s appearance to match the style of your app.</strong> If it works well in your app, change the colors of a switch in its on and off states or use custom imagery to represent the switch.</p>
+   <p><strong>Use switches in table rows only.</strong> Switches are intended for use in tables, such as in a list of settings that can be toggled on and off. If you need similar functionality in a toolbar or navigation bar, use a button instead, and provide two distinct icons that communicate the states.</p>
+   <p><strong>Avoid adding labels to describe the values of a switch.</strong> Switches are either on or off. Providing labels that describe these states is redundant and clutters the interface.</p>
+   <p><strong>Consider using switches to manage the availability of related interface elements.</strong> Switches often affect other content onscreen. Enabling the Airplane Mode switch in Settings, for example, disables certain other settings, such as Cellular and Personal Hotspot. Disabling the Wi-Fi switch in Settings > Wi-Fi causes available networks and other options to disappear.</p>
+   <p>Let's look at some switch examples:</p><br />
+   <canvas id="canvas" class="interactive"></canvas>
+   <p>
+       What you should see: Many switches with very different styling and behaviour.
+   </p>
+   <script> window.onload = function()
+   {
+      const app = new PIXI.UI.App({
+         view: canvas,
+         width: 900,
+         height: 250,
+         transparent: false
+      }).setup().run()
+
+      let switch1 = new PIXI.UI.Switch({
+         x: 10,
+         y: 20
+      })
+
+      let switch2 = new PIXI.UI.Switch({
+         x: 90,
+         y: 20,
+         fill: 0xfd355a,
+         fillActive: 0x5954d3,
+         controlFill: 0xfecd2d,
+         controlFillActive: 0xfd413b,
+         strokeActiveWidth: 4,
+         controlStrokeActive: 0x50d968,
+         controlStrokeActiveWidth: 12,
+         controlStrokeActiveAlpha: .8,
+         tooltip: 'This is a Switch'
+      })
+
+      let switch3 = new PIXI.UI.Switch({
+         x: 170,
+         y: 20,
+         width: 100,
+         height: 40,
+         fill: 0xfe9727,
+         fillAlpha: .5,
+         fillActive: 0x5954d3,
+         stroke: 0x5ec7f8,
+         strokeWidth: 12,
+         strokeActive: 0xfd355a,
+         strokeActiveWidth: 4,
+         controlFill: 0xfecd2d,
+         controlFillActive: 0xfd413b,
+         controlStroke: 0xfd413b,
+         controlStrokeWidth: 8,
+         controlStrokeActive: 0x50d968,
+         controlStrokeActiveWidth: 16,
+         controlStrokeActiveAlpha: .8,
+         controlRadiusActive: 12,
+         duration: 3,
+         durationActive: 1
+      })
+
+      let switch4 = new PIXI.UI.Switch({
+         x: 10,
+         y: 90,
+         active: true
+      })
+
+      let switch5 = new PIXI.UI.Switch({
+         x: 90,
+         y: 90,
+         disabled: true
+      })
+
+      let switch6 = new PIXI.UI.Switch({
+         x: 170,
+         y: 90,
+         active: true,
+         disabled: true
+      })
+
+      let switch7 = new PIXI.UI.Switch({
+          x: 250,
+          y: 100,
+          width: 100,
+          height: 10,
+          fill: 0xffffff,
+          fillActive: 0xffffff,
+          duration: .2,
+          durationActive: .1,
+          controlFill: 0x00ff00,
+          controlFillActive: 0xff0000,
+          controlRadius: 15,
+          controlRadiusActive: 12,
+          controlStroke: 0x00aa00,
+          controlStrokeWidth: 3,
+          controlStrokeActive: 0xaa0000,
+          controlStrokeActiveWidth: 2,
+          tooltip: {
+             container: app.scene,
+             //O content: 'Das Gesetz ist der Freund des Schwachen.'
+             content: 'The law is the friend of the weak.'
+          }
+      })
+
+      app.scene.addChild(switch1, switch2, switch3)
+      app.scene.addChild(switch4, switch5, switch6, switch7)
+   } </script>
+</body>

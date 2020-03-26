@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+   <title>PIXI Tooltip</title>
+
+   <script src="./pixi.js"></script>
+   <script src="./pixi_ui.js"></script>
+
+</head>
+<body>
+   <h1>Tooltip</h1>
+   <p>
+       The tooltip or infotip or a hint is a common graphical user interface element. It is used in conjunction with a cursor, usually a pointer. The user hovers the pointer over an item, without clicking it, and a tooltip may appear—a small "hover box" with information about the item being hovered over.[1][2] Tooltips do not usually appear on mobile operating systems, because there is no cursor (though tooltips may be displayed when using a mouse).
+   </p>
+   <p>Let's look at some tooltip examples:</p><br />
+   <canvas id="canvas" class="interactive"></canvas>
+   <p>
+       What you should see: Ten colored circles with different tooltips.
+   </p>
+   <script> window.onload = function()
+   {
+      const app = new PIXI.UI.App({
+         view: canvas,
+         width: 900,
+         height: 250
+      }).setup().run()
+
+      const circle1 = new PIXI.Graphics()
+      circle1.beginFill(0x5251a3)
+      circle1.drawCircle(50, 50, 40)
+
+      const circle2 = new PIXI.Graphics()
+      circle2.beginFill(0x8ca351)
+      circle2.drawCircle(150, 50, 40)
+
+      const circle3 = new PIXI.Graphics()
+      circle3.beginFill(0xbda038)
+      circle3.drawCircle(250, 50, 40)
+
+      const circle4 = new PIXI.Graphics()
+      circle4.beginFill(0xae4a4a)
+      circle4.drawCircle(350, 50, 40)
+
+      const circle5 = new PIXI.Graphics()
+      circle5.beginFill(0xa64f94)
+      circle5.drawCircle(450, 50, 40)
+
+      const circle6 = new PIXI.Graphics()
+      circle6.beginFill(0x6b6acf)
+      circle6.drawCircle(50, 150, 40)
+
+      const circle7 = new PIXI.Graphics()
+      circle7.beginFill(0xb5d16a)
+      circle7.drawCircle(150, 150, 40)
+
+      const circle8 = new PIXI.Graphics()
+      circle8.beginFill(0xe7bc51)
+      circle8.drawCircle(250, 150, 40)
+
+      const circle9 = new PIXI.Graphics()
+      circle9.beginFill(0xd7626c)
+      circle9.drawCircle(350, 150, 40)
+
+      const circle10 = new PIXI.Graphics()
+      circle10.beginFill(0xcf6bbd)
+      circle10.drawCircle(450, 150, 40)
+
+      let tooltip1 = new PIXI.UI.Tooltip({
+         object: circle1,
+         container: app.scene,
+         content: 'The law is the friend of the weak.'
+      })
+
+      let tooltip2 = new PIXI.UI.Tooltip({
+         object: circle2,
+         content: 'Look forward, Werner, and not behind you!'
+      })
+
+      let tooltip3 = new PIXI.UI.Tooltip({
+         object: circle3,
+         container: app.scene,
+         padding: 20,
+         content: 'People talk and dream a lot.\nFrom better future days,\nafter a happy golden goal.\nYou see them running and hunting.'
+      })
+
+      let tooltip4 = new PIXI.UI.Tooltip({
+         object: circle4,
+         container: app.scene,
+         content: 'The language is always bolder than the deed.',
+         textStyle: {fill: 0x5251a3, fontSize: 20},
+         fill: 0xa64f94,
+         fillAlpha: .8
+      })
+
+      let tooltip5 = new PIXI.UI.Tooltip({
+         object: circle5,
+         container: app.scene,
+         content: "Sagittarius needs to show off your art here:\nThe goal is worthy and the price is great.",
+         fillAlpha: 0,
+         strokeAlpha: 0,
+         offsetLeft: -160,
+         offsetTop: 100,
+         delay: 3,
+         textStyle: {fill: 0x5251a3, fontSize: 20, stroke: 0xeeeeee, strokeThickness: 2}
+      })
+
+      app.loadSprites([
+         './assets/tooltip-1.jpg',
+         './assets/tooltip-2.jpg'
+      ], sprites => {
+         let sprite1 = sprites.get('./assets/tooltip-1.jpg')
+         sprite1.scale.set(.33, .33)
+         let tooltip6 = new PIXI.UI.Tooltip({
+            object: circle6,
+            container: app.scene,
+            content: sprite1
+         })
+
+         let sprite2 = sprites.get('./assets/tooltip-2.jpg')
+         sprite2.scale.set(.33, .33)
+         let tooltip7 = new PIXI.UI.Tooltip({
+            object: circle7,
+            container: app.scene,
+            padding: 0,
+            content: sprite2,
+            fillAlpha: 0,
+            strokeAlpha: 0
+         })
+
+         let tooltip8 = new PIXI.UI.Tooltip({
+            object: circle8,
+            container: app.scene,
+            padding: 8,
+            fill: 0xe7bc51,
+            fillAlpha: .7,
+            content: 'People talk and dream a lot\nof better future days,\nto a happy golden target\nyou see them running and chasing.',
+            textStyle: {lineHeight: 22, fontSize: 18, fill: ['#843d39','#ae4a4a', '#d7626c'], fontStyle: 'italic'}
+         })
+
+         let texture1 = PIXI.Texture.from('./assets/tooltip-3.mp4')
+
+         texture1.baseTexture.on('loaded', e => {
+
+            let sprite3 = new PIXI.Sprite(texture1)
+            sprite3.scale.set(.15, .15)
+            let tooltip9 = new PIXI.UI.Tooltip({
+               object: circle9,
+               container: app.scene,
+               content: sprite3,
+               offsetTop: 100,
+               offsetLeft: 30
+            })
+
+            let sprite4 = new PIXI.Sprite(texture1)
+            sprite4.scale.set(.1, .1)
+            let tooltip10 = new PIXI.UI.Tooltip({
+               object: circle10,
+               container: app.scene,
+               content: sprite4,
+               offsetTop: 100,
+               offsetLeft: -100,
+               padding: 1
+            })
+         })
+      }, {resolutionDependent: false})
+
+      app.scene.addChild(circle1, circle2, circle3, circle4, circle5)
+      app.scene.addChild(circle6, circle7, circle8, circle9, circle10)
+   } </script>
+</body>

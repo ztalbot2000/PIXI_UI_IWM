@@ -1,0 +1,10 @@
+.DS_Store
+*.swp
+*.save*
+*.[1-9]
+3rdparty
+jsmin
+js
+node_modules
+package-lock.json
+crap

@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+   <title>PIXI Button</title>
+
+   <script src="./pixi.js"></script>
+   <script src="./pixi_ui.js"></script>
+</head>
+<body>
+   <h1>Button</h1>
+   <p>
+      The Button class defines a clickable/touchable button. Use custom button styles for actions in forms, dialogs,
+      and more with support for multiple sizes, states, and more. Buttons will appear pressed when active. Make 
+      buttons look inactive by setting the disabled state to true. To allow changing the state between active/inactive, set 
+      the button type to "checkbox".
+   </p>
+   <p>Let's look at some button examples:</p><br />
+   <canvas id="canvas" class="interactive"></canvas>
+   <p>
+      What you should see: Many buttons with very different styling and behaviour.
+   </p>
+   <script> window.onload = function()
+   {
+      const app = new PIXI.UI.App({
+         view: canvas,
+         width: 900,
+         height: 420,
+         transparent: false
+      }).setup().run()
+
+      let button1 = new PIXI.UI.Button({x: 10, y: 10})
+
+      let button2 = new PIXI.UI.Button({
+         theme: 'red',
+         x: 60,
+         y: 10,
+         label: 'Button',
+         type: 'checkbox',
+         action: e => {
+             console.info('Button clicked')
+         }
+      })
+
+      let button3 = new PIXI.UI.Button({
+         x: 150,
+         y: 10,
+         label: 'Checkbox button',
+         type: 'checkbox',
+         action: e => {
+             console.info('Button clicked', e)
+         }
+      })
+
+      let button4 = new PIXI.UI.Button({
+         x: 330,
+         y: 10,
+         label: 'Disabled button',
+         disabled: true,
+         action: e => {
+             console.info('Disabled button clicked')
+         }
+      })
+
+      let button5 = new PIXI.UI.Button({
+         x: 500,
+         y: 10,
+         label: 'Active button',
+         active: true
+      })
+
+      let button6 = new PIXI.UI.Button({
+         x: 650,
+         y: 10,
+         label: 'Active disabled button',
+         type: 'checkbox',
+         active: true,
+         disabled: true
+      })
+
+      let button7 = new PIXI.UI.Button({
+         x: 10,
+         y: 70,
+         label: 'Icon button',
+         type: 'checkbox',
+         active: true,
+         icon: 'arrow_back'
+      })
+
+      let button8 = new PIXI.UI.Button({
+         x: 180,
+         y: 70,
+         theme: 'light',
+         label: 'Icon button',
+         icon: 'arrow_forward',
+         type: 'checkbox',
+         iconPosition: 'right'
+      })
+
+      let button9 = new PIXI.UI.Button({
+         x: 10,
+         y: 130,
+         type: 'checkbox',
+         icon: 'play_arrow',
+         iconActive: 'pause'
+      })
+
+      let button10 = new PIXI.UI.Button({
+         x: 60,
+         y: 130,
+         icon: 'stop',
+         action: function() {
+             this.iconColor = Math.round(Math.random() * 16777215)
+         }
+      })
+
+      let button11 = new PIXI.UI.Button({
+         x: 110,
+         y: 130,
+         icon: 'star_border',
+         tooltip: 'Bookmark'
+      })
+
+      let button12 = new PIXI.UI.Button({
+         x: 10,
+         y: 190,
+         icon: 'airplay',
+         fillAlpha: 0,
+         strokeAlpha: 0,
+         iconColor: 0xdd0000,
+         iconColorActive: 0x00dd00,
+         fillActiveAlpha: 0,
+         strokeActiveAlpha: 0,
+         type: 'checkbox'
+      })
+
+      let button13 = new PIXI.UI.Button({
+         x: 50,
+         y: 190,
+         label: 'Button',
+         fillAlpha: 0,
+         strokeAlpha: 0,
+         fillActiveAlpha: 0,
+         strokeActiveAlpha: 0,
+         textStyle: {
+             fontSize: 20,
+             stroke: 'brown',
+             fill: 'orange',
+             strokeThickness: 4,
+             miterLimit: 1,
+             letterSpacing: 6
+         },
+         textStyleActive: {
+             fontSize: 20,
+             stroke: 'orange',
+             fill: 'brown',
+             strokeThickness: 4,
+             fontWeight: 'bold',
+             miterLimit: 1,
+             letterSpacing: 5
+         },
+         type: 'checkbox'
+      })
+
+      let button14 = new PIXI.UI.Button({
+         x: 10,
+         y: 250,
+         label: 'Button',
+         type: 'checkbox',
+         icon: null,
+         iconActive: 'add_circle'
+      })
+
+      let button15 = new PIXI.UI.Button({
+         x: 200,
+         y: 250,
+         label: 'Button',
+         type: 'checkbox',
+         icon: 'add_circle',
+         iconActive: null
+      })
+
+      let button16 = new PIXI.UI.Button({
+         x: 400,
+         y: 250,
+         label: 'Button',
+         type: 'checkbox',
+         icon: null,
+         iconActive: 'add_circle',
+         active: true
+      })
+
+      let button17 = new PIXI.UI.Button({
+         x: 600,
+         y: 250,
+         label: 'Button',
+         type: 'checkbox',
+         icon: 'add_circle',
+         iconActive: null,
+         active: true
+      })
+
+      let graphic1 = new PIXI.Graphics()
+      graphic1.beginFill(0xd7a3f9)
+      graphic1.drawCircle(10, 10, 10)
+
+      let graphic2 = new PIXI.Graphics()
+      graphic2.beginFill(0x40c3f2)
+      graphic2.drawCircle(30, 30, 30)
+
+      let button18 = new PIXI.UI.Button({
+         x: 10,
+         y: 310,
+         label: 'Button',
+         type: 'checkbox',
+         icon: graphic1,
+         iconActive: graphic2
+      })
+
+      let graphic3 = new PIXI.Graphics()
+      graphic3.beginFill(0xfd6b6a)
+      graphic3.drawCircle(2, 2, 2)
+
+      let graphic4 = new PIXI.Graphics()
+      graphic4.beginFill(0xf8ce2d)
+      graphic4.drawCircle(40, 40, 40)
+
+      let button19 = new PIXI.UI.Button({
+         x: 200,
+         y: 310,
+         label: 'Button',
+         type: 'checkbox',
+         icon: graphic3,
+         iconActive: graphic4,
+         active: true,
+         iconPosition: 'right'
+      })
+
+      let button20 = new PIXI.UI.Button({
+         x: 400,
+         y: 310,
+         label: 'Link Button',
+         type: 'checkbox',
+         style: 'link'
+      })
+
+      let button21 = new PIXI.UI.Button({
+         x: 600,
+         y: 310,
+         minWidth: 70,
+         minHeight: 70,
+         icon: 'loop',
+         type: 'checkbox',
+         style: 'link'
+      })
+
+      app.scene.addChild(button1, button2, button3, button4, button5, button6)
+      app.scene.addChild(button7, button8)
+      app.scene.addChild(button9, button10, button11)
+      app.scene.addChild(button12, button13)
+      app.scene.addChild(button14, button15, button16, button17)
+      app.scene.addChild(button18, button19, button20, button21)
+
+   } </script>
+</body>

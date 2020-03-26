@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+   <title>PIXI Application Resolution</title>
+
+   <script src="./pixi.js"></script>
+   <script src="./pixi_ui.js"></script>
+
+   <style>
+      #dpi {
+         height: 1in;
+         left: -100%;
+         position: absolute;
+         top: -100%;
+         width: 1in;
+      }
+   </style>
+</head>
+<body>
+   <h1>Application Resolution</h1>
+   <p>
+         This is a doc test page to examine the width and height of canvas elements at different resolutions.
+   </p>
+   <p>Further documentation:</p>
+   <ul>
+       <li><a href="https://webglfundamentals.org/webgl/lessons/webgl-resizing-the-canvas.html">WebGL Fundamentals</a></li>
+       <li><a href="https://www.khronos.org/webgl/wiki/HandlingHighDPI">Handling High DPI</a></li>
+   </ul>
+   <p>Device properties:</p>
+   <ul>
+       <li id="dpi-result">Your screen has <span></span> dpi.</li>
+       <li id="dpr-result">Your screen has a device-pixel-ratio of <span></span>.</li>
+   </ul>
+   <p>
+       Set width and height per CSS: <input type="checkbox" />
+   </p>
+   <script> window.onload = function()
+   {
+      let scaled = false
+      $('input[type="checkbox"]').click(function(e) {
+         if ($(this).prop('checked')) {
+            $('#canvas1').css({width: '100px', height: '100px'})
+            $('#canvas2').css({width: '100px', height: '100px'})
+            $('#canvas3').css({width: '100px', height: '100px'})
+            $('#canvas4').css({width: '100px', height: '100px'})
+         } else {
+            $('#canvas1').css({width: 'auto', height: 'auto'})
+            $('#canvas2').css({width: 'auto', height: 'auto'})
+            $('#canvas3').css({width: 'auto', height: 'auto'})
+            $('#canvas4').css({width: 'auto', height: 'auto'})
+         }
+      })
+   } </script>
+   <p>Let's look at some canvas resolution examples:</p>
+
+   <div id="dpi"></div>
+
+   <script> window.onload = function()
+   {
+      $('#dpi-result span').text(document.getElementById("dpi").offsetHeight)
+      $('#dpr-result span').text(window.devicePixelRatio)
+   } </script>
+
+   <script> window.onload = function()
+   {
+      const style = new PIXI.TextStyle({
+         fontStyle: 'italic',
+         fontWeight: 'bold',
+         fill: ['#ffffff', '#00ff99'],
+         stroke: '#4a1850',
+         strokeThickness: 5,
+         wordWrap: true,
+         wordWrapWidth: 440
+     })
+   } </script>
+
+   <canvas id="canvas1" class="interactive"></canvas>
+   <script> window.onload = function()
+   {
+      const app1 = new PIXI.Application({width: 100, height: 100, resolution: 1, backgroundColor : 0xf8ce2d, view: canvas1})
+      const text11 = new PIXI.Text('AaBb12')
+      const text12 = new PIXI.Text('IWM', style)
+      text12.y = 30
+      app1.stage.addChild(text11, text12)
+   } </script>
+
+   <canvas id="canvas2" class="interactive"></canvas>
+   <script> window.onload = function()
+   {
+      const app2 = new PIXI.Application({width: 100, height: 100, resolution: 2, backgroundColor : 0xfd6b6a, view: canvas2})
+      const text21 = new PIXI.Text('AaBb12')
+      const text22 = new PIXI.Text('IWM', style)
+      text22.y = 30
+      app2.stage.addChild(text21, text22)
+   } </script>
+
+   <canvas id="canvas3" class="interactive"></canvas>
+   <script> window.onload = function()
+   {
+      const app3 = new PIXI.Application({width: 100, height: 100, resolution: 3, backgroundColor : 0x40c3f2, view: canvas3})
+      const text31 = new PIXI.Text('AaBb12')
+      const text32 = new PIXI.Text('IWM', style)
+      text32.y = 30
+      app3.stage.addChild(text31, text32)
+   } </script>
+
+   <canvas id="canvas4" class="interactive"></canvas>
+   <script> window.onload = function()
+   {
+      const app4 = new PIXI.Application({width: 100, height: 100, resolution: window.devicePixelRatio, backgroundColor : 0xd7a3f9, view: canvas4})
+      const text41 = new PIXI.Text('AaBb12')
+      const text42 = new PIXI.Text('IWM', style)
+      text42.y = 30
+      app4.stage.addChild(text41, text42)
+   } </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+   <title>PIXI Progress</title>
+
+   <script src="./pixi.js"></script>
+   <script src="./pixi_ui.js"></script>
+
+</head>
+<body>
+   <h1>Progress</h1>
+   <p>
+       A progress bar can be used to show a user how far along he/she is in a process.
+   </p>
+
+   <h2>Example 1</h2>
+   <p>Let's look at the progress bar example:</p><br />
+   <canvas id="canvas" class="interactive"></canvas>
+   <p>
+       What you should see: When the page finished loading, a progress bar should overlay the PixiJS application.
+   </p>
+   <script> window.onload = function()
+   {
+      const app = new PIXI.UI.App({
+         view: canvas,
+         width: 900,
+         height: 250,
+         transparent: false
+      }).setup().run()
+
+      let progress1 = new PIXI.UI.Progress({
+         app: app
+      })
+
+      app.scene.addChild(progress1)
+
+      setTimeout(() => progress1.progress = 10, 500)
+      setTimeout(() => progress1.progress = 20, 800)
+      setTimeout(() => progress1.progress = 50, 900)
+      setTimeout(() => progress1.progress = 80, 1500)
+      setTimeout(() => progress1.progress = 100, 1700)
+   } </script>
+
+   <h2>Example 2</h2>
+   <canvas id="canvas2" class="interactive"></canvas>
+   <p>
+      What you should see: When the page finished loading, a progress bar should overlay the PixiJS application.
+   </p>
+   <script> window.onload = function()
+   {
+      const app2 = new PIXI.UI.App({
+         view: canvas2,
+         width: 900,
+         height: 250,
+         transparent: false,
+         progress: {
+            height: 20,
+            fillActive: 0xe7bc51,
+            margin: 200
+         }
+      }).setup().run()
+
+      setTimeout(() => app2.progress(10), 1000)
+      setTimeout(() => app2.progress(30), 2000)
+      setTimeout(() => app2.progress(35), 2300)
+      setTimeout(() => app2.progress(50), 2800)
+      setTimeout(() => app2.progress(60), 3500)
+      setTimeout(() => app2.progress(90), 4500)
+      setTimeout(() => app2.progress(100), 5000)
+   } </script>
+</body>

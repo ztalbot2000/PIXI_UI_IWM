@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+   <title>PIXI Modal</title>
+
+   <script src="./pixi.js"></script>
+   <script src="./pixi_ui.js"></script>
+
+</head>
+<body>
+   <h1>Modal</h1>
+   <p>
+      In user interface design for computer applications, a modal window is a graphical control element subordinate to an application's main window. It creates a mode that disables the main window, but keeps it visible with the modal window as a child window in front of it. Users must interact with the modal window before they can return to the parent application. This avoids interrupting the workflow on the main window. Modal windows are sometimes called heavy windows or modal dialogs because they often display a dialog box.
+   </p>
+   <p>Let's look at some modal examples:</p><br />
+   <canvas id="canvas" class="interactive"></canvas>
+   <p>
+      What you should see: Some buttons whichs starts different modal dialogs.
+   </p>
+   <script> window.onload = function()
+   {
+      const app = new PIXI.UI.App({
+         view: canvas,
+         width: 900,
+         height: 250,
+         transparent: false,
+         backgroundColor: 0xaa2211,
+         theme: 'light'
+      }).setup().run()
+
+      let button1 = new PIXI.UI.Button({
+         x: 10,
+         y: 10,
+         label: 'Modal',
+         action: e => {
+            const modal = new PIXI.UI.Modal({app: app})
+            app.scene.addChild(modal)
+         }
+      })
+
+      let button2 = new PIXI.UI.Button({
+         x: 100,
+         y: 10,
+         label: 'Modal with Content',
+         action: e => {
+            const modal = new PIXI.UI.Modal({
+               app: app,
+               closeOnBackground: false,
+               backgroundFillAlpha: .3,
+               header: 'This is the headline',
+               content: 'And this is the Body Text.'
+            })
+            app.scene.addChild(modal)
+         }
+      })
+
+      let button3 = new PIXI.UI.Button({
+         x: 300,
+         y: 10,
+         label: 'Modal with Body Text',
+         action: e => {
+            const modal = new PIXI.UI.Modal({
+               app: app,
+               maxWidth: 400,
+               header: 'Modal with long Body Text',
+               content: 'The theory of relativity deals with the structure of space and time as well as with the nature of gravitation. It consists of two physical theories largely created by Albert Einstein, the special relativity theory published in 1905 and the general relativity theory completed in 1916. The special theory of relativity describes the behavior of space and time from the point of view of observers who move relative to each other and the associated phenomena.'
+            })
+            app.scene.addChild(modal)
+         }
+      })
+
+      let button4 = new PIXI.UI.Button({
+         x: 515,
+         y: 10,
+         label: 'Modal without Header Text',
+         action: e => {
+            const modal = new PIXI.UI.Modal({
+               app: app,
+               maxWidth: 600,
+               content: 'The theory of relativity deals with the structure of space and time as well as with the nature of gravitation. It consists of two physical theories largely created by Albert Einstein, the special relativity theory published in 1905 and the general relativity theory completed in 1916. The special theory of relativity describes the behavior of space and time from the point of view of observers who move relative to each other, and the associated phenomena.'
+            })
+            app.scene.addChild(modal)
+         }
+      })
+
+      let button5 = new PIXI.UI.Button({
+         x: 10,
+         y: 70,
+         //O label: 'Modal mit Button',
+         label: 'Modal with Button',
+         action: e => {
+            const modal = new PIXI.UI.Modal({
+               app: app,
+               header: 'Modal with Button',
+               content: 'Imagination is more important than knowledge, because knowledge is limited.',
+               button: {label: 'OK', action: () => modal.hide()},
+               minWidth: 450,
+               maxWidth: 450,
+               closeButton: false
+            })
+            app.scene.addChild(modal)
+         }
+      })
+
+      let button6 = new PIXI.UI.Button({
+         x: 200,
+         y: 70,
+         label: 'Modal with ButtonGroup',
+         action: e => {
+            const modal = new PIXI.UI.Modal({
+               app: app,
+               header: 'Modal with ButtonGroup',
+               content: 'Since mathematicians have attacked the theory of relativity, I no longer understand them myself.',
+               buttonGroup: {
+                  buttons: [
+                     {label: 'Close', action: e => modal.hide()},
+                     {label: 'Apply'}
+                  ]
+               },
+               minWidth: 450,
+               maxWidth: 450,
+               closeButton: false
+            })
+            app.scene.addChild(modal)
+         }
+      })
+
+      let img = PIXI.Sprite.from('./assets/modal-1.jpg')
+      img.scale.set(.2, .2)
+
+      let button7 = new PIXI.UI.Button({
+         x: 445,
+         y: 70,
+         label: 'Modal with Photo',
+         action: e => {
+            const modal = new PIXI.UI.Modal({
+               app: app,
+               minWidth: 0,
+               padding: 0,
+               content: img,
+               closeButton: false,
+               closeOnPopup: true
+            })
+            app.scene.addChild(modal)
+         }
+      })
+
+      let button8 = new PIXI.UI.Button({
+         x: 10,
+         y: 130,
+         label: 'App Modal',
+         action: e => {
+            let modal = app.modal({
+               header: 'Modal started from the app.',
+               content: 'The greatest invention of the human mind? - The compound interest!',
+               minWidth: 80
+            })
+         }
+      })
+
+      app.scene.addChild(button1, button2, button3, button4)
+      app.scene.addChild(button5, button6, button7)
+      app.scene.addChild(button8)
+   } </script>
+</body>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+   <title>PIXI Application Doctest</title>
+
+   <script src="./pixi.js"></script>
+   <script src="./pixi_ui.js"></script>
+</head>
+<body>
+   <h1>Application</h1>
+   <p>
+      The class PIXI.UI.App is the main entry point to create a new PIXI Application.
+      It inherits from PIXI.Application, set meaningfull defaults, creates a scene and
+      a stage and provides some helper methods to load resources, get the size of
+      the app...
+   </p>
+   <p>
+      The pattern to create a new application is:
+      <ol>
+          <li>Create a new PIXI.UI.App Object</li>
+          <li>Call the setup() method</li>
+          <li>Call the run() method</li>
+      </ol>
+      These three steps are required. The constructor has been split into these three parts in order to have the greatest possible flexibility in complex applications.
+      The setup() method creates a default scene. This can be overwritten with a spezialized setup() method to create a different container, for example.
+   </p>
+   <p>Let's look at an example of creating a new application:</p>
+   <canvas id="canvas" class="interactive"></canvas>
+   <p>
+      What you should see: There should be a green circle on a dark background. In the upper left corner, the refresh rate should be approximately 60 fps.
+   </p>
+   <script> window.onload = function()
+   {
+      const app = new PIXI.UI.App({
+         view: canvas,
+         width: 450,
+         height: 150,
+         fpsLogging: true,
+         transparent: false
+      })
+
+      app.setup()
+      app.run()
+
+      let highlightBtn = new PIXI.Graphics();
+      highlightBtn.lineStyle(2, 0x033792);
+      highlightBtn.drawRoundedRect(15, 40, 30, 30, 10);
+      highlightBtn.endFill();
+      app.stage.addChild(highlightBtn);
+
+      app.loadSprites("./assets/app-circle.png", sprites => {
+         let circle = sprites.get("./assets/app-circle.png")
+         circle.anchor.set(0.5)
+         circle.x = app.screen.width / 2
+         circle.y = app.screen.height / 2
+         circle.width = 80
+         circle.height = 80
+         app.scene.addChild(circle)
+         app.run()
+      })
+   } </script>
+</body>

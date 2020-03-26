@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+   <title>PIXI Badge</title>
+
+   <script src="./pixi.js"></script>
+   <script src="./pixi_ui.js"></script>
+
+</head>
+<body>
+   <h1>Badge</h1>
+   <p>
+      Small and adaptive tag for adding context to just about any content.
+   </p>
+   <p>Let's look at some badge examples:</p><br />
+   <canvas id="canvas" class="interactive"></canvas>
+   <p>
+      What you should see: Badges, badges, badges...
+   </p>
+   <script> window.onload = function()
+   {
+      const app = new PIXI.UI.App({
+         view: canvas,
+         width: 900,
+         height: 250
+      }).setup().run()
+
+      const circle1 = new PIXI.Graphics()
+      circle1.beginFill(0x5251a3)
+      circle1.drawCircle(50, 50, 40)
+
+      const circle2 = new PIXI.Graphics()
+      circle2.beginFill(0x8ca351)
+      circle2.drawCircle(150, 50, 40)
+
+      const button1 = new PIXI.UI.Button({
+         x: 10,
+         y: 110,
+         label: 'Button with Badge'
+      })
+
+      const button2 = new PIXI.UI.Button({
+         x: 230,
+         y: 110,
+         label: 'Button with Video-Badge'
+      })
+
+      const button3 = new PIXI.UI.Button({
+         x: 480,
+         y: 110,
+         label: 'Button and ',
+         badge: 'Badge'
+      })
+
+      const button4 = new PIXI.UI.Button({
+         x: 640,
+         y: 110,
+         label: 'Button',
+         badge: {
+            content: 'IWM',
+            align: 'center',
+            verticalAlign: 'bottom',
+            offsetTop: 6,
+            radius: 16,
+            fill: 0xfe832d
+         }
+      })
+
+      const button5 = new PIXI.UI.Button({
+         x: 740,
+         y: 110,
+         label: 'Button',
+         badge: {
+            content: '1',
+            radius: 16,
+            tooltip: 'One'
+         }
+      })
+
+      const button6 = new PIXI.UI.Button({
+         x: 740,
+         y: 180,
+         label: 'Change Badge',
+         action: () => {
+            button5.badge.content = '2'
+         }
+      })
+
+      let badge1 = new PIXI.UI.Badge({
+         x: 60,
+         y: 10,
+         content: 'New'
+      })
+
+      let badge2 = new PIXI.UI.Badge({
+         content: '7',
+         x: 160,
+         y: 10,
+         fill: 0x1078fc
+      })
+
+      let badge3 = new PIXI.UI.Badge({
+         x: 170,
+         y: 95,
+         padding: 5,
+         radius: 16,
+         content: '142',
+         fill: 0xfe9727
+      })
+
+      let sprite1 = new PIXI.Sprite(PIXI.Texture.from('./assets/badge-1.mp4'))
+      sprite1.scale.set(.05, .05)
+
+      let texture1 = PIXI.Texture.from('./assets/badge-1.mp4')
+      texture1.baseTexture.on('loaded', e => {
+         let sprite1 = new PIXI.Sprite(texture1)
+         sprite1.scale.set(.05, .05)
+         sprite1.alpha = .5
+         let badge4 = new PIXI.UI.Badge({
+            x: 300,
+            y: 152,
+            stroke: 0x5ec7f8,
+            strokeWidth: 3,
+            fillAlpha: .7,
+            padding: 0,
+            radius: 1,
+            content: sprite1,
+            tooltip: 'Earth in Space'
+         })
+         app.scene.addChild(badge4)
+      })
+
+      app.scene.addChild(circle1, circle2)
+      app.scene.addChild(button1, button2, button3, button4, button5, button6)
+      app.scene.addChild(badge1, badge2, badge3)
+   } </script>
+</body>

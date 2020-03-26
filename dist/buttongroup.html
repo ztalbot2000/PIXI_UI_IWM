@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <meta http-eqv="Content-Type" content="text/html; charset=utf-8">
+
+   <title>PIXI ButtonGroup</title>
+
+   <script src="./pixi.js"></script>
+   <script src="./pixi_ui.js"></script>
+
+</head>
+<body>
+   <h1>ButtonGroup</h1>
+   <p>
+      Group a series of buttons together on a single line with the button group.
+   </p>
+   <p>Let's look at some button groups:</p><br />
+   <canvas id="canvas" class="interactive"></canvas>
+   <p>
+      What you should see: Many button groups with very different styling and behaviour.
+   </p>
+   <script> window.onload = function()
+   {
+      const app = new PIXI.UI.App({
+         view: canvas,
+         width: 1000,
+         height: 1000
+      }).setup().run()
+
+      let buttonGroup1 = new PIXI.UI.ButtonGroup({
+         x: 10,
+         y: 10,
+         buttons: [
+            {icon: './assets/icons/png/flat/keyboard_arrow_left.png'},
+            {icon: './assets/icons/png/flat/keyboard_arrow_up.png'},
+            {icon: './assets/icons/png/flat/keyboard_arrow_down.png'},
+            {icon: './assets/icons/png/flat/keyboard_arrow_right.png'}
+         ]
+      })
+
+      let buttonGroup2 = new PIXI.UI.ButtonGroup({
+         x: 260,
+         y: 10,
+         buttons: [
+            {icon: './assets/icons/png/flat/directions_walk.png', tooltip: 'Gehen'},
+            {icon: './assets/icons/png/flat/directions_run.png', tooltip: 'Laufen'},
+            {icon: './assets/icons/png/flat/directions_bike.png', tooltip: 'Fahrrad'},
+            {icon: './assets/icons/png/flat/directions_bus.png', tooltip: 'Bus'},
+            {icon: './assets/icons/png/flat/directions_car.png', tooltip: 'Auto'},
+            {icon: './assets/icons/png/flat/directions_boat.png', tooltip: 'Schiff'},
+            {icon: './assets/icons/png/flat/directions_railway.png', tooltip: 'Bahn'}
+         ],
+         margin: 0,
+         stroke: 0x0088ff,
+         strokeWidth: 3
+      })
+
+      let buttonGroup3 = new PIXI.UI.ButtonGroup({
+         x: 610,
+         y: 10,
+         buttons: [
+            {icon: './assets/icons/png/flat/laptop.png'},
+            {label: 'Linux'},
+            {icon: './assets/icons/png/flat/laptop_windows.png', label: 'Windows', align: 'center'},
+            {icon: './assets/icons/png/flat/laptop_mac.png', iconPosition: 'right', label: 'macOS'}
+         ],
+         margin: 0,
+         stroke: 0xffffff,
+         strokeWidth: 1
+      })
+
+      let buttonGroup4 = new PIXI.UI.ButtonGroup({
+         x: 10,
+         y: 90,
+         buttons: [
+            {label: 'Button 1', action: (event, button) => console.log(button.id)},
+            {label: 'Button 2', action: (event, button) => console.log(button.id), radius: 0},
+            {label: 'Button 3', textStyle: {fill: '#fd6b6a'}, stroke: 0xd7a3f9, strokeWidth: 8, strokeAlpha: .8},
+            {label: 'Button 4', textStyle: {fill: '#40c3f2'}, radius: 20, icon: './assets/icons/png/flat/looks.png', iconPosition: 'right', iconColor: 0xd7ff30}
+         ],
+         margin: 40,
+         minWidth: 180,
+         minHeight: 60,
+         textStyle: {
+            fill: '#f8ce2d'
+         },
+         stroke: 0xffffff,
+         strokeWidth: 1
+      })
+
+      let buttonGroup5 = new PIXI.UI.ButtonGroup({
+         x: 10,
+         y: 180,
+         buttons: [
+            {label: 'ButtonGroup'},
+            {label: 'of', active: true},
+            {label: 'type'},
+            {label: 'checkbox', active: true}
+         ],
+         margin: 6,
+         type: 'checkbox'
+      })
+
+      let buttonGroup6 = new PIXI.UI.ButtonGroup({
+         x: 450,
+         y: 180,
+         buttons: [
+            {label: 'ButtonGroup'},
+            {label: 'of'},
+            {label: 'type', active: true},
+            {label: 'radio'}
+         ],
+         margin: 0,
+         type: 'radio'
+      })
+
+      let buttonGroup7 = new PIXI.UI.ButtonGroup({
+         x: 10,
+         y: 250,
+         theme: 'light',
+         buttons: [
+            {label: 'ButtonGroup'},
+            {label: 'of'},
+            {label: 'style'},
+            {label: 'link'},
+            {label: 'with'},
+            {label: 'one exception', style: 'default'}
+         ],
+         style: 'link'
+      })
+
+      let buttonGroup8 = new PIXI.UI.ButtonGroup({
+         x: 610,
+         y: 250,
+         buttons: [
+            {icon: './assets/icons/png/flat/airline_seat_legroom_extra.png'},
+            {icon: './assets/icons/png/flat/airline_seat_legroom_normal.png'},
+            {icon: './assets/icons/png/flat/airline_seat_legroom_reduced.png'},
+            {icon: './assets/icons/png/flat/wifi_tethering.png', type: 'checkbox'}
+         ],
+         type: 'radio',
+         margin: 0
+      })
+
+      let buttonGroup9 = new PIXI.UI.ButtonGroup({
+         x: 10,
+         y: 320,
+         buttons: [
+            {icon: './assets/icons/png/flat/attachment.png'},
+            {icon: './assets/icons/png/flat/autorenew.png'},
+            {icon: './assets/icons/png/flat/backup.png'},
+            {icon: './assets/icons/png/flat/apps.png'}
+         ],
+         orientation: 'vertical',
+         minWidth: 70
+      })
+
+      let buttonGroup10 = new PIXI.UI.ButtonGroup({
+         x: 100,
+         y: 320,
+         buttons: [
+            {label: 'Vertical'},
+            {label: 'ButtonGroup'},
+            {label: 'align: left', active: true},
+            {label: 'margin: 0'}
+         ],
+         orientation: 'vertical',
+         stroke: 0xff0000,
+         strokeWidth: 3,
+         align: 'left',
+         margin: 0
+      })
+
+      let buttonGroup11 = new PIXI.UI.ButtonGroup({
+         x: 250,
+         y: 320,
+         buttons: [
+            {label: 'Vertical', active: true, verticalAlign: 'top'},
+            {label: 'ButtonGroup'},
+            {label: 'Centered', active: true, disabled: true, verticalAlign: 'middle'},
+            {label: 'of', disabled: true, align: 'left'},
+            {label: 'type'},
+            {label: 'checkbox', align: 'right', verticalAlign: 'bottom'}
+         ],
+         orientation: 'vertical',
+         margin: 0,
+         align: 'center',
+         verticalAlign: 'bottom',
+         minHeight: 100,
+         minWidth: 100,
+         stroke: 0x22ee22,
+         type: 'checkbox'
+      })
+
+      let buttonGroup12 = new PIXI.UI.ButtonGroup({
+         x: 400,
+         y: 320,
+         buttons: [
+            {label: 'Controls', disabled: true},
+            {icon: './assets/icons/png/flat/play_arrow.png'},
+            {icon: './assets/icons/png/flat/pause.png', active: true, align: 'left'},
+            {icon: './assets/icons/png/flat/stop.png', verticalAlign: 'bottom'}
+         ],
+         orientation: 'vertical',
+         margin: 0,
+         align: 'right',
+         type: 'radio'
+      })
+
+      let buttonGroup13 = new PIXI.UI.ButtonGroup({
+         x: 520,
+         y: 320,
+         buttons: [
+            {label: 'Volume', align: 'center', disabled: true},
+            {icon: './assets/icons/png/flat/volume_off.png', label: 'Volume Off', align: 'left', iconColor: 0x99ffff, verticalAlign: 'top'},
+            {icon: './assets/icons/png/flat/volume_mute.png', label: 'Mute', active: true, iconColorActive: 0xd7a3f9},
+            {icon: './assets/icons/png/flat/volume_down.png', label: 'Volume Down', align: 'right', iconPosition: 'right'},
+            {icon: './assets/icons/png/flat/volume_up.png', label: 'Volume Up', align: 'right', iconPosition: 'right', verticalAlign: 'bottom'}
+         ],
+         orientation: 'vertical',
+         margin: 0,
+         type: 'radio',
+         stroke: 0x7b4073,
+         strokeWidth: 4,
+         minWidth: 200,
+         minHeight: 100
+      })
+
+      app.scene.addChild(buttonGroup1, buttonGroup2, buttonGroup3)
+      app.scene.addChild(buttonGroup4)
+      app.scene.addChild(buttonGroup5, buttonGroup6)
+      app.scene.addChild(buttonGroup7, buttonGroup8)
+      app.scene.addChild(buttonGroup9, buttonGroup10, buttonGroup11, buttonGroup12, buttonGroup13)
+   } </script>
+</body>

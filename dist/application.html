@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <title>PIXI.Application Doctest</title>
+
+    <script src="./pixi.js"></script>
+
+</head>
+<body>
+   <h1>PIXI.Application with nothing!</h1>
+
+   <script> window.onload = function()
+   {
+       const app = new PIXI.Application({
+          width: 450,
+          height: 150
+       })
+
+       // Add the view to the DOM
+       document.body.appendChild(app.view)
+
+       // ex, add display objects
+       const sprite = PIXI.Sprite.from('./assets/app-circle.png')
+       sprite.scale.set(.3, .3)
+       app.stage.addChild(sprite)
+
+       sprite.interactive = true
+       sprite.buttonMode = true
+       sprite.on('click', e => {
+          console.log('sprite clicked')
+       })
+   }</script>
+</body>

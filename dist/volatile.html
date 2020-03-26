@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+   <title>PIXI Volatile</title>
+
+   <script src="./pixi.js"></script>
+   <script src="./pixi_ui.js"></script>
+
+</head>
+<body>
+   <h1>Volatile</h1>
+   <p>
+       The Volatile class facilitates the "disappear" of any PixiJS DisplayObjects. Elements are "dimmed" in a predetermined direction.
+   </p>
+   <p>Let's look at some volatile examples:</p><br />
+   <canvas id="canvas" class="interactive"></canvas>
+   <p>
+       What you should see: Buttons which starts an volatile animation.
+   </p>
+   <script> window.onload = function()
+   {
+      const app = new PIXI.UI.App({
+         view: canvas,
+         width: 900,
+         height: 250
+      }).setup().run()
+
+      let button1 = new PIXI.UI.Button({
+         label: 'Volatile me!',
+         action: () => {
+            new Volatile({
+               object: button1,
+               direction: 'right',
+               destroyOnComplete: false
+            })
+         }
+      })
+
+      let button2 = new PIXI.UI.Button({
+         y: 60,
+         label: 'Volatile Text',
+         action: e => {
+            let text = new PIXI.Text('Saved', Object.assign({}, button2.theme.textStyleLarge, {fill: button2.theme.primaryColor}))
+            text.x = button2.width / 2
+            text.y = button2.y + (button2.height / 2) - (text.height / 2)
+            app.scene.addChild(text)
+            new Volatile({
+               object: text,
+               direction: 'right',
+               duration: 4,
+               distance: 400
+           })
+         }
+      })
+
+      app.scene.addChild(button1, button2)
+   } </script>
+</body>
