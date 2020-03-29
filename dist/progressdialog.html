@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+   <title>PIXI Progress Dialog</title>
+
+   <script src="./pixi.js"></script>
+   <script src="./pixi_ui.js"></script>
+
+</head>
+<body>
+   <h1>ProgressDialog</h1>
+   <p>
+       A progressDialog can be used to show a user how far along he/she is in a process.  It has a title and an optional cancel button.
+   </p>
+
+   <h2>Example</h2>
+   <p>Let's look at the progress dialog example:</p><br />
+   <canvas id="canvas" class="interactive"></canvas>
+   <p>
+       What you should see: When the page finished loading, a progress Dialog should overlay the PixiJS application that shows the IWM Library.
+   </p>
+   <script> window.onload = function()
+   {
+      const app = new PIXI.UI.App({
+         view: canvas,
+      }).setup().run()
+
+
+      // Something on the canvas
+      const sprite = PIXI.Sprite.from('./assets/stuttgart-library.jpg')
+      sprite.scale.set(1, 1)
+      app.scene.addChild(sprite)
+
+
+      let cancelled = false
+      let progressDialog = new PIXI.UI.ProgressDialog({
+         app: app,
+         header: 'wow',
+         onComplete: e => {
+            console.info('Progress complete')
+         },
+         onCancel: e => {
+            console.log('Progress cancelled!')
+            // Flag our engine to stop updating the progress bar
+            cancelled = true
+         },
+         cancelButton: { label: 'Cancel',
+              fillAlpha: 0,
+              strokeAlpha: 0,
+              fillActiveAlpha: 0,
+              strokeActiveAlpha: 0,
+              textStyle: {
+                  fontSize: 20,
+                  stroke: 'brown',
+                  fill: 'orange',
+                  strokeThickness: 4,
+                  miterLimit: 1,
+                  letterSpacing: 6
+              },
+         }
+      })
+
+      app.scene.addChild(progressDialog)
+
+      const sleep = ( ms ) =>
+         new Promise((resolve) => setTimeout(resolve, ms));
+
+      async function updateProgress()
+      {
+         if ( ! cancelled ) { await sleep(1000); progressDialog.progress = 10}
+         if ( ! cancelled ) { await sleep(2000); progressDialog.progress = 30}
+         if ( ! cancelled ) { await sleep(2300); progressDialog.progress = 35}
+         if ( ! cancelled ) { await sleep(2800); progressDialog.progress = 50}
+         if ( ! cancelled ) { await sleep(3500); progressDialog.progress = 60}
+         if ( ! cancelled ) { await sleep(4500); progressDialog.progress = 90}
+         if ( ! cancelled ) { await sleep(5000); progressDialog.progress = 100}
+      }
+      updateProgress()
+
+   } </script>
+</body>

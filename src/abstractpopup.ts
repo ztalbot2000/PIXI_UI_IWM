@@ -112,7 +112,7 @@ export default class AbstractPopup extends PIXI.Graphics
 
       this.opts = Object.assign( { },
       {
-         theme: "dark",
+         theme: theme,
          id: PIXI.utils.uid( ),
          x: 0,
          y: 0,
@@ -123,31 +123,32 @@ export default class AbstractPopup extends PIXI.Graphics
          maxWidth: null,
          //B padding does not exist on theme.
          //B padding: theme.padding,
-         padding: theme.opts.padding,
+         padding: opts.padding || theme.opts.padding,
          //B fill does not exist on theme.
          //B fill: theme.fill,
-         fill: theme.opts.fill,
+         fill: opts.fill || theme.opts.fill,
          //B fillAlpha does not exist on theme.
          //B fillAlpha: theme.fillAlpha,
-         fillAlpha: theme.opts.fillAlpha,
+         fillAlpha: opts.fillAlpha || theme.opts.fillAlpha,
+         anchor: opts.anchor || theme.opts.anchor,
          //B stroke does not exist on theme.
          //B stroke: theme.stroke,
-         stroke: theme.opts.stroke,
+         stroke: opts.stroke || theme.opts.stroke,
          //B strokeWidth does not exist on theme.
          //B strokeWidth: theme.strokeWidth,
-         strokeWidth: theme.opts.strokeWidth,
+         strokeWidth: opts.strokeWidth || theme.opts.strokeWidth,
          //B strokeAlpha does not exist on theme.
          //B strokeAlpha: theme.strokeAlpha,
-         strokeAlpha: theme.opts.strokeAlpha,
+         strokeAlpha: opts.strokeAlpha || theme.opts.strokeAlpha,
          //B headerStyle does not exist on theme.
          //B headerStyle: theme.textStyleLarge,
-         headerStyle: theme.opts.textStyleLarge,
+         headerStyle: opts.headerStyle || theme.opts.textStyleLarge,
          //B textStyleSmall does not exist on theme.
          //B textStyle: theme.textStyleSmall,
-         textStyle: theme.opts.textStyleSmall,
+         textStyle: opts.textStyle || theme.opts.textStyleSmall,
          //B radius does not exist on theme.
          //B radius: theme.radius,
-         radius: theme.opts.radius,
+         radius: opts.radius || theme.opts.radius,
          onHidden: null,
          visible: true,
          orientation: null      // 'portrait' | 'landscape'
@@ -301,6 +302,12 @@ export default class AbstractPopup extends PIXI.Graphics
             if ( this.wantedHeight > this.wantedWidth )
                this.wantedWidth = this.wantedHeight
             break
+      }
+
+      // PIXI should do this. .anchor did not work either
+      if ( this.headerStyle.align == 'center' )
+      {
+         this.header.x = ( this.wantedWidth - this._header.width) * .5
       }
 
       this.draw( )

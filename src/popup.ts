@@ -45,6 +45,10 @@ export class InteractivePopup extends AbstractPopup
    private _buttons: Button | ButtonGroup
    private smallPadding: number
 
+   // This is hard to explain, but addChild should set the property 'parent' correctly.
+   // If you do not believe this to be true, use 'grandParent' as you wish.
+   public grandParent: PIXI.Container
+
    constructor( opts:InteractivePopupOptions = { } )
    {
       opts = Object.assign( { } ,
@@ -56,6 +60,9 @@ export class InteractivePopup extends AbstractPopup
       }, opts )
 
       super( opts )
+
+      // See note above.
+      this.grandParent = null
 
       this._closeButton = null
       this._buttons = null

@@ -16,73 +16,74 @@ export interface AbstractPopupOptions
 {
    // Can't win with typescript.  This is the better of the two evils.
    // @ts-ignore TS2304: Cannot find name 'Theme'.
-   theme?: string | Theme;
-   id?: number;
-   x?: number;
-   y?: number;
+   theme?: string | Theme,
+   id?: number,
+   x?: number,
+   y?: number,
    // null or null
-   header?: string | number | PIXI.Text;
+   header?: string | number | PIXI.Text,
    // null or String or PIXI.DisplayObject
    //B width|height is not on DisplayObject
-   //B content?: string | number | PIXI.DisplayObject;
+   //B content?: string | number | PIXI.DisplayObject,
    // Container added for PopupMenu
-   content?: string | number | PIXI.Text | PIXI.Container;
-   minWidth?: number;
-   minHeight?: number;
-   maxWidth?: number;
-   padding?: number;
-   fill?: number;
-   fillAlpha?: number;
-   stroke?: number;
-   strokeWidth?: number;
-   strokeAlpha?: number;
-   headerStyle?: PIXI.TextStyle;
-   textStyle?: PIXI.TextStyle;
-   radius?: number;
-   onHidden?: Function;
-   visible?: boolean;
-   orientation?: string;
+   content?: string | number | PIXI.Text | PIXI.Container,
+   minWidth?: number,
+   minHeight?: number,
+   maxWidth?: number,
+   padding?: number,
+   fill?: number,
+   fillAlpha?: number,
+   anchor?: PIXI.ObservablePoint,
+   stroke?: number,
+   strokeWidth?: number,
+   strokeAlpha?: number,
+   headerStyle?: PIXI.TextStyle,
+   textStyle?: PIXI.TextStyle,
+   radius?: number,
+   onHidden?: Function,
+   visible?: boolean,
+   orientation?: string,
 }
 
 // The Options used by tooltip  ( extends AbstractPopup )
 // that get merged with the above
 export interface AbstractPopupOptions
 {
-   padding?: number;
+   padding?: number,
    //B The Object must be a Container to add/remove children from.
-   //B object?: PIXI.DisplayObject;
-   object?: PIXI.Container;
-   container?: PIXI.Container;
-   offsetLeft?: number;
-   offsetTop?: number;
-   delay?: number;
+   //B object?: PIXI.DisplayObject,
+   object?: PIXI.Container,
+   container?: PIXI.Container,
+   offsetLeft?: number,
+   offsetTop?: number,
+   delay?: number,
 }
 
 // Used in badge.ts  ( extends AbstractPopup )
 export interface AbstractPopupOptions
 {
    // @ts-ignore TS2304: Cannot find name 'ToolTip'.
-   tooltip?: ToolTip;
+   tooltip?: ToolTip,
 
    // Used in button.ts for creating badge
    //  'left' | 'center' | 'right'
-   align?: string;
+   align?: string,
 
    // Used in button.ts for creating badge
    //  'top'  | 'middle' | 'bottom'
-   verticalAlign?: string;
+   verticalAlign?: string,
 }
 
 // Used in InteractivePopup.ts  ( extends AbstractPopup )
 export interface AbstractPopupOptions
 {
-   closeOnPopup?: boolean;
-   closeButton?: boolean;
+   closeOnPopup?: boolean,
+   closeButton?: boolean,
    // Can't win with typescript.  This is the better of the two evils.
    // @ts-ignore TS2304: Cannot find name 'Button'.
-   button?: Button;
+   button?: Button,
    // @ts-ignore TS2304: Cannot find name 'ButtonGroup'.
-   buttonGroup?: ButtonGroup;
+   buttonGroup?: ButtonGroup,
 }
 
 // Used in message.ts  ( extends AbstractPopup )
@@ -90,40 +91,40 @@ export interface AbstractPopupOptions
 {
    // Can't win with typescript.  This is the better of the two evils.
    // @ts-ignore TS2304: Cannot find name 'PIXIApp'.
-   app?: PIXIApp;
+   app?: PIXIApp,
    // margin is also on popupmenu
-   margin?: number;
+   margin?: number,
    autoClose?: boolean,
-   duration?: number;
-   closeDuration?: number;
+   duration?: number,
+   closeDuration?: number,
 }
 
 export interface PopupMenuItem
 {
-   label?: string;
-   textStyle?: PIXI.TextStyle;
-   action?: Function;
-   disabled?: boolean;
-   content?: PIXI.Graphics | PIXI.Text;
+   label?: string,
+   textStyle?: PIXI.TextStyle,
+   action?: Function,
+   disabled?: boolean,
+   content?: PIXI.Graphics | PIXI.Text,
 }
 
 
 // Used in popupmenu.ts  ( extends AbstractPopup )
 export interface AbstractPopupOptions
 {
-   items?: Array< PopupMenuItem >;
+   items?: Array< PopupMenuItem >,
 }
 
 // A basic point used by app.ts
 export interface Point
 {
-   x: number;
-   y: number;
+   x: number,
+   y: number,
 }
 
 // Used in AbstractPopup
 export interface Size
 {
-   width: number;
-   height: number;
+   width: number,
+   height: number,
 }

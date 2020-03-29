@@ -35,18 +35,21 @@ import { AbstractPopupOptions } from './types'
 // @see { @link https://www.iwm-tuebingen.de/iwmbrowser/lib/pixi/modal.html|DocTest }
 //
 
-interface ModalOptions
+export interface ModalOptions
 {
-   id?: number;
-   theme?: Theme;
-   app?: PIXIApp;
-   header?: string | number | PIXI.Text;
+   id?: number,
+   theme?: Theme,
+   app?: PIXIApp | PIXI.Container,
+   width?: number,
+   height?: number,
+   header?: string | number | PIXI.Text,
+   headerStyle?: PIXI.TextStyle,
    // Container added for PopupMenu
-   content?: string | number | PIXI.Text | PIXI.Container;
-   backgroundFill?: number
-   backgroundFillAlpha?: number
-   closeOnBackground?: boolean;
-   visible?: boolean;
+   content?: string | number | PIXI.Text | PIXI.Container,
+   backgroundFill?: number,
+   backgroundFillAlpha?: number,
+   closeOnBackground?: boolean,
+   visible?: boolean,
 }
 
 export default class Modal extends PIXI.Container
@@ -73,11 +76,10 @@ export default class Modal extends PIXI.Container
    //        - Is the modal initially visible ( property visible )?
    //
 
-   private opts: ModalOptions
-   //private app: PIXIApp;
-   private theme: Theme;
-   private popup: InteractivePopup;
-   private background: PIXI.Graphics
+   protected opts: ModalOptions
+   protected theme: Theme;
+   protected popup: InteractivePopup;
+   protected background: PIXI.Graphics
    protected id: number
 
    constructor( opts: ModalOptions = { } )
@@ -96,6 +98,7 @@ export default class Modal extends PIXI.Container
          // opts.app should be required
          app: opts.app,
          header: opts.header,
+         headerStyle: opts.headerStyle,
          content: opts.content,
          //O backgroundFill: this.theme.background,
          backgroundFill: this.theme.opts.background,
@@ -263,10 +266,8 @@ export default class Modal extends PIXI.Container
    }
    set content( value: string | number | PIXI.Text | PIXI.Container )
    {
-      //O if ( this._content )
       if ( this.popup._content )
-            //O this._content.destroy( )
-            this.popup._content.destroy( )
+         this.popup._content.destroy( )
 
       this.opts.content = value
       this.background.destroy( )

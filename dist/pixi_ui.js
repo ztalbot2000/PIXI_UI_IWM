@@ -82,355 +82,17 @@ var pixi_ui =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/index.ts");
+/******/ 	return __webpack_require__(__webpack_require__.s = 16);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ "./node_modules/process/browser.js":
+/******/ ([
+/* 0 */
 /***/ (function(module, exports) {
 
-// shim for using process in browser
-var process = module.exports = {};
-
-// cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
-// function because try/catches deoptimize in certain engines.
-
-var cachedSetTimeout;
-var cachedClearTimeout;
-
-function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
-}
-function defaultClearTimeout () {
-    throw new Error('clearTimeout has not been defined');
-}
-(function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        } else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    } catch (e) {
-        cachedSetTimeout = defaultSetTimout;
-    }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        } else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    } catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
-    }
-} ())
-function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
-        return setTimeout(fun, 0);
-    }
-    // if setTimeout wasn't available but was latter defined
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedSetTimeout(fun, 0);
-    } catch(e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-            return cachedSetTimeout.call(null, fun, 0);
-        } catch(e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-            return cachedSetTimeout.call(this, fun, 0);
-        }
-    }
-
-
-}
-function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
-        return clearTimeout(marker);
-    }
-    // if clearTimeout wasn't available but was latter defined
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedClearTimeout(marker);
-    } catch (e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-            return cachedClearTimeout.call(null, marker);
-        } catch (e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-            return cachedClearTimeout.call(this, marker);
-        }
-    }
-
-
-
-}
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
-};
-
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-process.prependListener = noop;
-process.prependOnceListener = noop;
-
-process.listeners = function (name) { return [] }
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function() { return 0; };
-
+module.exports = PIXI;
 
 /***/ }),
-
-/***/ "./src/Ease/Ease.ts":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var EaseBase_1 = __webpack_require__("./src/Ease/EaseBase.ts");
-var ExponentialEase_1 = __webpack_require__("./src/Ease/ExponentialEase.ts");
-var HALF_PI = Math.PI * 0.5;
-var Ease = /** @class */ (function () {
-    function Ease() {
-        this.create = function (fn) {
-            var e = new EaseBase_1.EaseBase();
-            e.getPosition = fn;
-            return e;
-        };
-        this.wrapEase = function (easeInFunction, easeOutFunction, easeInOutFunction) {
-            return {
-                easeIn: easeInFunction,
-                easeOut: easeOutFunction,
-                easeInOut: easeInOutFunction
-            };
-        };
-        this.Linear = new EaseBase_1.EaseBase();
-        this.Power0 =
-            {
-                easeNone: new EaseBase_1.EaseBase(),
-            };
-        this.Power1 = this.Quad = this.wrapEase(new ExponentialEase_1.ExponentialEase(1, 1, 0), new ExponentialEase_1.ExponentialEase(1, 0, 1), new ExponentialEase_1.ExponentialEase(1, 1, 1));
-        this.Power2 = this.Cubic = this.wrapEase(new ExponentialEase_1.ExponentialEase(2, 1, 0), new ExponentialEase_1.ExponentialEase(2, 0, 1), new ExponentialEase_1.ExponentialEase(2, 1, 1));
-        this.Power3 = this.Quart = this.wrapEase(new ExponentialEase_1.ExponentialEase(3, 1, 0), new ExponentialEase_1.ExponentialEase(3, 0, 1), new ExponentialEase_1.ExponentialEase(3, 1, 1));
-        this.Power4 = this.Quint = this.wrapEase(new ExponentialEase_1.ExponentialEase(4, 1, 0), new ExponentialEase_1.ExponentialEase(4, 0, 1), new ExponentialEase_1.ExponentialEase(4, 1, 1));
-        // Bounce
-        this.Bounce =
-            {
-                BounceIn: this.create(function (p) {
-                    if ((p = 1 - p) < 1 / 2.75) {
-                        return 1 - (7.5625 * p * p);
-                    }
-                    else if (p < 2 / 2.75) {
-                        return 1 - (7.5625 * (p -= 1.5 / 2.75) * p + 0.75);
-                    }
-                    else if (p < 2.5 / 2.75) {
-                        return 1 - (7.5625 * (p -= 2.25 / 2.75) * p + 0.9375);
-                    }
-                    return 1 - (7.5625 * (p -= 2.625 / 2.75) * p + 0.984375);
-                }),
-                BounceOut: this.create(function (p) {
-                    if (p < 1 / 2.75) {
-                        return 7.5625 * p * p;
-                    }
-                    else if (p < 2 / 2.75) {
-                        return 7.5625 * (p -= 1.5 / 2.75) * p + 0.75;
-                    }
-                    else if (p < 2.5 / 2.75) {
-                        return 7.5625 * (p -= 2.25 / 2.75) * p + 0.9375;
-                    }
-                    return 7.5625 * (p -= 2.625 / 2.75) * p + 0.984375;
-                }),
-                BounceInOut: this.create(function (p) {
-                    var invert = (p < 0.5);
-                    if (invert) {
-                        p = 1 - (p * 2);
-                    }
-                    else {
-                        p = (p * 2) - 1;
-                    }
-                    if (p < 1 / 2.75) {
-                        p = 7.5625 * p * p;
-                    }
-                    else if (p < 2 / 2.75) {
-                        p = 7.5625 * (p -= 1.5 / 2.75) * p + 0.75;
-                    }
-                    else if (p < 2.5 / 2.75) {
-                        p = 7.5625 * (p -= 2.25 / 2.75) * p + 0.9375;
-                    }
-                    else {
-                        p = 7.5625 * (p -= 2.625 / 2.75) * p + 0.984375;
-                    }
-                    return invert ? (1 - p) * 0.5 : p * 0.5 + 0.5;
-                })
-            };
-        // Circ
-        this.Circ =
-            {
-                CircIn: this.create(function (p) {
-                    return -(Math.sqrt(1 - (p * p)) - 1);
-                }),
-                CircOut: this.create(function (p) {
-                    return Math.sqrt(1 - (p = p - 1) * p);
-                }),
-                CircInOut: this.create(function (p) {
-                    return ((p *= 2) < 1) ? -0.5 * (Math.sqrt(1 - p * p) - 1) : 0.5 * (Math.sqrt(1 - (p -= 2) * p) + 1);
-                })
-            };
-        // Expo
-        this.Expo =
-            {
-                ExpoIn: this.create(function (p) {
-                    return Math.pow(2, 10 * (p - 1)) - 0.001;
-                }),
-                ExpoOut: this.create(function (p) {
-                    return 1 - Math.pow(2, -10 * p);
-                }),
-                ExpoInOut: this.create(function (p) {
-                    return ((p *= 2) < 1) ? 0.5 * Math.pow(2, 10 * (p - 1)) : 0.5 * (2 - Math.pow(2, -10 * (p - 1)));
-                })
-            };
-        // Sine
-        this.Sine =
-            {
-                SineIn: this.create(function (p) {
-                    return -Math.cos(p * HALF_PI) + 1;
-                }),
-                SineOut: this.create(function (p) {
-                    return Math.sin(p * HALF_PI);
-                }),
-                SineInOut: this.create(function (p) {
-                    return -0.5 * (Math.cos(Math.PI * p) - 1);
-                })
-            };
-    }
-    return Ease;
-}());
-exports.Ease = Ease;
-;
-// Exported name cannot be same as class name, so export instance as default
-var ease = new Ease();
-exports.default = ease;
-
-
-/***/ }),
-
-/***/ "./src/Ease/EaseBase.ts":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var EaseBase = /** @class */ (function () {
-    function EaseBase() {
-        this.getPosition = function (p) {
-            return p;
-        };
-    }
-    return EaseBase;
-}());
-exports.EaseBase = EaseBase;
-
-
-/***/ }),
-
-/***/ "./src/Ease/ExponentialEase.ts":
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -449,138 +111,183 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var EaseBase_1 = __webpack_require__("./src/Ease/EaseBase.ts");
-var ExponentialEase = /** @class */ (function (_super) {
-    __extends(ExponentialEase, _super);
-    function ExponentialEase(power, easeIn, easeOut) {
-        var _this = _super.call(this) || this;
-        _this.getPosition = function (p) {
-            var r = (_this.t === 1) ? 1 - p : (_this.t === 2) ? p : (p < 0.5) ? p * 2 : (1 - p) * 2;
-            if (_this.pow === 1) {
-                r *= r;
-            }
-            else if (_this.pow === 2) {
-                r *= r * r;
-            }
-            else if (_this.pow === 3) {
-                r *= r * r * r;
-            }
-            else if (_this.pow === 4) {
-                r *= r * r * r * r;
-            }
-            return (_this.t === 1) ? 1 - r : (_this.t === 2) ? r : (p < 0.5) ? r / 2 : 1 - (r / 2);
-        };
-        _this.pow = power;
-        _this.t = easeIn && easeOut ? 3 : easeOut ? 1 : 2;
-        return _this;
+var Theme = /** @class */ (function () {
+    function Theme(opts) {
+        if (opts === void 0) { opts = {}; }
+        // blue
+        var colorPrimary = opts.primaryColor != null ? opts.primaryColor : 0x5ec7f8;
+        // black
+        var color1 = opts.color1 != null ? opts.color1 : 0x282828;
+        // white
+        var color2 = opts.color2 != null ? opts.color2 : 0xf6f6f6;
+        this.opts = Object.assign({}, {
+            margin: 12,
+            padding: 12,
+            radius: 4,
+            fast: .25,
+            normal: .5,
+            slow: 1,
+            primaryColor: colorPrimary,
+            color1: color1,
+            color2: color2,
+            fill: color1,
+            fillAlpha: 1,
+            fillActive: color1,
+            fillActiveAlpha: 1,
+            anchor: { x: 0, y: 0 },
+            stroke: color2,
+            //O strokeWidth: .6,
+            //B Either a PIXI V5 or Legacy or whatever, but .6 results in most of the
+            //B button outline missing, except the corners.
+            strokeWidth: 1,
+            strokeAlpha: 1,
+            strokeActive: color2,
+            //O strokeActiveWidth: .6,
+            //B Either a PIXI V5 or Legacy or whatever, but .6 results in most of the
+            //B button outline missing, except the corners.
+            strokeActiveWidth: 1,
+            strokeActiveAlpha: 1,
+            iconColor: color2,
+            iconColorActive: colorPrimary,
+            background: color1,
+            textStyle: null,
+            textStyleSmall: null,
+            textStyleLarge: null,
+            textStyleSmallActive: null,
+            textStyleLargeActive: null,
+        }, opts);
+        // Set textStyle and variants
+        this.opts.textStyle = Object.assign({}, {
+            fontFamily: '"Avenir Next", "Open Sans", "Segoe UI", "Roboto", "Helvetica Neue", -apple-system, system-ui, BlinkMacSystemFont, Arial, sans-serif !default',
+            fontWeight: '500',
+            fontSize: 18,
+            fill: color2,
+            stroke: color1,
+            //O strokeThickness: 0,
+            //B Either a PIXI V5 or Legacy or whatever, but 0 results in most of the
+            //B switch outline missing, except the corners.
+            strokeThickness: 1,
+            miterLimit: 1,
+            lineJoin: 'round'
+        }, this.opts.textStyle);
+        this.opts.textStyleSmall = Object.assign({}, this.opts.textStyle, { fontSize: this.opts.textStyle.fontSize - 3 }, this.opts.textStyleSmall);
+        this.opts.textStyleLarge = Object.assign({}, this.opts.textStyle, { fontSize: this.opts.textStyle.fontSize + 3 }, this.opts.textStyleLarge);
+        this.opts.textStyleActive = Object.assign({}, this.opts.textStyle, { fill: this.opts.primaryColor }, this.opts.textStyleActive);
+        this.opts.textStyleSmallActive = Object.assign({}, this.opts.textStyleSmall, { fill: this.opts.primaryColor }, this.opts.textStyleSmallActive);
+        this.opts.textStyleLargeActive = Object.assign({}, this.opts.textStyleLarge, { fill: this.opts.primaryColor }, this.opts.textStyleLargeActive);
+        Object.assign(this, this.opts);
     }
-    return ExponentialEase;
-}(EaseBase_1.EaseBase));
-exports.ExponentialEase = ExponentialEase;
+    //
+    // Factory function
+    //
+    // @static
+    // @param { string } theme = dark - The name of the theme to load.
+    // @return { Theme } Returns a newly created Theme object.
+    //
+    Theme.fromString = function (theme) {
+        if (theme && typeof theme === 'object') {
+            return theme;
+        }
+        switch (theme) {
+            case 'light':
+                return new ThemeLight();
+            case 'red':
+                return new ThemeRed();
+            default:
+                return new ThemeDark();
+        }
+    };
+    return Theme;
+}());
+exports.default = Theme;
+//
+// Class that represents a PixiJS ThemeDark.
+//
+// @example
+// // Create the app with a new dark theme
+// const app = new PIXIApp( {
+//     view: canvas,
+//     width: 450,
+//     height: 150,
+//     theme: new ThemeDark( )
+// } ).setup( ).run( )
+//
+// @class
+// @extends Theme
+// @see { @link https://www.iwm-tuebingen.de/iwmbrowser/lib/pixi/theme.html|DocTest }
+//
+var ThemeDark = /** @class */ (function (_super) {
+    __extends(ThemeDark, _super);
+    function ThemeDark() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return ThemeDark;
+}(Theme));
+exports.ThemeDark = ThemeDark;
+//
+// Class that represents a PixiJS ThemeLight.
+// The color1 is set to 0xf6f6f6, color2 to 0x282828.
+//
+// @example
+// // Create the app with a new light theme
+// const app = new PIXIApp( {
+//     view: canvas,
+//     width: 450,
+//     height: 150,
+//     theme: new ThemeLight( )
+// } ).setup( ).run( )
+//
+// @class
+// @extends Theme
+// @see { @link https://www.iwm-tuebingen.de/iwmbrowser/lib/pixi/theme.html|DocTest }
+//
+var ThemeLight = /** @class */ (function (_super) {
+    __extends(ThemeLight, _super);
+    //
+    // Creates an instance of a ThemeLight.
+    //
+    // @constructor
+    //
+    function ThemeLight() {
+        return _super.call(this, { color1: 0xf6f6f6, color2: 0x282828 }) || this;
+    }
+    return ThemeLight;
+}(Theme));
+exports.ThemeLight = ThemeLight;
+//
+// Class that represents a PixiJS ThemeRed.
+// The primaryColor is set to 0xd92f31.
+//
+// @example
+// // Create the app with a new red theme
+// const app = new PIXIApp( {
+//     view: canvas,
+//     width: 450,
+//     height: 150,
+//     theme: new ThemeRed( )
+// } ).setup( ).run( )
+//
+// @class
+// @extends Theme
+// @see { @link https://www.iwm-tuebingen.de/iwmbrowser/lib/pixi/theme.html|DocTest }
+//
+var ThemeRed = /** @class */ (function (_super) {
+    __extends(ThemeRed, _super);
+    //
+    // Creates an instance of a ThemeRed.
+    //
+    // @constructor
+    //
+    function ThemeRed() {
+        return _super.call(this, { primaryColor: 0xd92f31 }) || this;
+    }
+    return ThemeRed;
+}(Theme));
+exports.ThemeRed = ThemeRed;
 
 
 /***/ }),
-
-/***/ "./src/Ease/Ticker.ts":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__("pixi.js");
-var Tween_1 = __webpack_require__("./src/Ease/Tween.ts");
-var Ticker = /** @class */ (function (_super) {
-    __extends(Ticker, _super);
-    function Ticker(autoStart) {
-        var _this = _super.call(this) || this;
-        _this._disabled = true;
-        _this._now = 0;
-        _this.DeltaTime = 0;
-        _this.Time = performance.now();
-        _this.Ms = 0;
-        if (autoStart) {
-            _this.disabled = false;
-        }
-        Ticker.shared = _this;
-        return _this;
-    }
-    //
-    // Updates the text
-    //
-    // @private
-    //
-    Ticker.prototype.update = function (time) {
-        Ticker.shared._now = time;
-        Ticker.shared.Ms = Ticker.shared._now - Ticker.shared.Time;
-        Ticker.shared.Time = Ticker.shared._now;
-        Ticker.shared.DeltaTime = Ticker.shared.Ms * 0.001;
-        Ticker.shared.emit("update", Ticker.shared.DeltaTime);
-        Tween_1.default._update(Ticker.shared.DeltaTime);
-        if (!Ticker.shared._disabled) {
-            requestAnimationFrame(Ticker.shared.update);
-        }
-    };
-    Ticker.prototype.on = function (event, fn, context) {
-        _super.prototype.on.call(this, event, fn, context);
-        return this;
-    };
-    Ticker.prototype.once = function (event, fn, context) {
-        _super.prototype.once.call(this, event, fn, context);
-        return this;
-    };
-    Ticker.prototype.removeListener = function (event, fn, context) {
-        _super.prototype.removeListener.call(this, event, fn, context);
-        return this;
-    };
-    ;
-    Object.defineProperty(Ticker.prototype, "shared", {
-        get: function () {
-            return Ticker.shared;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Ticker.prototype, "disabled", {
-        get: function () {
-            return this._disabled;
-        },
-        set: function (val) {
-            val = val;
-            if (!this._disabled) {
-                this._disabled = true;
-            }
-            else {
-                this._disabled = false;
-                Ticker.shared = this;
-                this.update(performance.now());
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return Ticker;
-}(PIXI.utils.EventEmitter));
-exports.Ticker = Ticker;
-Ticker.shared = new Ticker(true);
-exports.default = Ticker.shared;
-
-
-/***/ }),
-
-/***/ "./src/Ease/Tween.ts":
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1010,72 +717,7 @@ exports.default = new Tween();
 
 
 /***/ }),
-
-/***/ "./src/UI.ts":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__("./src/utils.ts");
-var EaseBase_1 = __webpack_require__("./src/Ease/EaseBase.ts");
-var ExponentialEase_1 = __webpack_require__("./src/Ease/ExponentialEase.ts");
-var Ease_1 = __webpack_require__("./src/Ease/Ease.ts");
-var Ticker_1 = __webpack_require__("./src/Ease/Ticker.ts");
-var Tween_1 = __webpack_require__("./src/Ease/Tween.ts");
-var theme_1 = __webpack_require__("./src/theme.ts");
-var tooltip_1 = __webpack_require__("./src/tooltip.ts");
-var volatile_1 = __webpack_require__("./src/volatile.ts");
-var abstractpopup_1 = __webpack_require__("./src/abstractpopup.ts");
-var popup_1 = __webpack_require__("./src/popup.ts");
-var popover_1 = __webpack_require__("./src/popover.ts");
-var popupmenu_1 = __webpack_require__("./src/popupmenu.ts");
-var slider_1 = __webpack_require__("./src/slider.ts");
-var badge_1 = __webpack_require__("./src/badge.ts");
-var button_1 = __webpack_require__("./src/button.ts");
-var buttongroup_1 = __webpack_require__("./src/buttongroup.ts");
-var modal_1 = __webpack_require__("./src/modal.ts");
-var app_1 = __webpack_require__("./src/app.ts");
-var message_1 = __webpack_require__("./src/message.ts");
-var progress_1 = __webpack_require__("./src/progress.ts");
-var capabilities_1 = __webpack_require__("./src/capabilities.ts");
-var labeledgraphics_1 = __webpack_require__("./src/labeledgraphics.ts");
-var list_1 = __webpack_require__("./src/list.ts");
-var switch_1 = __webpack_require__("./src/switch.ts");
-exports.UI = {
-    // types: types,
-    //   utils: utils,
-    isEmpty: utils_1.isEmpty, uuid: utils_1.uuid, lerp: utils_1.lerp, sample: utils_1.sample, debounce: utils_1.debounce, getId: utils_1.getId, randomInt: utils_1.randomInt, randomFloat: utils_1.randomFloat, Dates: utils_1.Dates, Colors: utils_1.Colors, Cycle: utils_1.Cycle, Points: utils_1.Points, Sets: utils_1.Sets, Angle: utils_1.Angle, Elements: utils_1.Elements,
-    EaseBase: EaseBase_1.EaseBase,
-    ExponentialEase: ExponentialEase_1.ExponentialEase,
-    Ease: Ease_1.default,
-    Ticker: Ticker_1.default,
-    Tween: Tween_1.default,
-    Theme: theme_1.default,
-    Tooltip: tooltip_1.default,
-    Volatile: volatile_1.default,
-    AbstractPopup: abstractpopup_1.default,
-    Popup: popup_1.default,
-    PopupMenu: popupmenu_1.default,
-    Popover: popover_1.default,
-    Slider: slider_1.default,
-    Badge: badge_1.default,
-    Button: button_1.default,
-    ButtonGroup: buttongroup_1.default,
-    Modal: modal_1.default,
-    App: app_1.default,
-    Message: message_1.default,
-    Progress: progress_1.default,
-    Capabilities: capabilities_1.default,
-    LabeledGraphics: labeledgraphics_1.default,
-    List: list_1.default,
-    Switch: switch_1.default,
-};
-
-
-/***/ }),
-
-/***/ "./src/abstractpopup.ts":
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1094,9 +736,141 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__("pixi.js");
-var theme_1 = __webpack_require__("./src/theme.ts");
-var Tween_1 = __webpack_require__("./src/Ease/Tween.ts");
+var abstractpopup_1 = __webpack_require__(4);
+var theme_1 = __webpack_require__(1);
+var Tooltip = /** @class */ (function (_super) {
+    __extends(Tooltip, _super);
+    function Tooltip(opts) {
+        if (opts === void 0) { opts = {}; }
+        var _this = this;
+        var theme = theme_1.default.fromString(opts.theme);
+        opts = Object.assign({}, {
+            minWidth: 0,
+            minHeight: 0,
+            //B padding does not exist on theme
+            //B padding: theme.padding / 2,
+            padding: theme.opts.padding / 2,
+            object: null,
+            container: null,
+            offsetLeft: 8,
+            offsetTop: -8,
+            delay: 0
+        }, opts);
+        opts.container = opts.container || opts.object;
+        _this = _super.call(this, opts) || this;
+        // setup
+        //-----------------
+        _this.setup();
+        // layout
+        //-----------------
+        _this.layout();
+        return _this;
+    }
+    //
+    // Creates children and instantiates everything.
+    //
+    // @protected
+    // @return {Tooltip} A reference to the tooltip for chaining.
+    //
+    Tooltip.prototype.setup = function () {
+        var _this = this;
+        _super.prototype.setup.call(this);
+        // bind events this
+        //-----------------
+        this.interactive = true;
+        var mouseoverTooltip = false;
+        //O this.on('mouseover', e =>
+        // @ts-ignore error TS6133: 'e' is declared but never read
+        this.on('mouseover', function (e) {
+            mouseoverTooltip = true;
+        });
+        //O this.on('mouseout', e =>
+        // @ts-ignore error TS6133: 'e' is declared but never read
+        this.on('mouseout', function (e) {
+            mouseoverTooltip = false;
+            if (!mouseoverObject) {
+                _this.hide(function () {
+                    _this.opts.container.removeChild(_this);
+                });
+            }
+        });
+        //Fixme   Change objects to be a required parameter. TBD as this currently
+        //Fixme   would break comparison testing.
+        if (this.opts.object === null)
+            throw ("Error: Volatile, no object(s) passed in. This should be changed to a required parameter instead of an option");
+        // bind events object
+        //-----------------
+        var object = this.opts.object;
+        object.interactive = true;
+        var mouseoverObject = false;
+        //O object.on('mouseover', e =>
+        object.on('mouseover', function (e) {
+            _this.timeout = window.setTimeout(function () {
+                mouseoverObject = true;
+                _this.visible = true;
+                _this.opts.container.addChild(_this);
+                _this.setPosition(e);
+            }, _this.opts.delay * 1000);
+        });
+        //O object.on('mousemove', e =>
+        object.on('mousemove', function (e) {
+            if (mouseoverObject) {
+                _this.setPosition(e);
+            }
+        });
+        //O object.on('mouseout', e =>
+        // @ts-ignore error TS6133: 'e' is declared but never read
+        object.on('mouseout', function (e) {
+            mouseoverObject = false;
+            window.clearTimeout(_this.timeout);
+            if (!mouseoverTooltip) {
+                _this.hide(function () {
+                    _this.opts.container.removeChild(_this);
+                });
+            }
+        });
+        return this;
+    };
+    //
+    // Calculates and sets the position of the tooltip.
+    //
+    // @private
+    // @return {Tooltip} A reference to the tooltip for chaining.
+    //
+    Tooltip.prototype.setPosition = function (e) {
+        var position = e.data.getLocalPosition(this.opts.container);
+        this.x = position.x + this.opts.offsetLeft;
+        this.y = position.y + this.opts.offsetTop - this.height;
+        return this;
+    };
+    return Tooltip;
+}(abstractpopup_1.default));
+exports.default = Tooltip;
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var PIXI = __webpack_require__(0);
+var theme_1 = __webpack_require__(1);
+var Tween_1 = __webpack_require__(2);
 //
 // Callback for the popup onHidden.
 //
@@ -1122,7 +896,7 @@ var AbstractPopup = /** @class */ (function (_super) {
         var theme = theme_1.default.fromString(opts.theme);
         _this.theme = theme;
         _this.opts = Object.assign({}, {
-            theme: "dark",
+            theme: theme,
             id: PIXI.utils.uid(),
             x: 0,
             y: 0,
@@ -1133,31 +907,32 @@ var AbstractPopup = /** @class */ (function (_super) {
             maxWidth: null,
             //B padding does not exist on theme.
             //B padding: theme.padding,
-            padding: theme.opts.padding,
+            padding: opts.padding || theme.opts.padding,
             //B fill does not exist on theme.
             //B fill: theme.fill,
-            fill: theme.opts.fill,
+            fill: opts.fill || theme.opts.fill,
             //B fillAlpha does not exist on theme.
             //B fillAlpha: theme.fillAlpha,
-            fillAlpha: theme.opts.fillAlpha,
+            fillAlpha: opts.fillAlpha || theme.opts.fillAlpha,
+            anchor: opts.anchor || theme.opts.anchor,
             //B stroke does not exist on theme.
             //B stroke: theme.stroke,
-            stroke: theme.opts.stroke,
+            stroke: opts.stroke || theme.opts.stroke,
             //B strokeWidth does not exist on theme.
             //B strokeWidth: theme.strokeWidth,
-            strokeWidth: theme.opts.strokeWidth,
+            strokeWidth: opts.strokeWidth || theme.opts.strokeWidth,
             //B strokeAlpha does not exist on theme.
             //B strokeAlpha: theme.strokeAlpha,
-            strokeAlpha: theme.opts.strokeAlpha,
+            strokeAlpha: opts.strokeAlpha || theme.opts.strokeAlpha,
             //B headerStyle does not exist on theme.
             //B headerStyle: theme.textStyleLarge,
-            headerStyle: theme.opts.textStyleLarge,
+            headerStyle: opts.headerStyle || theme.opts.textStyleLarge,
             //B textStyleSmall does not exist on theme.
             //B textStyle: theme.textStyleSmall,
-            textStyle: theme.opts.textStyleSmall,
+            textStyle: opts.textStyle || theme.opts.textStyleSmall,
             //B radius does not exist on theme.
             //B radius: theme.radius,
-            radius: theme.opts.radius,
+            radius: opts.radius || theme.opts.radius,
             onHidden: null,
             visible: true,
             orientation: null // 'portrait' | 'landscape'
@@ -1270,6 +1045,10 @@ var AbstractPopup = /** @class */ (function (_super) {
                 if (this.wantedHeight > this.wantedWidth)
                     this.wantedWidth = this.wantedHeight;
                 break;
+        }
+        // PIXI should do this. .anchor did not work either
+        if (this.headerStyle.align == 'center') {
+            this.header.x = (this.wantedWidth - this._header.width) * .5;
         }
         this.draw();
         return this;
@@ -1407,610 +1186,11 @@ exports.default = AbstractPopup;
 
 
 /***/ }),
-
-/***/ "./src/app.ts":
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-/* global apollo, subscriptions, gql */
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __values = (this && this.__values) || function(o) {
-    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
-    if (m) return m.call(o);
-    if (o && typeof o.length === "number") return {
-        next: function () {
-            if (o && i >= o.length) o = void 0;
-            return { value: o && o[i++], done: !o };
-        }
-    };
-    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
-};
-var __read = (this && this.__read) || function (o, n) {
-    var m = typeof Symbol === "function" && o[Symbol.iterator];
-    if (!m) return o;
-    var i = m.call(o), r, ar = [], e;
-    try {
-        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-    }
-    catch (error) { e = { error: error }; }
-    finally {
-        try {
-            if (r && !r.done && (m = i["return"])) m.call(i);
-        }
-        finally { if (e) throw e.error; }
-    }
-    return ar;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__("pixi.js");
-var theme_1 = __webpack_require__("./src/theme.ts");
-var progress_1 = __webpack_require__("./src/progress.ts");
-var modal_1 = __webpack_require__("./src/modal.ts");
-var message_1 = __webpack_require__("./src/message.ts");
-var PIXIApp = /** @class */ (function (_super) {
-    __extends(PIXIApp, _super);
-    function PIXIApp(opts) {
-        if (opts === void 0) { opts = {}; }
-        var _this = this;
-        var width = opts.width || null;
-        var height = opts.height || null;
-        //let view = opts.view || null
-        if (opts.transparent === undefined)
-            opts.transparent = true;
-        if (opts.backgroundColor === undefined)
-            opts.backgroundColor = 0x282828;
-        if (opts.autoResize === undefined)
-            opts.autoResize = true;
-        if (opts.progress === 'undefined')
-            opts.progress = {};
-        opts.monkeyPatchMapping = false;
-        //let antialias = opts.antialias || true
-        //let resolution = window.devicePixelRatio || 1
-        var autoResize = opts.autoResize || true;
-        //let fpsLogging = false
-        //let progress = opts.progress || {}
-        // let monkeyPatchMapping = opts.monkeyPatchMapping || true
-        // roundPixels is deprerecated since PIXI 5.0.  Use PIXI.settings.ROUND_PIXELS
-        if (opts.roundPixels)
-            PIXI.settings.ROUND_PIXELS = true;
-        else
-            PIXI.settings.ROUND_PIXELS = false;
-        // Do not pass roundPixels to super constructor
-        // or you will get the warning we avoided above.
-        delete opts.roundPixels;
-        var theme = theme_1.default.fromString(opts.theme);
-        var fullScreen = false;
-        //B They both need to be set or unset
-        //B fullScreen = !opts.width || !opts.height
-        fullScreen = !opts.width && !opts.height;
-        if (fullScreen) {
-            width = window.innerWidth;
-            height = window.innerHeight;
-        }
-        _this = _super.call(this, {
-            view: opts.view || null,
-            width: width,
-            height: height,
-            transparent: opts.transparent,
-            backgroundColor: opts.backgroundColor,
-            antialias: opts.antialias || true,
-            resolution: window.devicePixelRatio || 1,
-            forceCanvas: opts.forceCanvas || false,
-        }) || this;
-        _this.theme = theme;
-        _this.width = width;
-        _this.height = height;
-        //this.monkeyPatchMapping = opts.monkeyPatchMapping || true
-        _this.monkeyPatchMapping = false;
-        _this.fpsLogging = opts.fpsLogging || false;
-        _this.fullScreen = fullScreen;
-        _this.progressOpts = opts.progress || {};
-        _this.orient = null;
-        _this.originalMapPositionToPoint = null;
-        _this.autoResize = autoResize || true;
-        if (_this.fullScreen || _this.autoResize) {
-            console.log('App is in fullScreen mode');
-            window.addEventListener('resize', _this.resize.bind(_this));
-            document.body.addEventListener('orientationchange', _this.checkOrientation.bind(_this));
-        }
-        if (_this.monkeyPatchMapping) {
-            console.log('Using monkey patched coordinate mapping');
-            //O Pluggin the specializtion does not work. Monkey patching does
-            //O this.renderer.plugins.interaction = new FullscreenInteractionManager( this.renderer )
-            _this.monkeyPatchPixiMapping();
-        }
-        return _this;
-    }
-    //
-    // Extra setup method to construct complex scenes, etc...
-    // Overwrite this method if you need additonal views and components.
-    //
-    // @return { PIXIApp } A reference to the PIXIApp for chaining.
-    //
-    PIXIApp.prototype.setup = function () {
-        this.scene = this.sceneFactory();
-        this.stage.addChild(this.scene);
-        // fpsLogging
-        if (this.fpsLogging)
-            this.addFpsDisplay();
-        // GraphQL
-        //O if ( this.graphql && typeof apollo !== 'undefined' )
-        //O {
-        //O    const networkInterface = apollo.createNetworkInterface( {
-        //O       uri: '/graphql'
-        //O    } )
-        //O    const wsClient = new subscriptions.SubscriptionClient( `wss://${location.hostname}/subscriptions`, {
-        //O       reconnect: true,
-        //O       connectionParams: { }
-        //O    })
-        //O    const networkInterfaceWithSubscriptions = subscriptions.addGraphQLSubscriptions({ networkInterface, wsClient})
-        //O    this.apolloClient = new apollo.ApolloClient({
-        //O       networkInterface: networkInterfaceWithSubscriptions
-        //O    })
-        //O }
-        // progress
-        this._progress = new progress_1.default(Object.assign({ theme: this.theme }, this.progressOpts, { app: this }));
-        this._progress.visible = false;
-        this.stage.addChild(this._progress);
-        return this;
-    };
-    //
-    // Tests whether the width is larger than the height of the application.
-    //
-    // @return { boolean } Returns true if app is in landscape mode.
-    //
-    PIXIApp.prototype.orientation = function () {
-        return this.width > this.height;
-    };
-    //
-    // Checks orientation and adapts view size if necessary. Implements a
-    // handler for the orientationchange event.
-    //
-    // @param { event= } - orientationchange event
-    //
-    //O checkOrientation( event?: PIXI.interaction.InteractionEvent ): void
-    // @ts-ignore error TS6133: 'event' is declared but never read
-    PIXIApp.prototype.checkOrientation = function (event) {
-        var _this = this;
-        var value = this.orientation();
-        if (value != this.orient) {
-            //B setTimeout( 100, function( )
-            //B setTimeout is function, interval
-            //B setTimeout( 100, function( )
-            //B {
-            //B    this.orientationChanged( true )
-            //B }.bind( this ) )
-            setTimeout(function () {
-                _this.orientationChanged(true);
-            }, 100);
-            this.orient = value;
-        }
-    };
-    //
-    // Called if checkOrientation detects an orientation change event.
-    //
-    // @param { boolean= } [ force=false ]
-    //        - Called if checkOrientation detects an orientation change event.
-    //
-    PIXIApp.prototype.orientationChanged = function (force) {
-        if (force === void 0) { force = false; }
-        if (this.expandRenderer() || force) {
-            this.layout();
-        }
-    };
-    //
-    // Called after a resize. Empty method but can be overwritten to
-    // adapt their layout to the new app size.
-    //
-    // @param { number } [ width ] - The width of the app.
-    // @param { number } [ height ] - The height of the app.
-    //
-    // @ts-ignore error TS6133: 'width' & height is declared but never read
-    PIXIApp.prototype.layout = function (width, height) {
-    };
-    //
-    // Draws the display tree of the app. Typically this can be delegated
-    // to the layout method.
-    //
-    //
-    PIXIApp.prototype.draw = function () {
-        this.layout(this.width, this.height);
-    };
-    //
-    // Run the application. Override this method with everything
-    // that is needed to maintain your App, e.g. setup calls, main loops, etc.
-    //
-    //
-    PIXIApp.prototype.run = function () {
-        return this;
-    };
-    //
-    // Overwrite this factory method if your application needs a special
-    // scene object.
-    //
-    // @returns { PIXI.Container }
-    //          - A new PIXI Container for use as a scene.
-    //
-    PIXIApp.prototype.sceneFactory = function () {
-        return new PIXI.Container();
-    };
-    //
-    // Adds the display of the frames per second to the renderer in the upper left corner.
-    //
-    // @return { PIXIApp }
-    //         - Returns the PIXIApp for chaining.
-    //
-    PIXIApp.prototype.addFpsDisplay = function () {
-        var fpsDisplay = new FpsDisplay(this);
-        this.stage.addChild(fpsDisplay);
-        return this;
-    };
-    Object.defineProperty(PIXIApp.prototype, "size", {
-        //
-        // Returns the size of the renderer as an object with the keys width and height.
-        //
-        // @readonly
-        // @member { object }
-        //
-        get: function () {
-            return { width: this.width, height: this.height };
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(PIXIApp.prototype, "center", {
-        //
-        // Returns the center of the renderer as an object with the keys x and y.
-        //
-        // @readonly
-        // @member { object }
-        //
-        get: function () {
-            return { x: this.width / 2, y: this.height / 2 };
-        },
-        enumerable: true,
-        configurable: true
-    });
-    //
-    // Resizes the renderer to fit into the window or given width and height.
-    //
-    // @param { object } [ event ]
-    //        - The event.
-    // @param { object= } [ opts = { } ]
-    //        - The event.
-    // @param { number } [ opts.width = window.innerWidth ]
-    //        - The width of the app to resize to.
-    // @param { number } [ opts.height = window.innerHeight ]
-    //        - The height of the app to resize to.
-    // @return { PIXIApp }
-    //        - Returns the PIXIApp for chaining.
-    //
-    // @ts-ignore error TS6133: 'event' is declared but never read
-    PIXIApp.prototype.resize = function (event, _a) {
-        var _b = _a === void 0 ? {} : _a, _c = _b.width, width = _c === void 0 ? window.innerWidth : _c, _d = _b.height, height = _d === void 0 ? window.innerHeight : _d;
-        this.width = width;
-        this.height = height;
-        this.expandRenderer();
-        this.layout(width, height);
-        // if ( this.scene  ) {
-        // console.log( "gl.drawingBufferWidth", this.renderer.view.getContext( 'webgl' ).drawingBufferWidth  )
-        // console.log( "scene", this.scene.scale, this.renderer, this.renderer.autoResize, this.renderer.resolution  )
-        // }
-        return this;
-    };
-    //
-    // @todo Write the documentation.
-    //
-    // @private
-    //
-    PIXIApp.prototype.monkeyPatchPixiMapping = function () {
-        var _this = this;
-        if (this.originalMapPositionToPoint === null) {
-            var interactionManager = this.renderer.plugins.interaction;
-            this.originalMapPositionToPoint = interactionManager.mapPositionToPoint;
-            interactionManager.mapPositionToPoint = function (point, x, y) {
-                return _this.fixedMapPositionToPoint(point, x, y);
-            };
-        }
-    };
-    //
-    // In some browsers the canvas is distorted if the screen resolution and
-    // overall size of the canvas exceeds the internal limits ( e.g. 4096 x 4096 pixels ).
-    // To compensate these distortions we need to fix the mapping to the actual
-    // drawing buffer coordinates.
-    // @private
-    // @param { any } local
-    // @param { number } x
-    // @param { number } y
-    //
-    // @return { } interactionManager.mapPositionToPoint
-    //
-    PIXIApp.prototype.fixedMapPositionToPoint = function (local, x, y) {
-        var resolution = this.renderer.resolution;
-        var interactionManager = this.renderer.plugins.interaction;
-        var extendWidth = 1.0;
-        var extendHeight = 1.0;
-        var dy = 0;
-        var canvas = this.renderer.view;
-        var context = canvas.getContext('webgl');
-        if (context !== null && (context.drawingBufferWidth < canvas.width ||
-            context.drawingBufferHeight < canvas.height)) {
-            extendWidth = context.drawingBufferWidth / canvas.width;
-            extendHeight = context.drawingBufferHeight / canvas.height;
-            //dx = wantedWidth - context.drawingBufferWidth
-            dy = (canvas.height - context.drawingBufferHeight) / resolution;
-        }
-        x *= extendWidth;
-        y *= extendHeight;
-        return this.originalMapPositionToPoint.call(interactionManager, local, x, y + dy);
-    };
-    //
-    // Expand the renderer step-wise on resize.
-    //
-    // @param { number } [ expand ] - The amount of additional space for the renderer [ px].
-    // @return { boolean } true if the renderer was resized.
-    //
-    PIXIApp.prototype.expandRenderer = function (expand) {
-        if (expand === void 0) { expand = 256; }
-        var renderer = this.renderer;
-        // Set but never read
-        //O let resolution = this.renderer.resolution
-        var ww = this.width;
-        var hh = this.height;
-        var sw = this.screen.width;
-        var sh = this.screen.height;
-        if (ww > sw || hh > sh) {
-            console.log('App.expandRenderer');
-            renderer.resize(ww + expand, hh + expand);
-            return true;
-        }
-        renderer.resize(ww, hh);
-        return false;
-    };
-    //
-    // Set the loading progress of the application. If called for
-    // the first time, display the progress bar.
-    //
-    // @param { number } [ value ]
-    //        - Should be a value between 0 and 100. If 100, the
-    //          progress bar will disappear.
-    // @return { PIXIApp|Progress }
-    //        - The PixiApp object for chaining or the Progress object
-    //          when the method was called without a parameter.
-    //
-    PIXIApp.prototype.progress = function (value) {
-        if (typeof value === 'undefined') {
-            return this._progress;
-        }
-        this._progress.visible = true;
-        this._progress.progress = value;
-        return this;
-    };
-    //
-    // Opens a new Modal object binded to this app.
-    //
-    // @param { object } [ opts ] - An options object for the Modal object.
-    // @return { Modal } Returns the Modal object.
-    //
-    PIXIApp.prototype.modal = function (opts) {
-        if (opts === void 0) { opts = {}; }
-        var modal = new modal_1.default(Object.assign({ theme: this.theme }, opts, { app: this }));
-        this.scene.addChild(modal);
-        return modal;
-    };
-    //
-    // Opens a new Message object binded to this app.
-    //
-    // @param { object } [ opts ] - An options object for the Message object.
-    // @return { Message } Returns the Message object.
-    //
-    PIXIApp.prototype.message = function (opts) {
-        if (opts === void 0) { opts = {}; }
-        var message = new message_1.default(Object.assign({ theme: this.theme }, opts, { app: this }));
-        this.scene.addChild(message);
-        return message;
-    };
-    //
-    // Loads sprites, e.g. images into the PIXI TextureCache.
-    //
-    // @param { string|string[ ] } resources
-    //        - A String or an Array of urls to the images to load.
-    // @param { function } [ loaded ]
-    //        - A callback which is executed after all resources has been loaded.
-    //          Receives one paramter, a Map of sprites where the key is
-    //          the path of the image which was loaded and the value is
-    //          the PIXI.Sprite object.
-    // @param { object } [ opts ]
-    //        - An options object for more specific parameters.
-    // @param { boolean } [ opts.resolutionDependent=true ]
-    //        - Should the sprites be loaded dependent of the
-    //          renderer resolution?
-    // @param { boolean } [ opts.progress=false ]
-    //        - Should a progress bar display the loading status?
-    //
-    // @return { PIXIApp }
-    //         - The PIXIApp object for chaining.
-    //
-    PIXIApp.prototype.loadSprites = function (resources, loaded, _a) {
-        var _this = this;
-        if (loaded === void 0) { loaded = null; }
-        var _b = _a === void 0 ? {} : _a, _c = _b.resolutionDependent, resolutionDependent = _c === void 0 ? true : _c, _d = _b.progress, progress = _d === void 0 ? false : _d;
-        this.loadTextures(resources, function (textures) {
-            var e_1, _a;
-            var sprites = new Map();
-            try {
-                for (var textures_1 = __values(textures), textures_1_1 = textures_1.next(); !textures_1_1.done; textures_1_1 = textures_1.next()) {
-                    var _b = __read(textures_1_1.value, 2), key = _b[0], texture = _b[1];
-                    sprites.set(key, new PIXI.Sprite(texture));
-                }
-            }
-            catch (e_1_1) { e_1 = { error: e_1_1 }; }
-            finally {
-                try {
-                    if (textures_1_1 && !textures_1_1.done && (_a = textures_1.return)) _a.call(textures_1);
-                }
-                finally { if (e_1) throw e_1.error; }
-            }
-            if (loaded) {
-                loaded.call(_this, sprites);
-            }
-        }, { resolutionDependent: resolutionDependent, progress: progress });
-        return this;
-    };
-    //
-    // Loads textures, e.g. images into the PIXI TextureCache.
-    //
-    // @param { string|string[ ] } resources
-    //        - A String or an Array of urls to the images to load.
-    // @param { function } [ loaded ]
-    //        - A callback which is executed after all resources has been loaded.
-    //          Receives one paramter, a Map of textures where the key
-    //          is the path of the image which was loaded and the value
-    //          is the PIXI.Texture object.
-    // @param { object } [ opts ]
-    //        - An options object for more specific parameters.
-    // @param { boolean } [ opts.resolutionDependent=true ]
-    //        - Should the textures be loaded dependent of the
-    //          renderer resolution?
-    // @param { boolean } [ opts.progress=false ]
-    //        - Should a progress bar display the loading status?
-    //
-    // @return { PIXIApp }
-    //         - The PIXIApp object for chaining.
-    //
-    PIXIApp.prototype.loadTextures = function (resources, loaded, _a) {
-        var e_2, _b;
-        var _this = this;
-        if (loaded === void 0) { loaded = null; }
-        var _c = _a === void 0 ? {} : _a, _d = _c.resolutionDependent, resolutionDependent = _d === void 0 ? true : _d, _e = _c.progress, progress = _e === void 0 ? false : _e;
-        if (!Array.isArray(resources)) {
-            resources = [resources];
-        }
-        var loader = this.loader;
-        try {
-            for (var resources_1 = __values(resources), resources_1_1 = resources_1.next(); !resources_1_1.done; resources_1_1 = resources_1.next()) {
-                var resource = resources_1_1.value;
-                if (!loader.resources[resource]) {
-                    if (resolutionDependent) {
-                        var resolution = Math.round(this.renderer.resolution);
-                        switch (resolution) {
-                            case 2:
-                                loader.add(resource, resource.replace(/\.([^.]*)$/, '@2x.$1'));
-                                break;
-                            case 3:
-                                loader.add(resource, resource.replace(/\.([^.]*)$/, '@3x.$1'));
-                                break;
-                            default:
-                                loader.add(resource);
-                                break;
-                        }
-                    }
-                    else {
-                        loader.add(resource);
-                    }
-                }
-            }
-        }
-        catch (e_2_1) { e_2 = { error: e_2_1 }; }
-        finally {
-            try {
-                if (resources_1_1 && !resources_1_1.done && (_b = resources_1.return)) _b.call(resources_1);
-            }
-            finally { if (e_2) throw e_2.error; }
-        }
-        if (progress) {
-            loader.on('progress', function (e) {
-                _this.progress(e.progress);
-            });
-        }
-        // Interesting. without loader, an error occurs that type string (resources)
-        // cannot be used to index type loader.
-        // @ts-ignore error TS6133: 'loader' is declared but never read
-        loader.load(function (loader, resources) {
-            var textures = new Map();
-            for (var key in resources) {
-                textures.set(key, resources[key].texture);
-            }
-            if (loaded) {
-                loaded.call(_this, textures);
-            }
-        });
-        return this;
-    };
-    return PIXIApp;
-}(PIXI.Application));
-exports.default = PIXIApp;
-//
-// The class fpsdisplay shows in the upper left corner
-// of the renderer the current image refresh rate.
-//
-// @private
-// @class
-// @extends PIXI.Graphics
-// @see { @link http://pixijs.download/dev/docs/PIXI.Graphics.html|PIXI.Graphics }
-//
-var FpsDisplay = /** @class */ (function (_super) {
-    __extends(FpsDisplay, _super);
-    function FpsDisplay(app) {
-        var _this = _super.call(this) || this;
-        _this.app = app;
-        _this.lineStyle(3, 0x434f4f, 1)
-            .beginFill(0x434f4f, .6)
-            .drawRoundedRect(0, 0, 68, 32, 5)
-            .endFill()
-            .position.set(20, 20);
-        _this.text = new PIXI.Text(_this.fps, new PIXI.TextStyle({
-            fontFamily: 'Arial',
-            fontSize: 14,
-            fontWeight: 'bold',
-            fill: '#f6f6f6',
-            stroke: '#434f4f',
-            strokeThickness: 3
-        }));
-        _this.text.position.set(6, 6);
-        _this.addChild(_this.text);
-        _this.refreshFps();
-        window.setInterval(_this.refreshFps.bind(_this), 1000);
-        return _this;
-    }
-    //
-    // Refreshes fps number.
-    //
-    // @return { PIXIApp }
-    //         - Returns the PIXIApp object for chaining.
-    //
-    //refreshFps( ): PIXIApp
-    FpsDisplay.prototype.refreshFps = function () {
-        this.text.text = (this.app.ticker.FPS).toFixed(1) + " fps";
-        //B 'this' is not PIXIApp, but FpsDisplay.  Either the documentation is
-        //B wrong or the code is.  I'll go with the documentation. To be checked
-        //B later.
-        return this;
-    };
-    return FpsDisplay;
-}(PIXI.Graphics));
-
-
-/***/ }),
-
-/***/ "./src/badge.ts":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
+/* WEBPACK VAR INJECTION */(function(PIXI) {
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -2025,53 +1205,27 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var theme_1 = __webpack_require__("./src/theme.ts");
-var abstractpopup_1 = __webpack_require__("./src/abstractpopup.ts");
-var tooltip_1 = __webpack_require__("./src/tooltip.ts");
-//
-// Class that represents a PixiJS Badge.
-//
-// @example
-// // Create the app
-// const app = new PIXIApp({
-//     view: canvas,
-//     width: 900,
-//     height: 250
-// }).setup().run()
-//
-// // Add an DisplayObject to the app
-// const circle = new PIXI.Graphics()
-// circle.beginFill(0x5251a3)
-// circle.drawCircle(50, 50, 40)
-// app.scene.addChild(circle)
-//
-// const badge1 = new Badge({
-//     object: circle,
-//     container: app.scene,
-//     content: 'The law is the friend of the weak'.
-// })
-//
-// @class
-// @extends AbstractPopup
-// @see {@link https://www.iwm-tuebingen.de/iwmbrowser/lib/pixi/badge.html|DocTest}
-//
-var Badge = /** @class */ (function (_super) {
-    __extends(Badge, _super);
-    function Badge(opts) {
+var abstractpopup_1 = __webpack_require__(4);
+var button_1 = __webpack_require__(6);
+var buttongroup_1 = __webpack_require__(12);
+var InteractivePopup = /** @class */ (function (_super) {
+    __extends(InteractivePopup, _super);
+    function InteractivePopup(opts) {
         if (opts === void 0) { opts = {}; }
         var _this = this;
-        var theme = theme_1.default.fromString(opts.theme);
         opts = Object.assign({}, {
-            minWidth: 0,
-            minHeight: 0,
-            //O padding: theme.padding / 2,
-            padding: theme.opts.padding / 2,
-            tooltip: null
+            closeOnPopup: false,
+            closeButton: true,
+            button: null,
+            buttonGroup: null
         }, opts);
         _this = _super.call(this, opts) || this;
-        _this.tooltip = null;
-        if (_this.opts.content === null)
-            throw ("Error: Badge, Optional parameter content should not be optional");
+        // See note above.
+        _this.grandParent = null;
+        _this._closeButton = null;
+        _this._buttons = null;
+        // padding
+        _this.smallPadding = _this.opts.padding / 2;
         // setup
         //-----------------
         _this.setup();
@@ -2081,53 +1235,184 @@ var Badge = /** @class */ (function (_super) {
         return _this;
     }
     //
-    // Creates children and instantiates everything.
+    // Creates the framework and instantiates everything.
     //
     // @private
-    // @override
-    // @return {Badge} A reference to the badge for chaining.
-    ///
-    Badge.prototype.setup = function () {
+    // @return {AbstractPopup} A reference to the popup for chaining.
+    //
+    InteractivePopup.prototype.setup = function () {
+        var _this = this;
         _super.prototype.setup.call(this);
-        // tooltip
+        // interaction
         //-----------------
-        if (this.opts.tooltip) {
-            if (typeof this.opts.tooltip === 'string') {
-                this.tooltip = new tooltip_1.default({ object: this, content: this.opts.tooltip });
+        this.on('pointerup', function (e) {
+            if (_this.opts.closeOnPopup) {
+                _this.hide();
             }
             else {
-                this.opts.tooltip = Object.assign({}, { object: this }, this.opts.tooltip);
-                this.tooltip = new tooltip_1.default(this.opts.tooltip);
+                e.stopPropagation();
             }
+        });
+        // closeButton
+        //-----------------
+        if (this.opts.closeButton) {
+            //O let closeButton = PIXI.Sprite.fromImage( '../../assets/icons/png/flat/close.png', true )
+            //P Pixi V5 changed to just from
+            var closeButton = PIXI.Sprite.from('./assets/icons/png/flat/close.png');
+            if (typeof this.headerStyle.fontSize == 'string') {
+                // fontSize could be like 26px or 1.5cm
+                console.warn("popup fontSize('" + this.headerStyle.fontSize + "') is a string and may be handled incorrectly");
+                closeButton.width = this.headerStyle.fontSize;
+            }
+            else {
+                closeButton.width = this.headerStyle.fontSize;
+            }
+            closeButton.height = closeButton.width;
+            //B color2 is on opts
+            //B closeButton.tint = this.theme.color2
+            closeButton.tint = this.theme.opts.color2;
+            // This is needed, because the closeButton belongs to the content. The popup must resize with the closeButton.
+            if (this._header) {
+                closeButton.x = this._header.width + this.innerPadding;
+            }
+            else if (this._content) {
+                closeButton.x = this._content.width + this.innerPadding;
+            }
+            closeButton.interactive = true;
+            closeButton.buttonMode = true;
+            // @ts-ignore error TS6133: 'e' is declared but never read
+            closeButton.on('pointerdown', function (e) {
+                _this.hide();
+            });
+            this._closeButton = closeButton;
+            this.addChild(closeButton);
+            // maxWidth is set and a closeButton should be displayed
+            //-----------------
+            if (this.opts.maxWidth) {
+                var wordWrapWidth = this.opts.maxWidth - (2 / this.opts.padding) - this.smallPadding - this._closeButton.width;
+                if (this._header) {
+                    this.headerStyle.wordWrapWidth = wordWrapWidth;
+                }
+                else if (this._content) {
+                    this.textStyle.wordWrapWidth = wordWrapWidth;
+                }
+            }
+        }
+        {
+        }
+        // buttons
+        //-----------------
+        if (this.opts.button || this.opts.buttonGroup) {
+            if (this.opts.button) {
+                //B textStyleSmall is on theme.opts
+                //B this._buttons = new Button( Object.assign( {textStyle: this.theme.textStyleSmall},
+                this._buttons = new button_1.default(Object.assign({ textStyle: this.theme.opts.textStyleSmall }, this.opts.button));
+            }
+            else {
+                //B textStyleSmall is on theme.opts
+                //B this._buttons = new ButtonGroup( Object.assign( {textStyle: this.theme.textStyleSmall},
+                this._buttons = new buttongroup_1.default(Object.assign({ textStyle: this.theme.opts.textStyleSmall }, this.opts.buttonGroup));
+            }
+            this.addChild(this._buttons);
+            this._buttons.y = this.innerPadding + this.sy;
         }
         return this;
     };
     //
-    // Should be called to refresh the layout of the badge. Can be used after resizing.
+    // Should be called to refresh the layout of the popup. Can be used after resizing.
     //
-    // @override
-    // @return {Badge} A reference to the badge for chaining.
+    // @return {AbstractPopup} A reference to the popup for chaining.
     //
-    Badge.prototype.layout = function () {
+    InteractivePopup.prototype.layout = function () {
         _super.prototype.layout.call(this);
-        //T this.content.x = this.width / 2 - this.content.width / 2 - this.opts.strokeWidth / 2
-        //T Accessors must always have sane type, so use this._content
-        this._content.x = this.width / 2 - this._content.width / 2 -
-            this.opts.strokeWidth / 2;
-        //T this.content.y = this.height / 2 - this.content.height / 2 - this.opts.strokeWidth / 2
-        //T Accessors must always have sane type, so use this._content
-        this._content.y = this.height / 2 - this._content.height / 2 -
-            this.opts.strokeWidth / 2;
+        // closeButton
+        //-----------------
+        if (this.opts.closeButton) {
+            this._closeButton.x = this.wantedWidth - this.smallPadding - this._closeButton.width;
+            this._closeButton.y = this.smallPadding;
+        }
+        // buttons
+        //-----------------
+        if (this._buttons) {
+            this._buttons.x = this.wantedWidth - this.opts.padding - this._buttons.width;
+            this._buttons.y = this.wantedHeight - this.opts.padding - this._buttons.height;
+        }
         return this;
     };
-    return Badge;
+    //
+    // Calculates the size of the children of the AbstractPopup.
+    // Cannot use getBounds( ) because it is not updated when children
+    // are removed.
+    //
+    // @protected
+    // @override
+    // @returns {object} An JavaScript object width the keys width and height.
+    //
+    InteractivePopup.prototype.getInnerSize = function () {
+        var size = _super.prototype.getInnerSize.call(this);
+        if (this._closeButton) {
+            size.width += this.smallPadding + this._closeButton.width;
+        }
+        if (this._buttons) {
+            size.width = Math.max(size.width, this._buttons.x + this._buttons.width);
+            size.height += this.innerPadding + this._buttons.height;
+        }
+        return size;
+    };
+    return InteractivePopup;
 }(abstractpopup_1.default));
-exports.default = Badge;
+exports.InteractivePopup = InteractivePopup;
+//
+// Class that represents a PixiJS Popup.
+//
+// @example
+// // Create the popup
+// const popup = new Popup( {
+//     header: 'Goethe',
+//     content: 'Man kann die Erfahrung nicht frÃ¼h genug machen, wie entbehrlich man in der Welt ist.'
+// } )
+//
+// // Add the popup to a DisplayObject
+// app.scene.addChild( popup )
+//
+// @class
+// @extends InteractivePopup
+// @see {@link https://www.iwm-tuebingen.de/iwmbrowser/lib/pixi/popup.html|DocTest}
+//
+var Popup = /** @class */ (function (_super) {
+    __extends(Popup, _super);
+    //
+    // Creates an instance of a Popup.
+    //
+    // @constructor
+    // @param {object} [opts]
+    //        - An options object to specify to style and behaviour of the popup.
+    // @param {boolean} [opts.closeButton=false]
+    //        - Should a close button be displayed on the upper right corner?
+    // @param {number} [opts.minWidth=0]
+    //        - The minimum width of the popup.
+    // @param {number} [opts.minHeight=0]
+    //        - The minimum height of the popup.
+    //
+    function Popup(opts) {
+        if (opts === void 0) { opts = {}; }
+        var _this = this;
+        opts = Object.assign({}, {
+            closeButton: false,
+            minWidth: 0,
+            minHeight: 0
+        }, opts);
+        _this = _super.call(this, opts) || this;
+        return _this;
+    }
+    return Popup;
+}(InteractivePopup));
+exports.default = Popup;
 
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0)))
 
 /***/ }),
-
-/***/ "./src/button.ts":
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2157,16 +1442,18 @@ var __values = (this && this.__values) || function(o) {
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__("pixi.js");
-var theme_1 = __webpack_require__("./src/theme.ts");
-var tooltip_1 = __webpack_require__("./src/tooltip.ts");
-var badge_1 = __webpack_require__("./src/badge.ts");
-var Tween_1 = __webpack_require__("./src/Ease/Tween.ts");
+var PIXI = __webpack_require__(0);
+var theme_1 = __webpack_require__(1);
+var tooltip_1 = __webpack_require__(3);
+var badge_1 = __webpack_require__(11);
+var Tween_1 = __webpack_require__(2);
 var Button = /** @class */ (function (_super) {
     __extends(Button, _super);
     function Button(opts) {
         if (opts === void 0) { opts = {}; }
         var _this = _super.call(this) || this;
+        // See note above.
+        _this.grandParent = null;
         var theme = theme_1.default.fromString(opts.theme);
         _this.theme = theme;
         _this.opts = Object.assign({}, {
@@ -2733,8 +2020,519 @@ exports.default = Button;
 
 
 /***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
 
-/***/ "./src/buttongroup.ts":
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var EaseBase = /** @class */ (function () {
+    function EaseBase() {
+        this.getPosition = function (p) {
+            return p;
+        };
+    }
+    return EaseBase;
+}());
+exports.EaseBase = EaseBase;
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var EaseBase_1 = __webpack_require__(7);
+var ExponentialEase_1 = __webpack_require__(10);
+var HALF_PI = Math.PI * 0.5;
+var Ease = /** @class */ (function () {
+    function Ease() {
+        this.create = function (fn) {
+            var e = new EaseBase_1.EaseBase();
+            e.getPosition = fn;
+            return e;
+        };
+        this.wrapEase = function (easeInFunction, easeOutFunction, easeInOutFunction) {
+            return {
+                easeIn: easeInFunction,
+                easeOut: easeOutFunction,
+                easeInOut: easeInOutFunction
+            };
+        };
+        this.Linear = new EaseBase_1.EaseBase();
+        this.Power0 =
+            {
+                easeNone: new EaseBase_1.EaseBase(),
+            };
+        this.Power1 = this.Quad = this.wrapEase(new ExponentialEase_1.ExponentialEase(1, 1, 0), new ExponentialEase_1.ExponentialEase(1, 0, 1), new ExponentialEase_1.ExponentialEase(1, 1, 1));
+        this.Power2 = this.Cubic = this.wrapEase(new ExponentialEase_1.ExponentialEase(2, 1, 0), new ExponentialEase_1.ExponentialEase(2, 0, 1), new ExponentialEase_1.ExponentialEase(2, 1, 1));
+        this.Power3 = this.Quart = this.wrapEase(new ExponentialEase_1.ExponentialEase(3, 1, 0), new ExponentialEase_1.ExponentialEase(3, 0, 1), new ExponentialEase_1.ExponentialEase(3, 1, 1));
+        this.Power4 = this.Quint = this.wrapEase(new ExponentialEase_1.ExponentialEase(4, 1, 0), new ExponentialEase_1.ExponentialEase(4, 0, 1), new ExponentialEase_1.ExponentialEase(4, 1, 1));
+        // Bounce
+        this.Bounce =
+            {
+                BounceIn: this.create(function (p) {
+                    if ((p = 1 - p) < 1 / 2.75) {
+                        return 1 - (7.5625 * p * p);
+                    }
+                    else if (p < 2 / 2.75) {
+                        return 1 - (7.5625 * (p -= 1.5 / 2.75) * p + 0.75);
+                    }
+                    else if (p < 2.5 / 2.75) {
+                        return 1 - (7.5625 * (p -= 2.25 / 2.75) * p + 0.9375);
+                    }
+                    return 1 - (7.5625 * (p -= 2.625 / 2.75) * p + 0.984375);
+                }),
+                BounceOut: this.create(function (p) {
+                    if (p < 1 / 2.75) {
+                        return 7.5625 * p * p;
+                    }
+                    else if (p < 2 / 2.75) {
+                        return 7.5625 * (p -= 1.5 / 2.75) * p + 0.75;
+                    }
+                    else if (p < 2.5 / 2.75) {
+                        return 7.5625 * (p -= 2.25 / 2.75) * p + 0.9375;
+                    }
+                    return 7.5625 * (p -= 2.625 / 2.75) * p + 0.984375;
+                }),
+                BounceInOut: this.create(function (p) {
+                    var invert = (p < 0.5);
+                    if (invert) {
+                        p = 1 - (p * 2);
+                    }
+                    else {
+                        p = (p * 2) - 1;
+                    }
+                    if (p < 1 / 2.75) {
+                        p = 7.5625 * p * p;
+                    }
+                    else if (p < 2 / 2.75) {
+                        p = 7.5625 * (p -= 1.5 / 2.75) * p + 0.75;
+                    }
+                    else if (p < 2.5 / 2.75) {
+                        p = 7.5625 * (p -= 2.25 / 2.75) * p + 0.9375;
+                    }
+                    else {
+                        p = 7.5625 * (p -= 2.625 / 2.75) * p + 0.984375;
+                    }
+                    return invert ? (1 - p) * 0.5 : p * 0.5 + 0.5;
+                })
+            };
+        // Circ
+        this.Circ =
+            {
+                CircIn: this.create(function (p) {
+                    return -(Math.sqrt(1 - (p * p)) - 1);
+                }),
+                CircOut: this.create(function (p) {
+                    return Math.sqrt(1 - (p = p - 1) * p);
+                }),
+                CircInOut: this.create(function (p) {
+                    return ((p *= 2) < 1) ? -0.5 * (Math.sqrt(1 - p * p) - 1) : 0.5 * (Math.sqrt(1 - (p -= 2) * p) + 1);
+                })
+            };
+        // Expo
+        this.Expo =
+            {
+                ExpoIn: this.create(function (p) {
+                    return Math.pow(2, 10 * (p - 1)) - 0.001;
+                }),
+                ExpoOut: this.create(function (p) {
+                    return 1 - Math.pow(2, -10 * p);
+                }),
+                ExpoInOut: this.create(function (p) {
+                    return ((p *= 2) < 1) ? 0.5 * Math.pow(2, 10 * (p - 1)) : 0.5 * (2 - Math.pow(2, -10 * (p - 1)));
+                })
+            };
+        // Sine
+        this.Sine =
+            {
+                SineIn: this.create(function (p) {
+                    return -Math.cos(p * HALF_PI) + 1;
+                }),
+                SineOut: this.create(function (p) {
+                    return Math.sin(p * HALF_PI);
+                }),
+                SineInOut: this.create(function (p) {
+                    return -0.5 * (Math.cos(Math.PI * p) - 1);
+                })
+            };
+    }
+    return Ease;
+}());
+exports.Ease = Ease;
+;
+// Exported name cannot be same as class name, so export instance as default
+var ease = new Ease();
+exports.default = ease;
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var PIXI = __webpack_require__(0);
+var Tween_1 = __webpack_require__(2);
+var theme_1 = __webpack_require__(1);
+var popup_1 = __webpack_require__(5);
+var Modal = /** @class */ (function (_super) {
+    __extends(Modal, _super);
+    function Modal(opts) {
+        if (opts === void 0) { opts = {}; }
+        var _this = this;
+        if (!opts.app)
+            throw ("Error: Modal, app should not be optional");
+        _this = _super.call(this) || this;
+        _this.theme = theme_1.default.fromString(opts.theme);
+        _this.opts = Object.assign({}, {
+            id: PIXI.utils.uid(),
+            //O app: window.app,
+            // opts.app should be required
+            app: opts.app,
+            header: opts.header,
+            headerStyle: opts.headerStyle,
+            content: opts.content,
+            //O backgroundFill: this.theme.background,
+            backgroundFill: _this.theme.opts.background,
+            backgroundFillAlpha: .6,
+            closeOnBackground: true,
+            visible: true
+        }, opts);
+        _this.id = _this.opts.id;
+        //if ( opts.app )
+        ////   this.app = opts.app
+        _this.background = null;
+        _this.popup = null;
+        _this.alpha = 0;
+        _this.visible = _this.opts.visible;
+        // setup
+        //-----------------
+        _this.setup();
+        // layout
+        //-----------------
+        _this.layout();
+        return _this;
+    }
+    //
+    // Creates children and instantiates everything.
+    //
+    // @private
+    // @return { Modal } A reference to the modal for chaining.
+    //
+    Modal.prototype.setup = function () {
+        var _this = this;
+        // interaction
+        //-----------------
+        this.interactive = true;
+        // @ts-ignore error TS6133: 'e' is declared but never read
+        this.on('added', function (e) {
+            if (_this.visible) {
+                _this.show();
+            }
+        });
+        // background
+        //-----------------
+        var background = new PIXI.Graphics();
+        this.background = background;
+        this.addChild(this.background);
+        if (this.opts.closeOnBackground) {
+            background.interactive = true;
+            // @ts-ignore error TS6133: 'e' is declared but never read
+            background.on('pointerup', function (e) {
+                _this.hide();
+            });
+        }
+        // popup
+        //-----------------
+        var popupOpts = Object.assign({}, this.opts, {
+            visible: true,
+            onHidden: function () {
+                _this.hide();
+            }
+        });
+        this.popup = new popup_1.InteractivePopup(popupOpts);
+        this.addChild(this.popup);
+        this.popup.show();
+        return this;
+    };
+    //
+    // Should be called to refresh the layout of the modal. Can be used after resizing.
+    //
+    // @return { Modal } A reference to the modal for chaining.
+    //
+    Modal.prototype.layout = function () {
+        var width = this.opts.app.size.width;
+        var height = this.opts.app.size.height;
+        // background
+        //-----------------
+        this.background.clear();
+        //V5 this.background.beginFill( this.opts.backgroundFill, this.opts.backgroundFillAlpha )
+        this.background.beginFill(this.opts.backgroundFill);
+        this.background.alpha = this.opts.backgroundFillAlpha;
+        this.background.drawRect(0, 0, width, height);
+        this.background.endFill();
+        // position
+        this.popup.x = width / 2 - this.popup.width / 2;
+        this.popup.y = height / 2 - this.popup.height / 2;
+        return this;
+    };
+    //
+    // Shows the modal ( sets his alpha values to 1 ).
+    //
+    // @return { Modal } A reference to the modal for chaining.
+    ///
+    Modal.prototype.show = function () {
+        var _this = this;
+        //O TweenLite.to( this, this.theme.fast, { alpha: 1, onStart: ( ) => this.visible = true } )
+        Tween_1.default.to(this, this.theme.opts.fast, { alpha: 1, onStart: function () { return _this.visible = true; } });
+        return this;
+    };
+    //
+    // Hides the modal ( sets his alpha values to 0 ).
+    //
+    // @return { Modal } A reference to the modal for chaining.
+    ///
+    Modal.prototype.hide = function () {
+        var _this = this;
+        //O TweenLite.to( this, this.theme.fast, { alpha: 0, onComplete: ( ) => this.visible = false } )
+        Tween_1.default.to(this, this.theme.opts.fast, { alpha: 0, onComplete: function () { return _this.visible = false; } });
+        return this;
+    };
+    Object.defineProperty(Modal.prototype, "header", {
+        //
+        // Sets or gets the header. The getter always returns a PIXI.Text object. The setter can receive
+        // a string or a PIXI.Text object.
+        //
+        // @member { string|PIXI.Text }
+        //
+        get: function () {
+            return this.popup._header;
+        },
+        set: function (value) {
+            this.opts.header = value;
+            this.background.destroy();
+            this.popup.destroy();
+            this.setup().layout();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Modal.prototype, "content", {
+        //
+        // Sets or gets the content. The getter always returns an PIXI.DisplayObject. The setter can receive
+        // a string or a PIXI.DisplayObject.
+        //
+        // @member { string|PIXI.DisplayObject }
+        //
+        get: function () {
+            return this.popup.content;
+        },
+        set: function (value) {
+            if (this.popup._content)
+                this.popup._content.destroy();
+            this.opts.content = value;
+            this.background.destroy();
+            this.popup.destroy();
+            this.setup().layout();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return Modal;
+}(PIXI.Container));
+exports.default = Modal;
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var EaseBase_1 = __webpack_require__(7);
+var ExponentialEase = /** @class */ (function (_super) {
+    __extends(ExponentialEase, _super);
+    function ExponentialEase(power, easeIn, easeOut) {
+        var _this = _super.call(this) || this;
+        _this.getPosition = function (p) {
+            var r = (_this.t === 1) ? 1 - p : (_this.t === 2) ? p : (p < 0.5) ? p * 2 : (1 - p) * 2;
+            if (_this.pow === 1) {
+                r *= r;
+            }
+            else if (_this.pow === 2) {
+                r *= r * r;
+            }
+            else if (_this.pow === 3) {
+                r *= r * r * r;
+            }
+            else if (_this.pow === 4) {
+                r *= r * r * r * r;
+            }
+            return (_this.t === 1) ? 1 - r : (_this.t === 2) ? r : (p < 0.5) ? r / 2 : 1 - (r / 2);
+        };
+        _this.pow = power;
+        _this.t = easeIn && easeOut ? 3 : easeOut ? 1 : 2;
+        return _this;
+    }
+    return ExponentialEase;
+}(EaseBase_1.EaseBase));
+exports.ExponentialEase = ExponentialEase;
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var theme_1 = __webpack_require__(1);
+var abstractpopup_1 = __webpack_require__(4);
+var tooltip_1 = __webpack_require__(3);
+//
+// Class that represents a PixiJS Badge.
+//
+// @example
+// // Create the app
+// const app = new PIXIApp({
+//     view: canvas,
+//     width: 900,
+//     height: 250
+// }).setup().run()
+//
+// // Add an DisplayObject to the app
+// const circle = new PIXI.Graphics()
+// circle.beginFill(0x5251a3)
+// circle.drawCircle(50, 50, 40)
+// app.scene.addChild(circle)
+//
+// const badge1 = new Badge({
+//     object: circle,
+//     container: app.scene,
+//     content: 'The law is the friend of the weak'.
+// })
+//
+// @class
+// @extends AbstractPopup
+// @see {@link https://www.iwm-tuebingen.de/iwmbrowser/lib/pixi/badge.html|DocTest}
+//
+var Badge = /** @class */ (function (_super) {
+    __extends(Badge, _super);
+    function Badge(opts) {
+        if (opts === void 0) { opts = {}; }
+        var _this = this;
+        var theme = theme_1.default.fromString(opts.theme);
+        opts = Object.assign({}, {
+            minWidth: 0,
+            minHeight: 0,
+            //O padding: theme.padding / 2,
+            padding: theme.opts.padding / 2,
+            tooltip: null
+        }, opts);
+        _this = _super.call(this, opts) || this;
+        _this.tooltip = null;
+        if (_this.opts.content === null)
+            throw ("Error: Badge, Optional parameter content should not be optional");
+        // setup
+        //-----------------
+        _this.setup();
+        // layout
+        //-----------------
+        _this.layout();
+        return _this;
+    }
+    //
+    // Creates children and instantiates everything.
+    //
+    // @private
+    // @override
+    // @return {Badge} A reference to the badge for chaining.
+    ///
+    Badge.prototype.setup = function () {
+        _super.prototype.setup.call(this);
+        // tooltip
+        //-----------------
+        if (this.opts.tooltip) {
+            if (typeof this.opts.tooltip === 'string') {
+                this.tooltip = new tooltip_1.default({ object: this, content: this.opts.tooltip });
+            }
+            else {
+                this.opts.tooltip = Object.assign({}, { object: this }, this.opts.tooltip);
+                this.tooltip = new tooltip_1.default(this.opts.tooltip);
+            }
+        }
+        return this;
+    };
+    //
+    // Should be called to refresh the layout of the badge. Can be used after resizing.
+    //
+    // @override
+    // @return {Badge} A reference to the badge for chaining.
+    //
+    Badge.prototype.layout = function () {
+        _super.prototype.layout.call(this);
+        //T this.content.x = this.width / 2 - this.content.width / 2 - this.opts.strokeWidth / 2
+        //T Accessors must always have sane type, so use this._content
+        this._content.x = this.width / 2 - this._content.width / 2 -
+            this.opts.strokeWidth / 2;
+        //T this.content.y = this.height / 2 - this.content.height / 2 - this.opts.strokeWidth / 2
+        //T Accessors must always have sane type, so use this._content
+        this._content.y = this.height / 2 - this._content.height / 2 -
+            this.opts.strokeWidth / 2;
+        return this;
+    };
+    return Badge;
+}(abstractpopup_1.default));
+exports.default = Badge;
+
+
+/***/ }),
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2785,8 +2583,8 @@ var __spread = (this && this.__spread) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 //import { AbstractPopupOptions } from './types'
-var theme_1 = __webpack_require__("./src/theme.ts");
-var button_1 = __webpack_require__("./src/button.ts");
+var theme_1 = __webpack_require__(1);
+var button_1 = __webpack_require__(6);
 var ButtonGroup = /** @class */ (function (_super) {
     __extends(ButtonGroup, _super);
     function ButtonGroup(opts) {
@@ -3044,1807 +2842,10 @@ var ButtonGroup = /** @class */ (function (_super) {
 }(PIXI.Graphics));
 exports.default = ButtonGroup;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("pixi.js")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0)))
 
 /***/ }),
-
-/***/ "./src/capabilities.ts":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-Object.defineProperty(exports, "__esModule", { value: true });
-// Report capabilities with guaranteed values.
-//
-var Capabilities = /** @class */ (function () {
-    function Capabilities() {
-    }
-    Object.defineProperty(Capabilities, "userAgent", {
-        // Returns the browser userAgent.
-        // @return { string }
-        //
-        get: function () {
-            return navigator.userAgent || 'Unknown Agent';
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Capabilities, "isMobile", {
-        // Tests whether the app is running on a mobile device.
-        // Implemented as a readonly attribute.
-        // @return { boolean }
-        //
-        get: function () {
-            return (/Mobi/.test(navigator.userAgent));
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Capabilities, "isIOS", {
-        // Tests whether the app is running on a iOS device.
-        // Implemented as a readonly attribute.
-        // @return { boolean }
-        //
-        get: function () {
-            return (/iPad|iPhone|iPod/.test(navigator.userAgent)) && !window.MSStream;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Capabilities, "isSafari", {
-        // Tests whether the app is running in a Safari environment.
-        // See https://stackoverflow.com/questions/7944460/detect-safari-browser
-        // Implemented as a readonly attribute.
-        // @return { boolean }
-        //
-        get: function () {
-            return navigator.vendor && navigator.vendor.indexOf('Apple') > -1 && navigator.userAgent && !navigator.userAgent.match('CriOS');
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Capabilities, "isElectron", {
-        //
-        // Distincts if the app is running inside electron or not.
-        //
-        // source: https://discuss.atom.io/t/detect-electron-or-web-page-running/33180/3
-        //
-        get: function () {
-            // @ts-ignore
-            return typeof process != 'undefined' && process.versions && process.versions.electron !== undefined;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Capabilities, "devicePixelRatio", {
-        // Returns the display resolution. Necessary for retina displays.
-        // @return { number }
-        //
-        get: function () {
-            return window.devicePixelRatio || 1;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Capabilities, "isMultiTouchTable", {
-        // Returns true if the device is a multi-touch table. This method is currently not universal usable and not sure!
-        // @return { boolean }
-        //
-        get: function () {
-            return Capabilities.devicePixelRatio > 2 && Capabilities.isMobile === false && /Windows/i.test(Capabilities.userAgent);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    // Returns true if mouse events are supported
-    // @return { boolean }
-    //
-    Capabilities.supportsMouseEvents = function () {
-        return typeof (window.MouseEvent) != 'undefined';
-    };
-    // Returns true if touch events are supported
-    // @return { boolean }
-    //
-    Capabilities.supportsTouchEvents = function () {
-        return typeof (window.TouchEvent) != 'undefined';
-    };
-    // Returns true if pointer events are supported
-    // @return { boolean }
-    //
-    Capabilities.supportsPointerEvents = function () {
-        return typeof (window.PointerEvent) != 'undefined';
-    };
-    // Returns true if DOM templates are supported
-    // @return { boolean }
-    //
-    Capabilities.supportsTemplate = function () {
-        return 'content' in document.createElement('template');
-    };
-    return Capabilities;
-}());
-exports.default = Capabilities;
-// Basic tests for Capabilities.
-//
-var CapabilitiesTests = /** @class */ (function () {
-    function CapabilitiesTests() {
-    }
-    CapabilitiesTests.testConfirm = function () {
-        var bool = confirm('Please confirm');
-        document.getElementById('demo').innerHTML = (bool) ? 'Confirmed' : 'Not confirmed';
-    };
-    CapabilitiesTests.testPrompt = function () {
-        var person = prompt('Please enter your name', 'Harry Potter');
-        if (person != null) {
-            //O demo.innerHTML = 'Hello ' + person + '! How are you today?'
-            document.getElementById('demo').innerHTML = 'Hello ' + person + '! How are you today?';
-        }
-    };
-    CapabilitiesTests.testUserAgent = function () {
-        var agent = 'User-agent: ' + Capabilities.userAgent;
-        //O user_agent.innerHTML = agent
-        document.getElementById('user_agent').innerHTML = agent;
-    };
-    CapabilitiesTests.testDevicePixelRatio = function () {
-        var value = 'Device Pixel Ratio: ' + Capabilities.devicePixelRatio;
-        //O device_pixel_ratio.innerHTML = value
-        document.getElementById('device_pixel_ratio').innerHTML = value;
-    };
-    CapabilitiesTests.testMultiTouchTable = function () {
-        var value = 'Is the device a multi-touch table? ' + Capabilities.isMultiTouchTable;
-        //O multi_touch_table.innerHTML = value
-        document.getElementById('multi_touch_table').innerHTML = value;
-    };
-    CapabilitiesTests.testSupportedEvents = function () {
-        var events = [];
-        if (Capabilities.supportsMouseEvents()) {
-            events.push('MouseEvents');
-        }
-        if (Capabilities.supportsTouchEvents()) {
-            events.push('TouchEvents');
-        }
-        if (Capabilities.supportsPointerEvents()) {
-            events.push('PointerEvents');
-        }
-        //O supported_events.innerHTML = 'Supported Events: ' + events.join( ', ' )
-        document.getElementById('supported_events').innerHTML = 'Supported Events: ' + events.join(', ');
-    };
-    CapabilitiesTests.testAll = function () {
-        this.testUserAgent();
-        this.testDevicePixelRatio();
-        this.testMultiTouchTable();
-        this.testSupportedEvents();
-    };
-    return CapabilitiesTests;
-}());
-exports.CapabilitiesTests = CapabilitiesTests;
-// Optional global variables, needed in DocTests. //
-// @ts-ignore
-window.Capabilities = Capabilities;
-// @ts-ignore
-window.CapabilitiesTests = CapabilitiesTests;
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("./node_modules/process/browser.js")))
-
-/***/ }),
-
-/***/ "./src/index.ts":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__("pixi.js");
-var UI_1 = __webpack_require__("./src/UI.ts");
-var Library = {
-    UI: UI_1.UI,
-};
-//dump everything into extras
-Object.assign(PIXI, Library);
-module.exports = Library;
-
-
-/***/ }),
-
-/***/ "./src/labeledgraphics.ts":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-var __values = (this && this.__values) || function(o) {
-    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
-    if (m) return m.call(o);
-    if (o && typeof o.length === "number") return {
-        next: function () {
-            if (o && i >= o.length) o = void 0;
-            return { value: o && o[i++], done: !o };
-        }
-    };
-    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
-};
-var __read = (this && this.__read) || function (o, n) {
-    var m = typeof Symbol === "function" && o[Symbol.iterator];
-    if (!m) return o;
-    var i = m.call(o), r, ar = [], e;
-    try {
-        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-    }
-    catch (error) { e = { error: error }; }
-    finally {
-        try {
-            if (r && !r.done && (m = i["return"])) m.call(i);
-        }
-        finally { if (e) throw e.error; }
-    }
-    return ar;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__("pixi.js");
-var theme_1 = __webpack_require__("./src/theme.ts");
-// Try to resolve the mess below.
-var defaultTheme = new theme_1.default();
-function deepObject(source) {
-    var result = {};
-    Object.keys(source).forEach(function (key) {
-        // @ts-ignore
-        var value = source[key];
-        // @ts-ignore
-        result[key] = deep(value);
-    }, {});
-    return result;
-}
-exports.deepObject = deepObject;
-//
-// Defines usefull default text styles.
-//
-var FontInfo = /** @class */ (function () {
-    function FontInfo() {
-    }
-    Object.defineProperty(FontInfo, "small", {
-        get: function () {
-            //O return app.theme.textStyle.textStyleSmall
-            var w = null;
-            if (window.app && (window.app).theme) {
-                w = ((window.app).theme);
-                if (w.opts && w.opts.textStyle)
-                    return w.opts.textStyleSmall;
-                else
-                    console.warn("labeledgraphics: small Doh");
-            }
-            console.warn("labeledgraphics: small called.  Should fix this....");
-            return defaultTheme.opts.textStyleSmall;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FontInfo, "fontSize", {
-        get: function () {
-            //O return app.theme.textStyle
-            var w = null;
-            if (window.app && (window.app).theme) {
-                w = ((window.app).theme);
-                if (w.opts && w.opts.textStyle)
-                    return w.opts.textStyle.fontSize;
-                else
-                    console.warn("labeledgraphics: fontSize Doh");
-            }
-            console.warn("labeledgraphics: fontSize called.  Should fix this....");
-            return defaultTheme.opts.textStyle.fontSize;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FontInfo, "normal", {
-        get: function () {
-            //O return app.theme.textStyle
-            var w = null;
-            if (window.app && (window.app).theme) {
-                w = ((window.app).theme);
-                if (w.opts && w.opts.textStyle)
-                    return w.opts.textStyle;
-                else
-                    console.warn("labeledgraphics: normal Doh");
-            }
-            console.warn("labeledgraphics: normal called.  Should fix this....");
-            return defaultTheme.opts.textStyle;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FontInfo, "centered", {
-        get: function () {
-            //O return Object.assign( { }, app.theme.textStyle, { align: 'center' } )
-            var w = null;
-            if (window.app && (window.app).theme) {
-                w = ((window.app).theme);
-                if (w.opts.textStyle)
-                    return Object.assign({}, w.opts.textStyle, { align: 'center' });
-                else
-                    console.warn("labeledgraphics: centered Doh");
-            }
-            console.warn("labeledgraphics: centered called.  Should fix this....");
-            return defaultTheme.opts.textStyle;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(FontInfo, "fontFamily", {
-        get: function () {
-            // This was missing ...
-            var w = null;
-            if (window.app && (window.app).theme) {
-                w = ((window.app).theme);
-                if (w.opts.textStyle)
-                    return w.opts.textStyle.fontFamily;
-                else
-                    console.warn("labeledgraphics: fontFamily Doh");
-            }
-            console.warn("labeledgraphics: centered called.  Should fix this....");
-            return defaultTheme.opts.textStyle.fontFamily;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return FontInfo;
-}());
-exports.FontInfo = FontInfo;
-//
-// Static methods to support hyphenation of lines.
-//
-// @class Hypenate
-//
-var Hypenate = /** @class */ (function () {
-    function Hypenate() {
-    }
-    Hypenate.splitPart = function (part) {
-        var e_1, _a;
-        var parts = part.split('-');
-        if (parts.length == 1)
-            return [part];
-        var result = [];
-        var last = parts.pop();
-        try {
-            for (var parts_1 = __values(parts), parts_1_1 = parts_1.next(); !parts_1_1.done; parts_1_1 = parts_1.next()) {
-                var p = parts_1_1.value;
-                result.push(p + '-');
-            }
-        }
-        catch (e_1_1) { e_1 = { error: e_1_1 }; }
-        finally {
-            try {
-                if (parts_1_1 && !parts_1_1.done && (_a = parts_1.return)) _a.call(parts_1);
-            }
-            finally { if (e_1) throw e_1.error; }
-        }
-        result.push(last);
-        return result.filter(function (p) { return p.length > 0; });
-    };
-    Hypenate.splitWord = function (word) {
-        //B qu'Est-ce que c'est
-        //B if ( typeof ( language ) == 'undefined' )
-        //B{
-        if (word.indexOf('-') > -1) {
-            return word.split('-');
-        }
-        return [word];
-        //B
-        /* NO IDEAL WHAT LANGUAGE IS OR MEANT TO BE IN THIS CODE
-        let parts = language.hyphenate( word )
-        let result = [ ]
-        for ( let part of parts )
-        {
-           for ( let splitted of this.splitPart( part ) )
-           {
-              result.push( splitted )
-           }
-        }
-        return result
-        */
-    };
-    Hypenate.abbreviateLine = function (label, style, width) {
-        var pixiStyle = new PIXI.TextStyle(style);
-        var metrics = PIXI.TextMetrics.measureText(label, pixiStyle);
-        while (metrics.width > width && label.length > 3) {
-            label = label.slice(0, label.length - 1);
-            metrics = PIXI.TextMetrics.measureText(label, pixiStyle);
-        }
-        label = label.slice(0, label.length - 1);
-        return label + '…';
-    };
-    //O static splitLine( line: string, pixiStyle, width: number, space, minus )
-    Hypenate.splitLine = function (line, pixiStyle, width, space) {
-        var e_2, _a, e_3, _b;
-        var x = 0;
-        var result = '';
-        var words = line.split(' ');
-        try {
-            for (var words_1 = __values(words), words_1_1 = words_1.next(); !words_1_1.done; words_1_1 = words_1.next()) {
-                var word = words_1_1.value;
-                var wordMetrics = PIXI.TextMetrics.measureText(word, pixiStyle);
-                if (x + wordMetrics.width >= width) {
-                    var parts = this.splitWord(word);
-                    var newWord = '';
-                    if (parts.length == 1) {
-                        newWord += '\n' + word + ' ';
-                        x = wordMetrics.width + space.width;
-                    }
-                    else {
-                        var first = true;
-                        var lastPart = '';
-                        try {
-                            for (var parts_2 = (e_3 = void 0, __values(parts)), parts_2_1 = parts_2.next(); !parts_2_1.done; parts_2_1 = parts_2.next()) {
-                                var part = parts_2_1.value;
-                                var partMetrics = PIXI.TextMetrics.measureText(part, pixiStyle);
-                                if (x + partMetrics.width + space.width > width) {
-                                    newWord += ((first || lastPart.endsWith('-')) ? '\n' : '-\n') + part;
-                                    x = partMetrics.width;
-                                }
-                                else {
-                                    newWord += part;
-                                    x += partMetrics.width;
-                                }
-                                lastPart = part;
-                                first = false;
-                            }
-                        }
-                        catch (e_3_1) { e_3 = { error: e_3_1 }; }
-                        finally {
-                            try {
-                                if (parts_2_1 && !parts_2_1.done && (_b = parts_2.return)) _b.call(parts_2);
-                            }
-                            finally { if (e_3) throw e_3.error; }
-                        }
-                        x += space.width;
-                    }
-                    result += newWord + ' ';
-                }
-                else {
-                    result += word + ' ';
-                    x += wordMetrics.width + space.width;
-                }
-            }
-        }
-        catch (e_2_1) { e_2 = { error: e_2_1 }; }
-        finally {
-            try {
-                if (words_1_1 && !words_1_1.done && (_a = words_1.return)) _a.call(words_1);
-            }
-            finally { if (e_2) throw e_2.error; }
-        }
-        return result;
-    };
-    //
-    //  Main method and entry point for text hyphenation 
-    //
-    // @static
-    // @param { * } text
-    // @param { * } style
-    // @param { * } width
-    //
-    // @returns { string }
-    // @memberof Hypenate
-    //
-    Hypenate.splitLines = function (text, style, width) {
-        var e_4, _a;
-        var pixiStyle = new PIXI.TextStyle(style);
-        var lines = text.split('\n');
-        var space = PIXI.TextMetrics.measureText(' ', pixiStyle);
-        //const minus = PIXI.TextMetrics.measureText( '-', pixiStyle )
-        var result = [];
-        try {
-            for (var lines_1 = __values(lines), lines_1_1 = lines_1.next(); !lines_1_1.done; lines_1_1 = lines_1.next()) {
-                var line = lines_1_1.value;
-                //O result.push( this.splitLine( line, pixiStyle, width, space, minus ) )
-                result.push(this.splitLine(line, pixiStyle, width, space));
-            }
-        }
-        catch (e_4_1) { e_4 = { error: e_4_1 }; }
-        finally {
-            try {
-                if (lines_1_1 && !lines_1_1.done && (_a = lines_1.return)) _a.call(lines_1);
-            }
-            finally { if (e_4) throw e_4.error; }
-        }
-        return result.join('\n');
-    };
-    return Hypenate;
-}());
-exports.Hypenate = Hypenate;
-var TextLabel = /** @class */ (function (_super) {
-    __extends(TextLabel, _super);
-    function TextLabel(text, style, canvas, _a) {
-        if (style === void 0) { style = null; }
-        if (canvas === void 0) { canvas = null; }
-        var _b = _a === void 0 ? {} : _a, _c = _b.minZoom, minZoom = _c === void 0 ? 0.1 : _c, _d = _b.maxZoom, maxZoom = _d === void 0 ? 10 : _d;
-        var _this = _super.call(this, text, style, canvas) || this;
-        _this.normFontSize = _this.style.fontSize;
-        _this.minZoom = minZoom;
-        _this.maxZoom = maxZoom;
-        return _this;
-    }
-    TextLabel.prototype.zoom = function (factor) {
-        var oldValue = parseFloat(this.style.fontSize) / this.normFontSize;
-        var value = oldValue * factor;
-        this.setZoom(value);
-    };
-    TextLabel.prototype.setZoom = function (value) {
-        var oldValue = parseFloat(this.style.fontSize) / this.normFontSize;
-        if (value > this.maxZoom) {
-            value = this.maxZoom;
-        }
-        if (value < this.minZoom) {
-            value = this.minZoom;
-        }
-        if (value != oldValue) {
-            this.style.fontSize = Math.max(value * this.normFontSize, 1);
-        }
-    };
-    TextLabel.prototype.setZoomAndScale = function (scale) {
-        this.scale.set(1 / scale);
-        this.setZoom(scale);
-    };
-    return TextLabel;
-}(PIXI.Text));
-//
-// A specialization of the PIXI.Graphics class that allows to
-// resuse and place labels across different layout variants
-//
-// @export
-// @class LabeledGraphics
-// @extends { PIXI.Graphics }
-//
-var LabeledGraphics = /** @class */ (function (_super) {
-    __extends(LabeledGraphics, _super);
-    //
-    // Creates an instance of LabeledGraphics and defines a local label cache.
-    // 
-    // @memberof LabeledGraphics
-    //
-    function LabeledGraphics() {
-        var _this = _super.call(this) || this;
-        _this.labels = new Map();
-        return _this;
-    }
-    LabeledGraphics.prototype._createText = function (label, fontInfo) {
-        return new TextLabel(label, fontInfo);
-    };
-    //
-    // Main additional method. Ensures that a text object is created that is cached
-    // under the given key.
-    //
-    // @param { * } key
-    //        - The cache key
-    // @param { * } label
-    //        - The label to show
-    // @param { * } [ attrs={ } ]
-    //        - Defines attributes of the text object. 
-    //          align: 'right', 'left', or 'center'
-    //          justify: 'top', 'bottom', or 'center'
-    //          maxLines: { integer } truncates the text and adds ellipsis
-    //          maxHeight: { number } truncates text that needs more space
-    //                                and adds ellipsis
-    //          maxWidth: { number } word wraps text using hyphenation if possible
-    // @param { * } [ fontInfo=FontInfo.normal ]
-    //        - Defines PIXI.TextStyle attributes
-    //
-    // @returns { PIXI.Text }
-    //          - instance
-    //
-    // @memberof LabeledGraphics
-    //
-    LabeledGraphics.prototype.ensureLabel = function (key, label, attrs, fontInfo) {
-        if (attrs === void 0) { attrs = {}; }
-        if (fontInfo === void 0) { fontInfo = FontInfo.normal; }
-        if (attrs.maxWidth && attrs.maxLines == 1) {
-            label = Hypenate.abbreviateLine(label, fontInfo, attrs.maxWidth);
-        }
-        else {
-            if (attrs.maxWidth) {
-                label = Hypenate.splitLines(label, fontInfo, attrs.maxWidth);
-            }
-            if (attrs.maxLines) {
-                label = this.truncateLabel(label, fontInfo, attrs.maxLines);
-            }
-            if (attrs.maxHeight) {
-                var styleInfo = new PIXI.TextStyle(fontInfo);
-                var metrics = PIXI.TextMetrics.measureText(label, styleInfo);
-                var maxLines = Math.max(attrs.maxHeight / metrics.lineHeight, 1);
-                label = this.truncateLabel(label, fontInfo, maxLines);
-            }
-        }
-        if (!this.labels.has(key)) {
-            var text_1 = this._createText(label, fontInfo);
-            this.labels.set(key, text_1);
-            this.addChild(text_1);
-        }
-        var text = this.labels.get(key);
-        for (var k in attrs) {
-            text[k] = attrs[k];
-        }
-        if (label != text.text)
-            text.text = label;
-        // We do not follow the flexbox jargon and use align for x and justify for y axis
-        // This deviation is needed to ensure backward compatability
-        switch (attrs.justify || null) {
-            case 'top':
-                text.anchor.y = 0;
-                break;
-            case 'bottom':
-                text.anchor.x = 1;
-                break;
-            default:
-                text.anchor.y = 0.5;
-                break;
-        }
-        switch (attrs.align) {
-            case 'right':
-                text.anchor.x = 1;
-                break;
-            case 'center':
-                text.anchor.x = 0.5;
-                break;
-            default:
-                text.anchor.x = 0;
-                break;
-        }
-        text.visible = true;
-        return text;
-    };
-    //
-    // Private method that truncates the text and adds an ellipsis if there are more lines
-    // than wanted
-    //
-    // @param { * } text
-    // @param { * } style
-    // @param { * } [ maxLines=Infinity ]
-    //
-    // @returns { string }
-    // @memberof LabeledGraphics
-    //
-    LabeledGraphics.prototype.truncateLabel = function (text, style, maxLines) {
-        if (maxLines === void 0) { maxLines = Infinity; }
-        if (maxLines === Infinity) {
-            return text;
-        }
-        var wordWrapWidth = style.wordWrapWidth;
-        var pixiStyle = new PIXI.TextStyle(style);
-        var lines = PIXI.TextMetrics.measureText(text, pixiStyle).lines;
-        var newText = text;
-        if (lines.length > maxLines) {
-            var truncatedLines = lines.slice(0, maxLines);
-            var lastLine = truncatedLines[truncatedLines.length - 1];
-            var words_2 = lastLine.split(' ');
-            var wordMetrics = PIXI.TextMetrics.measureText("\u00A0\n...\n" + words_2.join('\n'), pixiStyle);
-            var _a = __read(wordMetrics.lineWidths), spaceLength_1 = _a[0], dotsLength = _a[1], wordLengths = _a.slice(2);
-            var newLastLine = wordLengths.reduce(function (data, wordLength, i) {
-                if (data.length + wordLength + spaceLength_1 >= wordWrapWidth) {
-                    return __assign(__assign({}, data), { length: wordWrapWidth });
-                }
-                return {
-                    text: "" + data.text + (i > 0 ? ' ' : '') + words_2[i],
-                    length: data.length + wordLength + spaceLength_1,
-                };
-            }, { text: '', length: dotsLength }).text;
-            truncatedLines[truncatedLines.length - 1] = newLastLine + "...";
-            newText = truncatedLines.join('\n');
-        }
-        return newText;
-    };
-    //
-    // Returns the label for the given key.
-    //
-    // @param { * } key
-    //
-    // @returns { Object }
-    // @memberof LabeledGraphics
-    //
-    LabeledGraphics.prototype.getLabel = function (key) {
-        return this.labels.get(key);
-    };
-    //
-    // Hides the label with the given key.
-    //
-    // @param { * } key
-    // @memberof LabeledGraphics
-    //
-    LabeledGraphics.prototype.hideLabel = function (key) {
-        var label = this.labels.get(key);
-        if (label) {
-            label.visible = false;
-        }
-    };
-    // 
-    // Removes the label with the given key.
-    // @param { * } key
-    // @memberof LabeledGraphics
-    //
-    LabeledGraphics.prototype.removeLabel = function (key) {
-        var label = this.labels.get(key);
-        this.labels.delete(key);
-        label.destroy();
-    };
-    //
-    // Ensures that labels are hidden on clear.
-    //
-    // @memberof LabeledGraphics
-    //
-    LabeledGraphics.prototype.clear = function () {
-        var e_5, _a;
-        _super.prototype.clear.call(this);
-        try {
-            for (var _b = __values(this.labels.keys()), _c = _b.next(); !_c.done; _c = _b.next()) {
-                var key = _c.value;
-                this.hideLabel(key);
-            }
-        }
-        catch (e_5_1) { e_5 = { error: e_5_1 }; }
-        finally {
-            try {
-                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-            }
-            finally { if (e_5) throw e_5.error; }
-        }
-        return this;
-    };
-    //
-    // Logs debugging infos
-    //
-    // @memberof LabeledGraphics
-    //
-    LabeledGraphics.prototype.debugInfos = function () {
-        console.log({ size: this.labels.size, labels: this.labels });
-    };
-    return LabeledGraphics;
-}(PIXI.Graphics));
-exports.default = LabeledGraphics;
-var labelCache = new Map();
-function getTexture(label, style) {
-    if (style === void 0) { style = FontInfo.normal; }
-    //O let key = label + fontInfo.fontFamily + fontInfo.fontSize
-    var key = label + style.fontFamily + style.fontSize;
-    if (labelCache.has(key)) {
-        return labelCache.get(key);
-    }
-    // let expandedFont = Object.assign( { }, fontInfo )
-    var expandedStyle = Object.assign({}, style);
-    //O expandedFont.fontSize *= window.devicePixelRatio
-    if (typeof expandedStyle.fontSize == 'number')
-        expandedStyle.fontSize *= window.devicePixelRatio;
-    //Olet text = new PIXI.Text( label, expandedFont )
-    var text = new PIXI.Text(label, expandedStyle);
-    // The below makes no sense to me as it does exist?
-    // @ts-ignore TS2339: Property 'updateText' does not exist on type 'Text'.
-    text.updateText();
-    labelCache.set(key, text.texture);
-    return text.texture;
-}
-// This was never exported. Perhaps this is why BitmappedLabeledGraphics is here?. Maybe this is the class that is wrong.
-var SpriteLabel = /** @class */ (function (_super) {
-    __extends(SpriteLabel, _super);
-    //O constructor( label: string, fontInfo?: FontInfo )
-    //B FontInfo is static and cannot be used this way
-    function SpriteLabel(label, style) {
-        var _this = this;
-        if (!style)
-            style = FontInfo.normal;
-        //O let texture = getTexture( label, fontInfo )
-        var texture = getTexture(label, style);
-        _this = _super.call(this, texture) || this;
-        //O this.fontInfo = fontInfo
-        _this.style = style;
-        _this.label = label;
-        _this.scale.set(0.8 / window.devicePixelRatio);
-        return _this;
-    }
-    Object.defineProperty(SpriteLabel.prototype, "text", {
-        get: function () {
-            return this.label;
-        },
-        set: function (label) {
-            this.label = label;
-            //O this.texture = getTexture( label, this.fontInfo )
-            this.texture = getTexture(label, this.style);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return SpriteLabel;
-}(PIXI.Sprite));
-exports.SpriteLabel = SpriteLabel;
-/* This is just crap. it has no reason to extend LabelGraphics and then retuen a SpriteLabel with a parameter that is incompatible with SpriteLabel.
-
-timeline extends it, but thankfully does not call createText, so it can extend
-LabeledGraphics instead.
-export class BitmapLabeledGraphics extends LabeledGraphics
-{
-   //O _createText( label: string, fontInfo?: PIXI.TextStyle ): SpriteLabel
-   // @ts-ignore TS2416: Property '_createText' in type 'BitmapLabeledGraphics' is not assignable to the same property in base type 'LabeledGraphics'  Stupid TypeScript
-   _createText( label: string, style?: PIXI.TextStyle ): SpriteLabel
-   {
-      //O let texture = getTexture( label, fontInfo )
-      let texture = getTexture( label, style )
-      return new SpriteLabel( texture )
-   }
-}
-*/
-
-
-/***/ }),
-
-/***/ "./src/list.ts":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __values = (this && this.__values) || function(o) {
-    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
-    if (m) return m.call(o);
-    if (o && typeof o.length === "number") return {
-        next: function () {
-            if (o && i >= o.length) o = void 0;
-            return { value: o && o[i++], done: !o };
-        }
-    };
-    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__("pixi.js");
-// No brackets, imports the default created Tween Instance from new.
-var Tween_1 = __webpack_require__("./src/Ease/Tween.ts");
-// No brackets, imports the default created Ease Instance from new.
-var Ease_1 = __webpack_require__("./src/Ease/Ease.ts");
-var List = /** @class */ (function (_super) {
-    __extends(List, _super);
-    function List(items, opts) {
-        if (items === void 0) { items = []; }
-        if (opts === void 0) { opts = {}; }
-        var _this = _super.call(this) || this;
-        if (items !== null && !Array.isArray(items))
-            throw ("Error: Array of items is required");
-        _this.opts = Object.assign({}, {
-            padding: 10,
-            margin: 10,
-            orientation: 'vertical',
-            align: 'left',
-            verticalAlign: 'middle',
-            width: null,
-            height: null,
-            app: null
-        }, opts);
-        _this.__items = items;
-        _this.__dragging = false;
-        // setup
-        //--------------------
-        _this.setup();
-        return _this;
-    }
-    //
-    // Creates children and instantiates everything.
-    //
-    // @private
-    // @return { List } A reference to the list for chaining.
-    //
-    List.prototype.setup = function () {
-        var e_1, _a;
-        var _this = this;
-        // inner container
-        //--------------------
-        var container = new PIXI.Container();
-        this.addChild(container);
-        this.container = container;
-        // mask
-        //--------------------
-        var mask = new PIXI.Graphics();
-        this.addChild(mask);
-        this.__mask = mask;
-        try {
-            // add items
-            //--------------------
-            for (var _b = __values(this.__items), _c = _b.next(); !_c.done; _c = _b.next()) {
-                var item = _c.value;
-                container.addChild(item);
-            }
-        }
-        catch (e_1_1) { e_1 = { error: e_1_1 }; }
-        finally {
-            try {
-                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-            }
-            finally { if (e_1) throw e_1.error; }
-        }
-        // interaction
-        //--------------------
-        if (this.opts.width || this.opts.height)
-            this.interactive = true;
-        else
-            this.interactive = false;
-        this.on('pointerdown', this.onStart.bind(this));
-        this.on('pointermove', this.onMove.bind(this));
-        this.on('pointerup', this.onEnd.bind(this));
-        this.on('pointercancel', this.onEnd.bind(this));
-        this.on('pointerout', this.onEnd.bind(this));
-        this.on('pointerupoutside', this.onEnd.bind(this));
-        this.on('scroll', this.onScroll.bind(this));
-        // mousewheel
-        //--------------------
-        if (this.opts.app) {
-            var app_1 = this.opts.app;
-            //O app.view.addEventListener( 'mousewheel', event =>
-            // @ts-ignore error TS6133: 'event' is declared but never read
-            app_1.view.addEventListener('mousewheel', function (event) {
-                var bounds = null;
-                //B const bounds = this.mask ? this.mask.getBounds( ) : this.getBounds( )
-                //B Since container already has a property of mask, the result is always
-                //B true. What I believe is meant to be checked is this.__mask
-                if (_this.__mask) {
-                    // Mask is of type PIXI.Graphics, it has containsPoint()
-                    // getBounds returns PIXI.Rectangle
-                    bounds = _this.__mask.getBounds();
-                }
-                else {
-                    // this is of type PIXI.Container
-                    bounds = _this.getBounds();
-                }
-                var x = event.clientX - app_1.view.getBoundingClientRect().left;
-                var y = event.clientY - app_1.view.getBoundingClientRect().top;
-                if (bounds.contains(x, y)) {
-                    event.preventDefault();
-                    _this.emit('scroll', event);
-                }
-            });
-        }
-        this.layout();
-        return this;
-    };
-    //
-    // Replaces the existing items and relayouts the list.
-    //
-    // @param {PIXI.DisplayObject[] } items - An array of PIXI.DisplayObjects.
-    // @return { List } A reference to the list for chaining.
-    //
-    List.prototype.setItems = function (items) {
-        var e_2, _a;
-        this.container.removeChildren();
-        this.__items = items;
-        try {
-            for (var _b = __values(this.__items), _c = _b.next(); !_c.done; _c = _b.next()) {
-                var item = _c.value;
-                this.container.addChild(item);
-            }
-        }
-        catch (e_2_1) { e_2 = { error: e_2_1 }; }
-        finally {
-            try {
-                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-            }
-            finally { if (e_2) throw e_2.error; }
-        }
-        this.layout();
-        //B Previously did not return anything
-        return this;
-    };
-    //
-    // Should be called to refresh the layout of the list ( the width or the height ).
-    //
-    // @return { List } A reference to the list for chaining.
-    //
-    List.prototype.layout = function () {
-        var e_3, _a;
-        var _this = this;
-        var margin = this.opts.margin;
-        var x = margin;
-        var y = margin;
-        try {
-            for (var _b = __values(this.__items), _c = _b.next(); !_c.done; _c = _b.next()) {
-                var item = _c.value;
-                item.x = x;
-                item.y = y;
-                if (this.opts.orientation === 'vertical') {
-                    y += item.height + this.opts.padding;
-                }
-                else {
-                    x += item.width + this.opts.padding;
-                }
-            }
-        }
-        catch (e_3_1) { e_3 = { error: e_3_1 }; }
-        finally {
-            try {
-                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-            }
-            finally { if (e_3) throw e_3.error; }
-        }
-        // vertical
-        //--------------------
-        if (this.opts.orientation === 'vertical') {
-            switch (this.opts.align) {
-                case 'center':
-                    this.__items.forEach(function (it) { return it.x = margin + _this.width / 2 - it.width / 2; });
-                    break;
-                case 'right':
-                    this.__items.forEach(function (it) { return it.x = margin + _this.width - it.width; });
-                    break;
-                default:
-                    this.__items.forEach(function (it) { return it.x = margin; });
-                    break;
-            }
-            if (this.opts.height) {
-                var mask = this.__mask;
-                mask.clear();
-                mask.beginFill(0x000);
-                mask.drawRect(0, 0, this.width + 2 * margin, this.opts.height);
-                this.mask = mask;
-                this.interactive = this.innerHeight > this.opts.height;
-            }
-        }
-        // horizontal
-        //--------------------
-        if (this.opts.orientation === 'horizontal') {
-            switch (this.opts.verticalAlign) {
-                case 'top':
-                    this.__items.forEach(function (it) { return it.y = margin; });
-                    break;
-                case 'bottom':
-                    this.__items.forEach(function (it) { return it.y = margin + _this.height - it.height; });
-                    break;
-                default:
-                    this.__items.forEach(function (it) { return it.y = margin + _this.height / 2 - it.height / 2; });
-                    break;
-            }
-            if (this.opts.width) {
-                var mask = this.__mask;
-                mask.clear();
-                mask.beginFill(0x000);
-                mask.drawRect(0, 0, this.opts.width, this.height + 2 * margin);
-                this.mask = mask;
-                this.interactive = this.innerWidth > this.opts.width;
-            }
-        }
-        return this;
-    };
-    Object.defineProperty(List.prototype, "innerWidth", {
-        //
-        //
-        //
-        get: function () {
-            var size = 0;
-            this.__items.forEach(function (it) { return size += it.width; });
-            size += this.opts.padding * (this.__items.length - 1);
-            size += 2 * this.opts.margin;
-            return size;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(List.prototype, "innerHeight", {
-        //
-        //
-        //
-        get: function () {
-            var size = 0;
-            this.__items.forEach(function (it) { return size += it.height; });
-            size += this.opts.padding * (this.__items.length - 1);
-            size += 2 * this.opts.margin;
-            return size;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    //
-    // Resizes the list.
-    //
-    // @param { number } widthOrHeight
-    //        - The new width ( if orientation is horizontal ) or
-    //          height ( if orientation is vertical ) of the list.
-    //
-    List.prototype.resize = function (widthOrHeight) {
-        if (this.opts.orientation === 'horizontal') {
-            this.opts.width = widthOrHeight;
-        }
-        else {
-            this.opts.height = widthOrHeight;
-        }
-        this.layout();
-    };
-    //
-    //
-    // @private
-    // @param { * } event
-    //
-    List.prototype.onStart = function (event) {
-        this.__dragging = true;
-        //O this.capture( event )
-        this.__delta =
-            {
-                x: this.container.position.x - event.data.global.x,
-                y: this.container.position.y - event.data.global.y
-            };
-        /*
-        //killTweenOf is not on TweenLite
-              TweenLite.killTweensOf( this.container.position, { x: true, y: true })
-        
-              if ( typeof ThrowPropsPlugin != "undefined" )
-              {
-                 ThrowPropsPlugin.track( this.container.position, 'x,y' )
-              }
-        */
-    };
-    //
-    //
-    // @private
-    // @param { * } event
-    //
-    List.prototype.onMove = function (event) {
-        if (this.__dragging) {
-            //O this.capture( event )
-            if (this.opts.orientation === 'horizontal') {
-                this.container.position.x = event.data.global.x + this.__delta.x;
-            }
-            else {
-                this.container.position.y = event.data.global.y + this.__delta.y;
-            }
-        }
-    };
-    //
-    //
-    // @private
-    // @param { * } event
-    //
-    // @ts-ignore error TS6133: 'event' is declared but never read
-    List.prototype.onEnd = function (event) {
-        if (this.__dragging) {
-            this.__dragging = false;
-            //O this.capture( event )
-            /*
-                     const throwProps = { }
-            
-                     if ( this.opts.orientation === 'horizontal' )
-                     {
-                        let min = this.opts.width - this.innerWidth
-                        min = min > 0 ? 0 : min
-                        throwProps.x =
-                        {
-                           velocity: 'auto',
-                           min,
-                           max: 0
-                        }
-                     }
-                     else
-                     {
-                        let min = this.opts.height - this.innerHeight
-                        min = min > 0 ? 0 : min
-                        throwProps.y =
-                        {
-                           velocity: 'auto',
-                           min,
-                           max: 0
-                        }
-                     }
-            
-                     if ( typeof ThrowPropsPlugin != "undefined" )
-                     {
-                        ThrowPropsPlugin.to( this.container.position,
-                        {
-                           throwProps,
-                           ease: Strong.easeOut,
-                           onComplete: ( ) => ThrowPropsPlugin.untrack( this.container.position )
-                        }, .8, .4 )
-                     }
-            */
-            Tween_1.default.to(this.container, 1.5, { x: .8, y: .4 }, Ease_1.default.Power2.easeOut);
-        }
-    };
-    //
-    //
-    // @private
-    // @param { * } event
-    //
-    List.prototype.onScroll = function (event) {
-        //O this.capture( event )
-        if (this.opts.orientation === 'horizontal') {
-            this.container.position.x -= event.deltaX;
-            if (this.container.position.x > 0) {
-                this.container.position.x = 0;
-            }
-            else if (this.container.position.x + this.innerWidth < this.opts.width) {
-                this.container.position.x = this.opts.width - this.innerWidth;
-            }
-        }
-        else {
-            this.container.position.y -= event.deltaY;
-            if (this.container.position.y > 0) {
-                this.container.position.y = 0;
-            }
-            else if (this.container.position.y + this.innerHeight < this.opts.height) {
-                this.container.position.y = this.opts.height - this.innerHeight;
-            }
-        }
-    };
-    return List;
-}(PIXI.Container));
-exports.default = List;
-
-
-/***/ }),
-
-/***/ "./src/message.ts":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var theme_1 = __webpack_require__("./src/theme.ts");
-var popup_1 = __webpack_require__("./src/popup.ts");
-var Message = /** @class */ (function (_super) {
-    __extends(Message, _super);
-    //
-    // Creates an instance of a Message.
-    //
-    // @constructor
-    // @param {object} [opts]
-    //        - An options object to specify to style and behaviour of the message.
-    // @param {PIXIApp} [opts.app=window.app]
-    //        - The PIXIApp where this message belongs to.
-    // @param {boolean} [opts.closeButton=false]
-    //        - Should a close button be displayed in the upper right corner?
-    // @param {number} [opts.minWidth=280]
-    //        - The minimum width of the message box. Automatically
-    //          expands with the content.
-    // @param {number} [opts.minHeight=100]
-    //        - The minimum height of the message box. Automatically
-    //          expands with the content.
-    // @param {number} [opts.margin=Theme.margin]
-    //        - The outer spacing of the message box.
-    // @param {string} [opts.align=right]
-    //        - The horizontal position of the message box relative to the app. Possible
-    //     values are left, center, right.
-    // @param {string} [opts.verticalAlign=top]
-    //        - The vertical position of the message box relative to the app. Possible
-    //          values are top, middle, bottom.
-    // @param {number} [opts.duration=5]
-    //        - The duration in seconds when the message box should disappear.
-    // @param {boolean} [opts.autoClose=true]
-    //        - Should the message box be closed automatically?
-    // @param {number} [opts.closeDuration=Theme.fast]
-    //        - The duration in seconds of the closing of the message box.
-    //
-    function Message(opts) {
-        if (opts === void 0) { opts = {}; }
-        var _this = this;
-        var theme = theme_1.default.fromString(opts.theme);
-        opts = Object.assign({}, {
-            //O app: window.app,
-            // opts.app should be required
-            app: opts.app,
-            closeButton: false,
-            minWidth: 280,
-            minHeight: 100,
-            margin: theme.opts.margin,
-            align: 'right',
-            verticalAlign: 'top',
-            duration: 5,
-            autoClose: true,
-            closeDuration: theme.opts.fast
-        }, opts);
-        _this = _super.call(this, opts) || this;
-        return _this;
-    }
-    //
-    // Relayouts the position of the message box.
-    //
-    // @return {Message} Returns the message box for chaining.
-    //
-    Message.prototype.layout = function () {
-        _super.prototype.layout.call(this);
-        // horizontal
-        switch (this.opts.align) {
-            case 'left':
-                this.x = this.opts.margin;
-                break;
-            case 'center':
-                this.x = (this.opts.app.size.width / 2) - (this.width / 2);
-                break;
-            case 'right':
-                this.x = this.opts.app.size.width - this.opts.margin - this.width;
-                break;
-        }
-        // vertical
-        switch (this.opts.verticalAlign) {
-            case 'top':
-                this.y = this.opts.margin;
-                break;
-            case 'middle':
-                this.y = (this.opts.app.size.height / 2) - (this.height / 2);
-                break;
-            case 'bottom':
-                this.y = this.opts.app.size.height - this.opts.margin - this.height;
-                break;
-        }
-        return this;
-    };
-    //
-    // Shows the message box.
-    //
-    // @private
-    //
-    // Must be public as Modal uses popup an extension of abstractpopup
-    Message.prototype.show = function (cb) {
-        var _this = this;
-        _super.prototype.show.call(this, cb);
-        if (this.opts.autoClose) {
-            window.setTimeout(function () {
-                _this.hide();
-            }, this.opts.duration * 1000);
-        }
-        return this;
-    };
-    return Message;
-}(popup_1.InteractivePopup));
-exports.default = Message;
-
-
-/***/ }),
-
-/***/ "./src/modal.ts":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__("pixi.js");
-var Tween_1 = __webpack_require__("./src/Ease/Tween.ts");
-var theme_1 = __webpack_require__("./src/theme.ts");
-var popup_1 = __webpack_require__("./src/popup.ts");
-var Modal = /** @class */ (function (_super) {
-    __extends(Modal, _super);
-    function Modal(opts) {
-        if (opts === void 0) { opts = {}; }
-        var _this = this;
-        if (!opts.app)
-            throw ("Error: Modal, app should not be optional");
-        _this = _super.call(this) || this;
-        _this.theme = theme_1.default.fromString(opts.theme);
-        _this.opts = Object.assign({}, {
-            id: PIXI.utils.uid(),
-            //O app: window.app,
-            // opts.app should be required
-            app: opts.app,
-            header: opts.header,
-            content: opts.content,
-            //O backgroundFill: this.theme.background,
-            backgroundFill: _this.theme.opts.background,
-            backgroundFillAlpha: .6,
-            closeOnBackground: true,
-            visible: true
-        }, opts);
-        _this.id = _this.opts.id;
-        //if ( opts.app )
-        ////   this.app = opts.app
-        _this.background = null;
-        _this.popup = null;
-        _this.alpha = 0;
-        _this.visible = _this.opts.visible;
-        // setup
-        //-----------------
-        _this.setup();
-        // layout
-        //-----------------
-        _this.layout();
-        return _this;
-    }
-    //
-    // Creates children and instantiates everything.
-    //
-    // @private
-    // @return { Modal } A reference to the modal for chaining.
-    //
-    Modal.prototype.setup = function () {
-        var _this = this;
-        // interaction
-        //-----------------
-        this.interactive = true;
-        // @ts-ignore error TS6133: 'e' is declared but never read
-        this.on('added', function (e) {
-            if (_this.visible) {
-                _this.show();
-            }
-        });
-        // background
-        //-----------------
-        var background = new PIXI.Graphics();
-        this.background = background;
-        this.addChild(this.background);
-        if (this.opts.closeOnBackground) {
-            background.interactive = true;
-            // @ts-ignore error TS6133: 'e' is declared but never read
-            background.on('pointerup', function (e) {
-                _this.hide();
-            });
-        }
-        // popup
-        //-----------------
-        var popupOpts = Object.assign({}, this.opts, {
-            visible: true,
-            onHidden: function () {
-                _this.hide();
-            }
-        });
-        this.popup = new popup_1.InteractivePopup(popupOpts);
-        this.addChild(this.popup);
-        this.popup.show();
-        return this;
-    };
-    //
-    // Should be called to refresh the layout of the modal. Can be used after resizing.
-    //
-    // @return { Modal } A reference to the modal for chaining.
-    //
-    Modal.prototype.layout = function () {
-        var width = this.opts.app.size.width;
-        var height = this.opts.app.size.height;
-        // background
-        //-----------------
-        this.background.clear();
-        //V5 this.background.beginFill( this.opts.backgroundFill, this.opts.backgroundFillAlpha )
-        this.background.beginFill(this.opts.backgroundFill);
-        this.background.alpha = this.opts.backgroundFillAlpha;
-        this.background.drawRect(0, 0, width, height);
-        this.background.endFill();
-        // position
-        this.popup.x = width / 2 - this.popup.width / 2;
-        this.popup.y = height / 2 - this.popup.height / 2;
-        return this;
-    };
-    //
-    // Shows the modal ( sets his alpha values to 1 ).
-    //
-    // @return { Modal } A reference to the modal for chaining.
-    ///
-    Modal.prototype.show = function () {
-        var _this = this;
-        //O TweenLite.to( this, this.theme.fast, { alpha: 1, onStart: ( ) => this.visible = true } )
-        Tween_1.default.to(this, this.theme.opts.fast, { alpha: 1, onStart: function () { return _this.visible = true; } });
-        return this;
-    };
-    //
-    // Hides the modal ( sets his alpha values to 0 ).
-    //
-    // @return { Modal } A reference to the modal for chaining.
-    ///
-    Modal.prototype.hide = function () {
-        var _this = this;
-        //O TweenLite.to( this, this.theme.fast, { alpha: 0, onComplete: ( ) => this.visible = false } )
-        Tween_1.default.to(this, this.theme.opts.fast, { alpha: 0, onComplete: function () { return _this.visible = false; } });
-        return this;
-    };
-    Object.defineProperty(Modal.prototype, "header", {
-        //
-        // Sets or gets the header. The getter always returns a PIXI.Text object. The setter can receive
-        // a string or a PIXI.Text object.
-        //
-        // @member { string|PIXI.Text }
-        //
-        get: function () {
-            return this.popup._header;
-        },
-        set: function (value) {
-            this.opts.header = value;
-            this.background.destroy();
-            this.popup.destroy();
-            this.setup().layout();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Modal.prototype, "content", {
-        //
-        // Sets or gets the content. The getter always returns an PIXI.DisplayObject. The setter can receive
-        // a string or a PIXI.DisplayObject.
-        //
-        // @member { string|PIXI.DisplayObject }
-        //
-        get: function () {
-            return this.popup.content;
-        },
-        set: function (value) {
-            //O if ( this._content )
-            if (this.popup._content)
-                //O this._content.destroy( )
-                this.popup._content.destroy();
-            this.opts.content = value;
-            this.background.destroy();
-            this.popup.destroy();
-            this.setup().layout();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    return Modal;
-}(PIXI.Container));
-exports.default = Modal;
-
-
-/***/ }),
-
-/***/ "./src/popover.ts":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__("pixi.js");
-var Popover = /** @class */ (function (_super) {
-    __extends(Popover, _super);
-    function Popover(opts) {
-        var _this = _super.call(this) || this;
-        _this.opts = Object.assign({}, {
-            title: opts.title || null,
-            text: opts.text || null,
-            x: opts.x || 0,
-            y: opts.y || 0,
-            placement: opts.placement || 'top',
-            width: opts.width || 250,
-            titleStyle: opts.titleStyle || {},
-            textStyle: opts.textStyle || { fontSize: '1.6em' }
-        });
-        _this.padding = 12;
-        var style = {
-            fontFamily: 'Arial',
-            fontSize: '2em',
-            stroke: '#f6f6f6',
-            strokeThickness: 3,
-            wordWrap: true,
-            wordWrapWidth: _this.opts.width - (_this.padding * 2)
-        };
-        _this.titleTextStyle = new PIXI.TextStyle(Object.assign({}, style, _this.opts.titleStyle));
-        _this.textTextStyle = new PIXI.TextStyle(Object.assign({}, style, _this.opts.textStyle));
-        if (_this.opts.title || _this.opts.text) {
-            _this.setup();
-            _this.draw();
-            _this.positioning();
-        }
-        return _this;
-    }
-    Popover.prototype.setup = function () {
-        this.removeChildren();
-        if (this.opts.title) {
-            this.titleText = new PIXI.Text(this.opts.title, this.titleTextStyle);
-            this.titleText.position.set(this.padding, this.padding);
-            this.addChild(this.titleText);
-        }
-        this.titleY = this.titleText ? this.titleText.y : 0;
-        this.titleHeight = this.titleText ? this.titleText.height : 0;
-        if (this.opts.text) {
-            this.textText = new PIXI.Text(this.opts.text, this.textTextStyle);
-            this.textText.position.set(this.padding, this.titleY + this.titleHeight + this.padding);
-            this.addChild(this.textText);
-        }
-        this.textY = this.textText ? this.textText.y : 0;
-        this.textHeight = this.textText ? this.textText.height : 0;
-        return this;
-    };
-    Popover.prototype.close = function () {
-        this.parent.removeChild(this);
-        return this;
-    };
-    Popover.prototype.draw = function () {
-        this.clear();
-        //V5 Changes
-        //O this.beginFill( 0xffffff, 1 )
-        this.beginFill(0xffffff);
-        this.alpha = 1;
-        this.lineStyle(1, 0x282828, .5);
-        // Draw rounded rectangle
-        var height = this.height + this.padding;
-        this.drawRoundedRect(0, 0, this.opts.width, height, 8);
-        // Draw anchor
-        this.drawAnchor(this.opts.placement);
-        // Draw title background
-        if (this.opts.title) {
-            this.lineStyle(0);
-            //V5 Changes
-            //O this.beginFill( 0xf7f7f7, 1 )
-            this.beginFill(0xf7f7f7);
-            this.alpha = 1;
-            var x = 1;
-            var y = this.titleText.x + this.titleText.height + (this.padding / 2);
-            this.moveTo(x, y);
-            y = 9;
-            this.lineTo(x, y);
-            this.quadraticCurveTo(x, y - 8, x + 8, y - 8);
-            x += this.opts.width - 7;
-            y -= 8;
-            this.lineTo(x, y);
-            this.quadraticCurveTo(x + 5, y, x + 5, y + 8);
-            x += 5;
-            y += this.titleText.x + this.titleText.height + (this.padding / 2);
-            this.lineTo(x, y);
-            if (this.opts.text) {
-                x = 1;
-                this.lineTo(x, y);
-            }
-            else {
-                this.quadraticCurveTo(x, y, x - 5, y + 4);
-                x = 6;
-                y += 4;
-                this.lineTo(x, y);
-                this.quadraticCurveTo(x, y, x - 5, y - 4);
-            }
-        }
-        this.endFill();
-        return this;
-    };
-    Popover.prototype.drawAnchor = function (placement) {
-        var x = 0;
-        var y = 0;
-        switch (placement) {
-            case 'bottom':
-                if (this.opts.title) {
-                    //V5 Changes
-                    //O this.beginFill( 0xf7f7f7, 1 )
-                    this.beginFill(0xf7f7f7);
-                    this.alpha = 1;
-                }
-                x = (this.width / 2) - 10;
-                y = 1;
-                this.moveTo(x, y);
-                x += 10;
-                y -= 10;
-                this.lineTo(x, y);
-                x += 10;
-                y += 10;
-                this.lineTo(x, y);
-                break;
-            case 'right':
-                x = 1;
-                y = (this.height / 2) - 10;
-                if (this.titleY + this.titleHeight > y) {
-                    //V5 Changes
-                    //O this.beginFill( 0xf7f7f7, 1 )
-                    this.beginFill(0xf7f7f7);
-                    this.alpha = 1;
-                }
-                this.moveTo(x, y);
-                x -= 10;
-                y += 10;
-                this.lineTo(x, y);
-                x += 10;
-                y += 10;
-                this.lineTo(x, y);
-                break;
-            case 'left':
-                x = this.width - 2;
-                y = (this.height / 2) - 10;
-                if (this.titleY + this.titleHeight > y) {
-                    //V5 Changes
-                    //O this.beginFill( 0xf7f7f7, 1 )
-                    this.beginFill(0xf7f7f7);
-                    this.alpha = 1;
-                }
-                this.moveTo(x, y);
-                x += 10;
-                y += 10;
-                this.lineTo(x, y);
-                x -= 10;
-                y += 10;
-                this.lineTo(x, y);
-                break;
-            default:
-                x = (this.width / 2) - 10;
-                y = this.height - 2;
-                this.moveTo(x, y);
-                x += 10;
-                y += 10;
-                this.lineTo(x, y);
-                x += 10;
-                y -= 10;
-                this.lineTo(x, y);
-                break;
-        }
-        return this;
-    };
-    Popover.prototype.positioning = function () {
-        var x = this.opts.x;
-        var y = this.opts.y;
-        switch (this.opts.placement) {
-            case 'bottom':
-                this.position.set(x - (this.width / 2), y + 10);
-                break;
-            case 'right':
-                this.position.set(x, y - (this.height / 2));
-                break;
-            case 'left':
-                this.position.set(x - this.width, y - (this.height / 2));
-                break;
-            default:
-                this.position.set(x - (this.width / 2), y - this.height);
-                break;
-        }
-        return this;
-    };
-    return Popover;
-}(PIXI.Graphics));
-exports.default = Popover;
-
-
-/***/ }),
-
-/***/ "./src/popup.ts":
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4863,382 +2864,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var abstractpopup_1 = __webpack_require__("./src/abstractpopup.ts");
-var button_1 = __webpack_require__("./src/button.ts");
-var buttongroup_1 = __webpack_require__("./src/buttongroup.ts");
-var InteractivePopup = /** @class */ (function (_super) {
-    __extends(InteractivePopup, _super);
-    function InteractivePopup(opts) {
-        if (opts === void 0) { opts = {}; }
-        var _this = this;
-        opts = Object.assign({}, {
-            closeOnPopup: false,
-            closeButton: true,
-            button: null,
-            buttonGroup: null
-        }, opts);
-        _this = _super.call(this, opts) || this;
-        _this._closeButton = null;
-        _this._buttons = null;
-        // padding
-        _this.smallPadding = _this.opts.padding / 2;
-        // setup
-        //-----------------
-        _this.setup();
-        // layout
-        //-----------------
-        _this.layout();
-        return _this;
-    }
-    //
-    // Creates the framework and instantiates everything.
-    //
-    // @private
-    // @return {AbstractPopup} A reference to the popup for chaining.
-    //
-    InteractivePopup.prototype.setup = function () {
-        var _this = this;
-        _super.prototype.setup.call(this);
-        // interaction
-        //-----------------
-        this.on('pointerup', function (e) {
-            if (_this.opts.closeOnPopup) {
-                _this.hide();
-            }
-            else {
-                e.stopPropagation();
-            }
-        });
-        // closeButton
-        //-----------------
-        if (this.opts.closeButton) {
-            //O let closeButton = PIXI.Sprite.fromImage( '../../assets/icons/png/flat/close.png', true )
-            //P Pixi V5 changed to just from
-            var closeButton = PIXI.Sprite.from('./assets/icons/png/flat/close.png');
-            if (typeof this.headerStyle.fontSize == 'string') {
-                // fontSize could be like 26px or 1.5cm
-                console.warn("popup fontSize('" + this.headerStyle.fontSize + "') is a string and may be handled incorrectly");
-                closeButton.width = this.headerStyle.fontSize;
-            }
-            else {
-                closeButton.width = this.headerStyle.fontSize;
-            }
-            closeButton.height = closeButton.width;
-            //B color2 is on opts
-            //B closeButton.tint = this.theme.color2
-            closeButton.tint = this.theme.opts.color2;
-            // This is needed, because the closeButton belongs to the content. The popup must resize with the closeButton.
-            if (this._header) {
-                closeButton.x = this._header.width + this.innerPadding;
-            }
-            else if (this._content) {
-                closeButton.x = this._content.width + this.innerPadding;
-            }
-            closeButton.interactive = true;
-            closeButton.buttonMode = true;
-            // @ts-ignore error TS6133: 'e' is declared but never read
-            closeButton.on('pointerdown', function (e) {
-                _this.hide();
-            });
-            this._closeButton = closeButton;
-            this.addChild(closeButton);
-            // maxWidth is set and a closeButton should be displayed
-            //-----------------
-            if (this.opts.maxWidth) {
-                var wordWrapWidth = this.opts.maxWidth - (2 / this.opts.padding) - this.smallPadding - this._closeButton.width;
-                if (this._header) {
-                    this.headerStyle.wordWrapWidth = wordWrapWidth;
-                }
-                else if (this._content) {
-                    this.textStyle.wordWrapWidth = wordWrapWidth;
-                }
-            }
-        }
-        {
-        }
-        // buttons
-        //-----------------
-        if (this.opts.button || this.opts.buttonGroup) {
-            if (this.opts.button) {
-                //B textStyleSmall is on theme.opts
-                //B this._buttons = new Button( Object.assign( {textStyle: this.theme.textStyleSmall},
-                this._buttons = new button_1.default(Object.assign({ textStyle: this.theme.opts.textStyleSmall }, this.opts.button));
-            }
-            else {
-                //B textStyleSmall is on theme.opts
-                //B this._buttons = new ButtonGroup( Object.assign( {textStyle: this.theme.textStyleSmall},
-                this._buttons = new buttongroup_1.default(Object.assign({ textStyle: this.theme.opts.textStyleSmall }, this.opts.buttonGroup));
-            }
-            this.addChild(this._buttons);
-            this._buttons.y = this.innerPadding + this.sy;
-        }
-        return this;
-    };
-    //
-    // Should be called to refresh the layout of the popup. Can be used after resizing.
-    //
-    // @return {AbstractPopup} A reference to the popup for chaining.
-    //
-    InteractivePopup.prototype.layout = function () {
-        _super.prototype.layout.call(this);
-        // closeButton
-        //-----------------
-        if (this.opts.closeButton) {
-            this._closeButton.x = this.wantedWidth - this.smallPadding - this._closeButton.width;
-            this._closeButton.y = this.smallPadding;
-        }
-        // buttons
-        //-----------------
-        if (this._buttons) {
-            this._buttons.x = this.wantedWidth - this.opts.padding - this._buttons.width;
-            this._buttons.y = this.wantedHeight - this.opts.padding - this._buttons.height;
-        }
-        return this;
-    };
-    //
-    // Calculates the size of the children of the AbstractPopup.
-    // Cannot use getBounds( ) because it is not updated when children
-    // are removed.
-    //
-    // @protected
-    // @override
-    // @returns {object} An JavaScript object width the keys width and height.
-    //
-    InteractivePopup.prototype.getInnerSize = function () {
-        var size = _super.prototype.getInnerSize.call(this);
-        if (this._closeButton) {
-            size.width += this.smallPadding + this._closeButton.width;
-        }
-        if (this._buttons) {
-            size.width = Math.max(size.width, this._buttons.x + this._buttons.width);
-            size.height += this.innerPadding + this._buttons.height;
-        }
-        return size;
-    };
-    return InteractivePopup;
-}(abstractpopup_1.default));
-exports.InteractivePopup = InteractivePopup;
-//
-// Class that represents a PixiJS Popup.
-//
-// @example
-// // Create the popup
-// const popup = new Popup( {
-//     header: 'Goethe',
-//     content: 'Man kann die Erfahrung nicht frÃ¼h genug machen, wie entbehrlich man in der Welt ist.'
-// } )
-//
-// // Add the popup to a DisplayObject
-// app.scene.addChild( popup )
-//
-// @class
-// @extends InteractivePopup
-// @see {@link https://www.iwm-tuebingen.de/iwmbrowser/lib/pixi/popup.html|DocTest}
-//
-var Popup = /** @class */ (function (_super) {
-    __extends(Popup, _super);
-    //
-    // Creates an instance of a Popup.
-    //
-    // @constructor
-    // @param {object} [opts]
-    //        - An options object to specify to style and behaviour of the popup.
-    // @param {boolean} [opts.closeButton=false]
-    //        - Should a close button be displayed on the upper right corner?
-    // @param {number} [opts.minWidth=0]
-    //        - The minimum width of the popup.
-    // @param {number} [opts.minHeight=0]
-    //        - The minimum height of the popup.
-    //
-    function Popup(opts) {
-        if (opts === void 0) { opts = {}; }
-        var _this = this;
-        opts = Object.assign({}, {
-            closeButton: false,
-            minWidth: 0,
-            minHeight: 0
-        }, opts);
-        _this = _super.call(this, opts) || this;
-        return _this;
-    }
-    return Popup;
-}(InteractivePopup));
-exports.default = Popup;
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("pixi.js")))
-
-/***/ }),
-
-/***/ "./src/popupmenu.ts":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __values = (this && this.__values) || function(o) {
-    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
-    if (m) return m.call(o);
-    if (o && typeof o.length === "number") return {
-        next: function () {
-            if (o && i >= o.length) o = void 0;
-            return { value: o && o[i++], done: !o };
-        }
-    };
-    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__("pixi.js");
-var theme_1 = __webpack_require__("./src/theme.ts");
-var popup_1 = __webpack_require__("./src/popup.ts");
-var Tween_1 = __webpack_require__("./src/Ease/Tween.ts");
-var PopupMenu = /** @class */ (function (_super) {
-    __extends(PopupMenu, _super);
-    //
-    // Creates an instance of a PopupMenu.
-    //
-    // @constructor
-    //
-    // @param { object } [ opts ]
-    //        - An options object to specify to style and behaviour of the modal.
-    // @param { object[ ] } [ opts.items=[ ] ]
-    //        - A list of the menu items. Each item must be of type object.
-    //          If an object has a label property, a PIXI.Text object is
-    //          created ( using the textStyle property ).
-    //          If an object hasn't a label property, it must contain a
-    //          content property which has to be a PIXI.DisplayObject.
-    // @param { number } [ opts.margin=Theme.margin / 2 ]
-    //        - The app where the modal belongs to.
-    // @param { object } [ opts.textStyle=Theme.textStyle ]
-    //        - The color of the background.
-    // @param { boolean } [ opts.closeOnPopup=true ]
-    //        - The opacity of the background.
-    //
-    function PopupMenu(opts) {
-        if (opts === void 0) { opts = {}; }
-        var _this = this;
-        var theme = theme_1.default.fromString(opts.theme);
-        opts = Object.assign({}, {
-            items: [],
-            margin: theme.opts.margin / 2,
-            textStyle: theme.opts.textStyle,
-            closeOnPopup: true
-        }, opts);
-        _this = _super.call(this, opts) || this;
-        _this.theme = theme;
-        return _this;
-    }
-    //
-    // Creates children and instantiates everything.
-    //
-    // @private
-    // @return { PopupMenu } A reference to the popupmenu for chaining.
-    //
-    PopupMenu.prototype.setup = function () {
-        var e_1, _a;
-        var _this = this;
-        // content
-        //-----------------
-        var content = new PIXI.Container();
-        var y = 0;
-        var _loop_1 = function (item) {
-            var object = null;
-            if (item.label) {
-                object = new PIXI.Text(item.label, item.textStyle || this_1.opts.textStyle);
-            }
-            else {
-                object = item.content;
-            }
-            object.y = y;
-            if (item.action) {
-                if (item.disabled) {
-                    object.alpha = .5;
-                }
-                else {
-                    object.interactive = true;
-                    object.buttonMode = true;
-                }
-                // @ts-ignore error TS6133: 'e' is declared but never read
-                object.on('pointerover', function (e) {
-                    //O TweenLite.to( object, this.theme.fast, { alpha: .83, overwrite: 'none' } )
-                    Tween_1.default.to(object, _this.theme.opts.fast, { alpha: .83, overwrite: false });
-                });
-                // @ts-ignore error TS6133: 'e' is declared but never read
-                object.on('pointerout', function (e) {
-                    //O TweenLite.to( object, this.theme.fast, { alpha: 1, overwrite: 'none' } )
-                    Tween_1.default.to(object, _this.theme.opts.fast, { alpha: 1, overwrite: false });
-                });
-                // @ts-ignore error TS6133: 'e' is declared but never read
-                object.on('pointerup', function (e) {
-                    item.action.call(object, e, object);
-                    //O if ( this.opts.closeOnAction )
-                    //B this was supposed to be closeOnPopup
-                    if (_this.opts.closeOnPopup) {
-                        _this.hide();
-                    }
-                });
-            }
-            content.addChild(object);
-            y += object.height + this_1.opts.margin;
-        };
-        var this_1 = this;
-        try {
-            for (var _b = __values(this.opts.items), _c = _b.next(); !_c.done; _c = _b.next()) {
-                var item = _c.value;
-                _loop_1(item);
-            }
-        }
-        catch (e_1_1) { e_1 = { error: e_1_1 }; }
-        finally {
-            try {
-                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-            }
-            finally { if (e_1) throw e_1.error; }
-        }
-        this.opts.content = content;
-        _super.prototype.setup.call(this);
-        //T Must return same type as class
-        return this;
-    };
-    return PopupMenu;
-}(popup_1.default));
-exports.default = PopupMenu;
-
-
-/***/ }),
-
-/***/ "./src/progress.ts":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(PIXI) {
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var theme_1 = __webpack_require__("./src/theme.ts");
-var Tween_1 = __webpack_require__("./src/Ease/Tween.ts");
+var theme_1 = __webpack_require__(1);
+var Tween_1 = __webpack_require__(2);
 var Progress = /** @class */ (function (_super) {
     __extends(Progress, _super);
     function Progress(opts) {
@@ -5516,11 +3143,10 @@ var Progress = /** @class */ (function (_super) {
 }(PIXI.Container));
 exports.default = Progress;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("pixi.js")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0)))
 
 /***/ }),
-
-/***/ "./src/slider.ts":
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5539,1076 +3165,181 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__("pixi.js");
-var theme_1 = __webpack_require__("./src/theme.ts");
-var tooltip_1 = __webpack_require__("./src/tooltip.ts");
-var Tween_1 = __webpack_require__("./src/Ease/Tween.ts");
-//
-// Callback for the slider action onStart.
-//
-// @callback onStartCallback
-// @param { object } event
-//        - The event object.
-// @param { Slider } slider
-//        - A reference to the slider ( also this refers to the slider ).
-//
-//
-// Callback for the slider action onUpdate.
-//
-// @callback onUpdateCallback
-// @param { object } event
-//        - The event object.
-// @param { Slider } slider
-//        - A reference to the slider ( also this refers to the slider ).
-//
-//
-// Callback for the slider action onComplete.
-//
-// @callback onCompleteCallback
-// @param { object } event
-//        - The event object.
-// @param { Slider } slider
-//        - A reference to the slider ( also this refers to the slider ).
-//
-//
-// Class that represents a PixiJS Slider.
-//
-// @example
-// // Create the app
-// const app = new PIXIApp( {
-//     view: canvas,
-//     width: 900,
-//     height: 250
-// } ).setup( ).run( )
-//
-// // Create the slider
-// const slider = new Slider( {
-//     x: 10,
-//     y: 20
-// } )
-//
-// // Add the slider to a DisplayObject
-// app.scene.addChild( slider )
-//
-// @class
-// @extends PIXI.Container
-// @see { @link http://pixijs.download/dev/docs/PIXI.Container.html|PIXI.Container }
-// @see { @link https://www.iwm-tuebingen.de/iwmbrowser/lib/pixi/slider.html|DocTest }
-//
-// This class is created to handle the extra parameters added.
-var Control = /** @class */ (function (_super) {
-    __extends(Control, _super);
-    function Control() {
-        var _this = _super.call(this) || this;
-        _this.dragging = false;
-        _this.delta = 0;
-        _this.event = null;
-        _this.pointerdowned = false;
-        return _this;
-    }
-    return Control;
-}(PIXI.Graphics));
-exports.Control = Control;
-var Slider = /** @class */ (function (_super) {
-    __extends(Slider, _super);
-    function Slider(opts) {
-        if (opts === void 0) { opts = {}; }
-        var _this = _super.call(this) || this;
-        var theme = theme_1.default.fromString(opts.theme);
-        _this.theme = theme;
-        _this.opts = Object.assign({}, {
-            id: PIXI.utils.uid(),
-            x: 0,
-            y: 0,
-            width: 250,
-            height: 2,
-            container: null,
-            fill: theme.opts.fill,
-            fillAlpha: theme.opts.fillAlpha,
-            stroke: theme.opts.stroke,
-            strokeWidth: theme.opts.strokeWidth,
-            strokeAlpha: theme.opts.strokeAlpha,
-            controlFill: theme.opts.fill,
-            controlFillAlpha: .5,
-            controlStroke: theme.opts.primaryColor,
-            controlStrokeWidth: 2,
-            controlStrokeAlpha: theme.opts.strokeAlpha,
-            controlRadius: 16,
-            orientation: 'horizontal',
-            min: 0,
-            max: 100,
-            value: 0,
-            disabled: false,
-            onStart: null,
-            onUpdate: null,
-            onComplete: null,
-            tooltip: null,
-            visible: true
-        }, opts);
-        _this.opts.container = _this.opts.container || _this;
-        // Validation
-        //-----------------
-        if (_this.opts.height > _this.opts.width) {
-            _this.opts.height = _this.opts.width;
-        }
-        if (_this.opts.value < _this.opts.min) {
-            _this.opts.value = _this.opts.min;
-        }
-        if (_this.opts.value > _this.opts.max) {
-            _this.opts.value = _this.opts.max;
-        }
-        // Properties
-        //-----------------
-        _this.id = _this.opts.id;
-        _this.radius = _this.opts.height / 2;
-        _this._value = _this.opts.value;
-        _this._disabled = null;
-        _this.sliderObj = null;
-        _this.control = null;
-        _this.tooltip = null;
-        _this.visible = _this.opts.visible;
-        // setup
-        //-----------------
-        _this.setup();
-        // layout
-        //-----------------
-        _this.layout();
-        return _this;
-    }
+var theme_1 = __webpack_require__(1);
+var popup_1 = __webpack_require__(5);
+var Message = /** @class */ (function (_super) {
+    __extends(Message, _super);
     //
-    // Creates children and instantiates everything.
-    //
-    // @private
-    // @return { Slider } A reference to the slider for chaining.
-    //
-    Slider.prototype.setup = function () {
-        var _this = this;
-        // Container events
-        //-----------------
-        var container = this.opts.container;
-        this.on('pointermove', function (e) {
-            if (_this.control.dragging) {
-                var moveX = _this.control.event.data.getLocalPosition(_this.control.parent).x;
-                _this._value = _this.pixelToValue(moveX - _this.control.delta - _this.opts.controlRadius);
-                var x = _this.valueToPixel(_this._value) + _this.opts.controlRadius;
-                _this.control.x = x;
-                if (_this.opts.onUpdate) {
-                    _this.opts.onUpdate.call(_this, e, _this);
-                }
-            }
-        });
-        if (container instanceof Element) {
-            container.addEventListener('pointerup', function (e) { return _this.onEnd(e); }, false);
-            container.addEventListener('pointercancel', function (e) { return _this.onEnd(e); }, false);
-            container.addEventListener('pointerleave', function (e) { return _this.onEnd(e); }, false);
-            container.addEventListener('pointerout', function (e) { return _this.onEnd(e); }, false);
-            container.addEventListener('mouseup', function (e) { return _this.onEnd(e); }, false);
-            container.addEventListener('mousecancel', function (e) { return _this.onEnd(e); }, false);
-            container.addEventListener('mouseleave', function (e) { return _this.onEnd(e); }, false);
-            container.addEventListener('mouseout', function (e) { return _this.onEnd(e); }, false);
-        }
-        else {
-            container.interactive = true;
-            container.on('pointerup', function (e) { return _this.onEnd(e); });
-            container.on('pointercancel', function (e) { return _this.onEnd(e); });
-            container.on('pointerleave', function (e) { return _this.onEnd(e); });
-            container.on('pointerout', function (e) { return _this.onEnd(e); });
-        }
-        // Slider
-        //-----------------
-        var sliderObj = new Control();
-        this.sliderObj = sliderObj;
-        this.addChild(sliderObj);
-        // Control
-        //-----------------
-        var control = new Control();
-        control.x = this.opts.controlRadius + this.valueToPixel(this.opts.value);
-        control.y = this.opts.controlRadius;
-        // pointerdown on the control for dragndrop
-        control.on('pointerdown', function (e) {
-            control.event = e;
-            control.delta = e.data.getLocalPosition(_this.control).x;
-            control.dragging = true;
-            if (_this.opts.onStart) {
-                _this.opts.onStart.call(_this, e, _this);
-            }
-        });
-        this.control = control;
-        this.addChild(this.control);
-        // interaction
-        //-----------------
-        // @ts-ignore error TS6133: 'e' is declared but never read
-        this.sliderObj.on('pointerover', function (e) {
-            Tween_1.default.to(_this.control, _this.theme.opts.fast, { alpha: .83 });
-        });
-        // @ts-ignore error TS6133: 'e' is declared but never read
-        this.sliderObj.on('pointerout', function (e) {
-            Tween_1.default.to(_this.control, _this.theme.opts.fast, { alpha: 1 });
-        });
-        // @ts-ignore error TS6133: 'e' is declared but never read
-        this.sliderObj.on('pointerdown', function (e) {
-            _this.sliderObj.pointerdowned = true;
-            Tween_1.default.to(_this.control, _this.theme.opts.fast, { alpha: .7 });
-        });
-        // Click on the slider bar
-        this.sliderObj.on('pointerup', function (e) {
-            if (_this.sliderObj.pointerdowned) {
-                _this.sliderObj.pointerdowned = false;
-                var position = e.data.getLocalPosition(_this.control.parent);
-                _this.value = _this.pixelToValue(position.x - _this.opts.controlRadius);
-                Tween_1.default.to(_this.control, _this.theme.opts.fast, { alpha: .83 });
-            }
-        });
-        // disabled
-        //-----------------
-        this.disabled = this.opts.disabled;
-        // tooltip
-        //-----------------
-        if (this.opts.tooltip) {
-            if (typeof this.opts.tooltip === 'string') {
-                this.tooltip = new tooltip_1.default({
-                    object: this,
-                    content: this.opts.tooltip
-                });
-            }
-            else {
-                // @ts-ignore TS2531: Object is possibly 'null'.  Why. It's checked above?
-                this.opts.tooltip.object = this;
-                this.tooltip = new tooltip_1.default(this.opts.tooltip);
-            }
-        }
-        return this;
-    };
-    //
-    // Should be called to refresh the layout of the slider. Can be used after resizing.
-    //
-    // @return { Slider } A reference to the slider for chaining.
-    //
-    Slider.prototype.layout = function () {
-        // set position
-        //-----------------
-        this.position.set(this.opts.x, this.opts.y);
-        // draw
-        //-----------------
-        this.draw();
-        return this;
-    };
-    //
-    // Draws the slider to the canvas.
-    //
-    // @private
-    // @return { Slider } - A reference to the slider for chaining.
-    //
-    Slider.prototype.draw = function () {
-        var r = this.radius;
-        var cr = this.opts.controlRadius;
-        var w = this.opts.width;
-        var h = this.opts.height;
-        var x = cr + r;
-        var y = cr + r - h;
-        this.sliderObj.clear();
-        this.sliderObj.beginFill(0xffffff, 0);
-        this.sliderObj.drawRect(0, 0, x + w + cr, cr * 2);
-        this.sliderObj.lineStyle(this.opts.strokeWidth, this.opts.stroke, this.opts.strokeAlpha);
-        this.sliderObj.beginFill(this.opts.fill, this.opts.fillAlpha);
-        this.sliderObj.moveTo(x, y);
-        this.sliderObj.lineTo(x + w, y);
-        this.sliderObj.arcTo(x + w + r, y, x + w + r, y + r, r);
-        this.sliderObj.lineTo(x + w + r, y + r + 1); // BUGFIX: If not specified, there is a small area without a stroke.
-        this.sliderObj.arcTo(x + w + r, y + h, x + w, y + h, r);
-        this.sliderObj.lineTo(x, y + h);
-        this.sliderObj.arcTo(x - r, y + h, x - r, y + r, r);
-        this.sliderObj.arcTo(x - r, y, x, y, r);
-        this.sliderObj.endFill();
-        // Draw control
-        this.control.clear();
-        this.control.lineStyle(this.opts.controlStrokeWidth, this.opts.controlStroke, this.opts.controlStrokeAlpha);
-        this.control.beginFill(this.opts.controlFill, this.opts.controlFillAlpha);
-        this.control.drawCircle(0, 0, cr - 1);
-        this.control.beginFill(this.opts.controlStroke, this.opts.controlStrokeAlpha);
-        this.control.drawCircle(0, 0, cr / 6);
-        this.control.endFill();
-        return this;
-    };
-    //
-    // Executed, when the slider control movement ended.
-    //
-    // @private
-    // @return { Slider } A reference to the slider for chaining.
-    //
-    Slider.prototype.onEnd = function (e) {
-        if (this.control.dragging) {
-            this.control.event = null;
-            this.control.dragging = false;
-            if (this.opts.onComplete) {
-                this.opts.onComplete.call(this, e, this);
-            }
-        }
-        return this;
-    };
-    //
-    // Calculates the value for a given pixel.
-    //
-    // @private
-    // @param { number } value 
-    // @returns  { number } The calculated pixel.
-    //
-    Slider.prototype.valueToPixel = function (value) {
-        if (value < this.opts.min) {
-            value = this.opts.min;
-        }
-        else if (value > this.opts.max) {
-            value = this.opts.max;
-        }
-        return this.opts.width * (value - this.opts.min) / (this.opts.max - this.opts.min);
-    };
-    //
-    // Calculates the pixel for a given value.
-    //
-    // @private
-    // @param { number } pixel
-    // @returns { number } The calculated value.
-    //
-    Slider.prototype.pixelToValue = function (pixel) {
-        if (pixel < 0) {
-            pixel = 0;
-        }
-        else if (pixel > this.opts.width) {
-            pixel = this.opts.width;
-        }
-        return this.opts.min + ((this.opts.max - this.opts.min) * pixel / this.opts.width);
-    };
-    Object.defineProperty(Slider.prototype, "value", {
-        //
-        // Gets or sets the value.
-        //
-        // @member { number }
-        //
-        get: function () {
-            return Math.round(this._value);
-        },
-        set: function (value) {
-            if (value < this.opts.min) {
-                value = this.opts.min;
-            }
-            else if (value > this.opts.max) {
-                value = this.opts.max;
-            }
-            this._value = value;
-            var x = this.valueToPixel(value) + this.opts.controlRadius;
-            Tween_1.default.to(this.control, this.theme.opts.fast, { x: x });
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Slider.prototype, "disabled", {
-        //
-        // Gets or sets the disabled state. When disabled, the slider cannot be clicked.
-        //
-        // @member { boolean }
-        //
-        get: function () {
-            return this._disabled;
-        },
-        set: function (value) {
-            this._disabled = value;
-            if (this._disabled) {
-                this.interactive = false;
-                this.sliderObj.interactive = false;
-                this.control.interactive = false;
-                this.control.buttonMode = false;
-                this.alpha = .5;
-            }
-            else {
-                this.interactive = true;
-                this.sliderObj.interactive = true;
-                this.control.interactive = true;
-                this.control.buttonMode = true;
-                this.alpha = 1;
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    //
-    // Shows the slider ( sets his alpha values to 1 ).
-    //
-    // @return { Slider } A reference to the slider for chaining.
-    //
-    Slider.prototype.show = function () {
-        this.opts.strokeAlpha = 1;
-        this.opts.fillAlpha = 1;
-        this.opts.controlStrokeAlpha = 1;
-        this.opts.controlFillAlpha = 1;
-        this.layout();
-        return this;
-    };
-    //
-    // Hides the slider ( sets his alpha values to 1 ).
-    //
-    // @return { Slider } A reference to the slider for chaining.
-    //
-    Slider.prototype.hide = function () {
-        this.opts.strokeAlpha = 0;
-        this.opts.fillAlpha = 0;
-        this.opts.controlStrokeAlpha = 0;
-        this.opts.controlFillAlpha = 0;
-        this.layout();
-        return this;
-    };
-    return Slider;
-}(PIXI.Container));
-exports.default = Slider;
-
-
-/***/ }),
-
-/***/ "./src/switch.ts":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__("pixi.js");
-var theme_1 = __webpack_require__("./src/theme.ts");
-var tooltip_1 = __webpack_require__("./src/tooltip.ts");
-var Tween_1 = __webpack_require__("./src/Ease/Tween.ts");
-var Switch = /** @class */ (function (_super) {
-    __extends(Switch, _super);
-    function Switch(opts) {
-        if (opts === void 0) { opts = {}; }
-        var _this = _super.call(this) || this;
-        var theme = theme_1.default.fromString(opts.theme);
-        _this.theme = theme;
-        _this.opts = Object.assign({}, {
-            id: PIXI.utils.uid(),
-            x: 0,
-            y: 0,
-            width: 44,
-            height: 28,
-            fill: theme.opts.fill,
-            fillAlpha: theme.opts.fillAlpha,
-            fillActive: theme.opts.primaryColor,
-            fillActiveAlpha: theme.opts.fillActiveAlpha,
-            stroke: theme.opts.stroke,
-            strokeWidth: theme.opts.strokeWidth,
-            strokeAlpha: theme.opts.strokeAlpha,
-            strokeActive: theme.opts.primaryColor,
-            strokeActiveWidth: theme.opts.strokeActiveWidth,
-            strokeActiveAlpha: theme.opts.strokeActiveAlpha,
-            controlFill: theme.opts.stroke,
-            controlFillAlpha: theme.opts.strokeAlpha,
-            controlFillActive: theme.opts.stroke,
-            controlFillActiveAlpha: theme.opts.strokeAlpha,
-            controlStroke: theme.opts.stroke,
-            controlStrokeWidth: theme.opts.strokeWidth * .8,
-            controlStrokeAlpha: theme.opts.strokeAlpha,
-            controlStrokeActive: theme.opts.stroke,
-            controlStrokeActiveWidth: theme.opts.strokeActiveWidth * .8,
-            controlStrokeActiveAlpha: theme.opts.strokeActiveAlpha,
-            duration: theme.opts.fast,
-            durationActive: theme.opts.fast,
-            disabled: false,
-            active: false,
-            action: null,
-            actionActive: null,
-            beforeAction: null,
-            afterAction: null,
-            tooltip: null,
-            visible: true
-        }, opts);
-        _this.opts.controlRadius = _this.opts.controlRadius || (_this.opts.height / 2);
-        _this.opts.controlRadiusActive = _this.opts.controlRadiusActive || _this.opts.controlRadius;
-        // Validation
-        //-----------------
-        if (_this.opts.height > _this.opts.width) {
-            _this.opts.height = _this.opts.width;
-        }
-        // Properties
-        //-----------------
-        _this.id = _this.opts.id;
-        _this.radius = _this.opts.height / 2;
-        _this._active = null;
-        _this._disabled = null;
-        _this.switchObj = null;
-        _this.control = null;
-        _this.tooltip = null;
-        _this.visible = _this.opts.visible;
-        // animated
-        //-----------------
-        _this.tempAnimated =
-            {
-                fill: _this.opts.fill,
-                fillAlpha: _this.opts.fillAlpha,
-                stroke: _this.opts.stroke,
-                strokeWidth: _this.opts.strokeWidth,
-                strokeAlpha: _this.opts.strokeAlpha,
-                controlFill: _this.opts.controlFill,
-                controlFillAlpha: _this.opts.controlFillAlpha,
-                controlStroke: _this.opts.controlStroke,
-                controlStrokeWidth: _this.opts.controlStrokeWidth,
-                controlStrokeAlpha: _this.opts.controlStrokeAlpha,
-                controlRadius: _this.opts.controlRadius
-            };
-        // setup
-        //-----------------
-        _this.setup();
-        // layout
-        //-----------------
-        _this.layout();
-        return _this;
-    }
-    //
-    // Creates children and instantiates everything.
-    //
-    // @private
-    // @return { Switch } A reference to the switch for chaining.
-    //
-    Switch.prototype.setup = function () {
-        var _this = this;
-        // Switch
-        //-----------------
-        var switchObj = new PIXI.Graphics();
-        this.switchObj = switchObj;
-        this.addChild(switchObj);
-        // Control
-        //-----------------
-        this.xInactive = this.opts.controlRadius;
-        this.xActive = this.opts.width - this.opts.controlRadiusActive;
-        var control = new PIXI.Graphics();
-        control.x = this.opts.active ? this.xActive : this.xInactive;
-        control.y = this.opts.height / 2;
-        this.control = control;
-        this.addChild(this.control);
-        // interaction
-        //-----------------
-        // @ts-ignore error TS6133: 'e' is declared but never read
-        this.switchObj.on('pointerover', function (e) {
-            //TweenLite.to( this.control, this.theme.fast, { alpha: .83 } )
-            Tween_1.default.to(_this.control, _this.theme.opts.fast, { alpha: .83 });
-        });
-        // @ts-ignore error TS6133: 'e' is declared but never read
-        this.switchObj.on('pointerout', function (e) {
-            //O TweenLite.to( this.control, this.theme.fast, { alpha: 1 } )
-            Tween_1.default.to(_this.control, _this.theme.opts.fast, { alpha: 1 });
-        });
-        // @ts-ignore error TS6133: 'e' is declared but never read
-        this.switchObj.on('pointerdown', function (e) {
-            //O TweenLite.to( this.control, this.theme.fast, { alpha: .7 } )
-            Tween_1.default.to(_this.control, _this.theme.opts.fast, { alpha: .7 });
-        });
-        // @ts-ignore error TS6133: 'e' is declared but never read
-        this.switchObj.on('pointerup', function (e) {
-            if (_this.opts.beforeAction) {
-                _this.opts.beforeAction.call(_this, e, _this);
-            }
-            _this.active = !_this.active;
-            if (_this.active) {
-                if (_this.opts.action) {
-                    _this.opts.action.call(_this, e, _this);
-                }
-            }
-            else {
-                if (_this.opts.actionActive) {
-                    _this.opts.actionActive.call(_this, e, _this);
-                }
-            }
-            //O TweenLite.to( this.control, this.theme.fast, { alpha: .83 } )
-            Tween_1.default.to(_this.control, _this.theme.opts.fast, { alpha: .83 });
-            if (_this.opts.afterAction) {
-                _this.opts.afterAction.call(_this, e, _this);
-            }
-        });
-        // disabled
-        //-----------------
-        this.disabled = this.opts.disabled;
-        // active
-        //-----------------
-        this.active = this.opts.active;
-        // tooltip
-        //-----------------
-        if (this.opts.tooltip) {
-            if (typeof this.opts.tooltip === 'string') {
-                this.tooltip = new tooltip_1.default({
-                    object: this,
-                    content: this.opts.tooltip
-                });
-            }
-            else {
-                // @ts-ignore TS2531: Object is possibly 'null'.  Why. It's checked above?
-                this.opts.tooltip.object = this;
-                this.tooltip = new tooltip_1.default(this.opts.tooltip);
-            }
-        }
-        return this;
-    };
-    //
-    // Should be called to refresh the layout of the switch. Can be used after resizing.
-    //
-    // @return { Switch } A reference to the switch for chaining.
-    //
-    Switch.prototype.layout = function () {
-        // set position
-        //-----------------
-        this.position.set(this.opts.x, this.opts.y);
-        // draw
-        //-----------------
-        this.draw();
-        return this;
-    };
-    //
-    // Draws the switch to the canvas.
-    //
-    // @private
-    // @return { Switch } A reference to the switch for chaining.
-    //
-    Switch.prototype.draw = function () {
-        this.switchObj.clear();
-        if (this.active) {
-            this.switchObj.lineStyle(this.opts.strokeActiveWidth, this.opts.strokeActive, this.opts.strokeActiveAlpha);
-            //V5 this.switchObj.beginFill( this.opts.fillActive, this.opts.fillActiveAlpha )
-            this.switchObj.beginFill(this.opts.fillActive);
-            this.switchObj.alpha = this.opts.fillActiveAlpha;
-        }
-        else {
-            this.switchObj.lineStyle(this.opts.strokeWidth, this.opts.stroke, this.opts.strokeAlpha);
-            //V5 this.switchObj.beginFill( this.opts.fill, this.opts.fillAlpha )
-            this.switchObj.beginFill(this.opts.fill);
-            this.switchObj.alpha = this.opts.fillAlpha;
-        }
-        this.switchObj.moveTo(this.radius, 0);
-        this.switchObj.lineTo(this.opts.width - this.radius, 0);
-        this.switchObj.arcTo(this.opts.width, 0, this.opts.width, this.radius, this.radius);
-        this.switchObj.lineTo(this.opts.width, this.radius + 1); // BUGFIX: If not specified, there is a small area without a stroke.
-        this.switchObj.arcTo(this.opts.width, this.opts.height, this.opts.width - this.radius, this.opts.height, this.radius);
-        this.switchObj.lineTo(this.radius, this.opts.height);
-        this.switchObj.arcTo(0, this.opts.height, 0, this.radius, this.radius);
-        this.switchObj.arcTo(0, 0, this.radius, 0, this.radius);
-        this.switchObj.endFill();
-        // Draw control
-        this.control.clear();
-        if (this.active) {
-            this.control.lineStyle(this.opts.controlStrokeActiveWidth, this.opts.controlStrokeActive, this.opts.controlStrokeActiveAlpha);
-            //V5 this.control.beginFill( this.opts.controlFillActive, this.opts.controlFillActiveAlpha )
-            this.control.beginFill(this.opts.controlFillActive);
-            this.control.alpha = this.opts.controlFillActiveAlpha;
-            this.control.drawCircle(0, 0, this.opts.controlRadiusActive - 1);
-        }
-        else {
-            this.control.lineStyle(this.opts.controlStrokeWidth, this.opts.controlStroke, this.opts.controlStrokeAlpha);
-            //V5 this.control.beginFill( this.opts.controlFill, this.opts.controlFillAlpha )
-            this.control.beginFill(this.opts.controlFill);
-            this.control.alpha = this.opts.controlFillAlpha;
-            this.control.drawCircle(0, 0, this.opts.controlRadius - 1);
-        }
-        this.control.endFill();
-        return this;
-    };
-    //
-    // Draws the animation.
-    //
-    // @private
-    // @return { Switch } A reference to the switch for chaining.
-    //
-    Switch.prototype.drawAnimated = function () {
-        this.switchObj.clear();
-        this.switchObj.lineStyle(this.tempAnimated.strokeWidth, this.tempAnimated.stroke, this.tempAnimated.strokeAlpha);
-        //V5 this.switchObj.beginFill( this.tempAnimated.fill, this.tempAnimated.fillAlpha )
-        this.switchObj.beginFill(this.tempAnimated.fill);
-        this.switchObj.alpha = this.tempAnimated.fillAlpha;
-        this.switchObj.moveTo(this.radius, 0);
-        this.switchObj.lineTo(this.opts.width - this.radius, 0);
-        this.switchObj.arcTo(this.opts.width, 0, this.opts.width, this.radius, this.radius);
-        this.switchObj.lineTo(this.opts.width, this.radius + 1); // BUGFIX: If not specified, there is a small area without a stroke.
-        this.switchObj.arcTo(this.opts.width, this.opts.height, this.opts.width - this.radius, this.opts.height, this.radius);
-        this.switchObj.lineTo(this.radius, this.opts.height);
-        this.switchObj.arcTo(0, this.opts.height, 0, this.radius, this.radius);
-        this.switchObj.arcTo(0, 0, this.radius, 0, this.radius);
-        this.switchObj.endFill();
-        this.control.clear();
-        this.control.lineStyle(this.tempAnimated.controlStrokeWidth, this.tempAnimated.controlStroke, this.tempAnimated.controlStrokeAlpha);
-        //V5 this.control.beginFill( this.tempAnimated.controlFill, this.tempAnimated.controlFillAlpha )
-        this.control.beginFill(this.tempAnimated.controlFill);
-        this.control.alpha = this.tempAnimated.controlFillAlpha;
-        this.control.drawCircle(0, 0, this.tempAnimated.controlRadius - 1);
-        this.control.endFill();
-        return this;
-    };
-    Object.defineProperty(Switch.prototype, "active", {
-        //
-        // Gets or sets the active state.
-        //
-        // @member { boolean}
-        //
-        get: function () {
-            return this._active;
-        },
-        set: function (value) {
-            var _this = this;
-            this._active = value;
-            if (this._active) {
-                Tween_1.default.to(this.control, this.opts.duration, { x: this.xActive });
-                Tween_1.default.to(this.tempAnimated, this.opts.duration, {
-                    colorProps: {
-                        fill: this.opts.fillActive,
-                        stroke: this.opts.strokeActive,
-                        controlFill: this.opts.controlFillActive,
-                        controlStroke: this.opts.controlStrokeActive,
-                        format: 'number'
-                    },
-                    fillAlpha: this.opts.fillActiveAlpha,
-                    strokeWidth: this.opts.strokeActiveWidth,
-                    strokeAlpha: this.opts.strokeActiveAlpha,
-                    controlFillAlpha: this.opts.controlFillActiveAlpha,
-                    controlStrokeWidth: this.opts.controlStrokeActiveWidth,
-                    controlStrokeAlpha: this.opts.controlStrokeActiveAlpha,
-                    controlRadius: this.opts.controlRadiusActive,
-                    onUpdate: function () { return _this.drawAnimated(); },
-                    onComplete: function () { return _this.draw(); }
-                });
-            }
-            else {
-                Tween_1.default.to(this.control, this.opts.durationActive, { x: this.xInactive });
-                Tween_1.default.to(this.tempAnimated, this.opts.durationActive, {
-                    colorProps: {
-                        fill: this.opts.fill,
-                        stroke: this.opts.stroke,
-                        controlFill: this.opts.controlFill,
-                        controlStroke: this.opts.controlStroke,
-                        format: 'number'
-                    },
-                    fillAlpha: this.opts.fillAlpha,
-                    strokeWidth: this.opts.strokeWidth,
-                    strokeAlpha: this.opts.strokeAlpha,
-                    controlFillAlpha: this.opts.controlFillAlpha,
-                    controlStrokeWidth: this.opts.controlStrokeWidth,
-                    controlStrokeAlpha: this.opts.controlStrokeAlpha,
-                    controlRadius: this.opts.controlRadius,
-                    onUpdate: function () { return _this.drawAnimated(); },
-                    onComplete: function () { return _this.draw(); }
-                });
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Switch.prototype, "disabled", {
-        //
-        // Gets or sets the disabled state. When disabled, the switch cannot be clicked.
-        //
-        // @member { boolean}
-        //
-        get: function () {
-            return this._disabled;
-        },
-        set: function (value) {
-            this._disabled = value;
-            if (this._disabled) {
-                this.switchObj.interactive = false;
-                this.switchObj.buttonMode = false;
-                this.switchObj.alpha = .5;
-                this.control.alpha = .5;
-            }
-            else {
-                this.switchObj.interactive = true;
-                this.switchObj.buttonMode = true;
-                this.switchObj.alpha = 1;
-                this.control.alpha = 1;
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    //
-    // Shows the switch ( sets his alpha values to 1 ).
-    //
-    // @return { Switch } A reference to the switch for chaining.
-    //
-    Switch.prototype.show = function () {
-        this.opts.strokeAlpha = 1;
-        this.opts.strokeActiveAlpha = 1;
-        this.opts.fillAlpha = 1;
-        this.opts.fillActiveAlpha = 1;
-        this.opts.controlStrokeAlpha = 1;
-        this.opts.controlStrokeActiveAlpha = 1;
-        this.opts.controlFillAlpha = 1;
-        this.opts.controlFillActiveAlpha = 1;
-        this.layout();
-        return this;
-    };
-    //
-    // Hides the switch ( sets his alpha values to 1 ).
-    //
-    // @return { Switch } A reference to the switch for chaining.
-    //
-    Switch.prototype.hide = function () {
-        this.opts.strokeAlpha = 0;
-        this.opts.strokeActiveAlpha = 0;
-        this.opts.fillAlpha = 0;
-        this.opts.fillActiveAlpha = 0;
-        this.opts.controlStrokeAlpha = 0;
-        this.opts.controlStrokeActiveAlpha = 0;
-        this.opts.controlFillAlpha = 0;
-        this.opts.controlFillActiveAlpha = 0;
-        this.layout();
-        return this;
-    };
-    return Switch;
-}(PIXI.Container));
-exports.default = Switch;
-
-
-/***/ }),
-
-/***/ "./src/theme.ts":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var Theme = /** @class */ (function () {
-    function Theme(opts) {
-        if (opts === void 0) { opts = {}; }
-        // blue
-        var colorPrimary = opts.primaryColor != null ? opts.primaryColor : 0x5ec7f8;
-        // black
-        var color1 = opts.color1 != null ? opts.color1 : 0x282828;
-        // white
-        var color2 = opts.color2 != null ? opts.color2 : 0xf6f6f6;
-        this.opts = Object.assign({}, {
-            margin: 12,
-            padding: 12,
-            radius: 4,
-            fast: .25,
-            normal: .5,
-            slow: 1,
-            primaryColor: colorPrimary,
-            color1: color1,
-            color2: color2,
-            fill: color1,
-            fillAlpha: 1,
-            fillActive: color1,
-            fillActiveAlpha: 1,
-            stroke: color2,
-            //O strokeWidth: .6,
-            //B Either a PIXI V5 or Legacy or whatever, but .6 results in most of the
-            //B button outline missing, except the corners.
-            strokeWidth: 1,
-            strokeAlpha: 1,
-            strokeActive: color2,
-            //O strokeActiveWidth: .6,
-            //B Either a PIXI V5 or Legacy or whatever, but .6 results in most of the
-            //B button outline missing, except the corners.
-            strokeActiveWidth: 1,
-            strokeActiveAlpha: 1,
-            iconColor: color2,
-            iconColorActive: colorPrimary,
-            background: color1,
-            textStyle: null,
-            textStyleSmall: null,
-            textStyleLarge: null,
-            textStyleSmallActive: null,
-            textStyleLargeActive: null,
-        }, opts);
-        // Set textStyle and variants
-        this.opts.textStyle = Object.assign({}, {
-            fontFamily: '"Avenir Next", "Open Sans", "Segoe UI", "Roboto", "Helvetica Neue", -apple-system, system-ui, BlinkMacSystemFont, Arial, sans-serif !default',
-            fontWeight: '500',
-            fontSize: 18,
-            fill: color2,
-            stroke: color1,
-            //O strokeThickness: 0,
-            //B Either a PIXI V5 or Legacy or whatever, but 0 results in most of the
-            //B switch outline missing, except the corners.
-            strokeThickness: 1,
-            miterLimit: 1,
-            lineJoin: 'round'
-        }, this.opts.textStyle);
-        this.opts.textStyleSmall = Object.assign({}, this.opts.textStyle, { fontSize: this.opts.textStyle.fontSize - 3 }, this.opts.textStyleSmall);
-        this.opts.textStyleLarge = Object.assign({}, this.opts.textStyle, { fontSize: this.opts.textStyle.fontSize + 3 }, this.opts.textStyleLarge);
-        this.opts.textStyleActive = Object.assign({}, this.opts.textStyle, { fill: this.opts.primaryColor }, this.opts.textStyleActive);
-        this.opts.textStyleSmallActive = Object.assign({}, this.opts.textStyleSmall, { fill: this.opts.primaryColor }, this.opts.textStyleSmallActive);
-        this.opts.textStyleLargeActive = Object.assign({}, this.opts.textStyleLarge, { fill: this.opts.primaryColor }, this.opts.textStyleLargeActive);
-        Object.assign(this, this.opts);
-    }
-    //
-    // Factory function
-    //
-    // @static
-    // @param { string } theme = dark - The name of the theme to load.
-    // @return { Theme } Returns a newly created Theme object.
-    //
-    Theme.fromString = function (theme) {
-        if (theme && typeof theme === 'object') {
-            return theme;
-        }
-        switch (theme) {
-            case 'light':
-                return new ThemeLight();
-            case 'red':
-                return new ThemeRed();
-            default:
-                return new ThemeDark();
-        }
-    };
-    return Theme;
-}());
-exports.default = Theme;
-//
-// Class that represents a PixiJS ThemeDark.
-//
-// @example
-// // Create the app with a new dark theme
-// const app = new PIXIApp( {
-//     view: canvas,
-//     width: 450,
-//     height: 150,
-//     theme: new ThemeDark( )
-// } ).setup( ).run( )
-//
-// @class
-// @extends Theme
-// @see { @link https://www.iwm-tuebingen.de/iwmbrowser/lib/pixi/theme.html|DocTest }
-//
-var ThemeDark = /** @class */ (function (_super) {
-    __extends(ThemeDark, _super);
-    function ThemeDark() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    return ThemeDark;
-}(Theme));
-exports.ThemeDark = ThemeDark;
-//
-// Class that represents a PixiJS ThemeLight.
-// The color1 is set to 0xf6f6f6, color2 to 0x282828.
-//
-// @example
-// // Create the app with a new light theme
-// const app = new PIXIApp( {
-//     view: canvas,
-//     width: 450,
-//     height: 150,
-//     theme: new ThemeLight( )
-// } ).setup( ).run( )
-//
-// @class
-// @extends Theme
-// @see { @link https://www.iwm-tuebingen.de/iwmbrowser/lib/pixi/theme.html|DocTest }
-//
-var ThemeLight = /** @class */ (function (_super) {
-    __extends(ThemeLight, _super);
-    //
-    // Creates an instance of a ThemeLight.
+    // Creates an instance of a Message.
     //
     // @constructor
+    // @param {object} [opts]
+    //        - An options object to specify to style and behaviour of the message.
+    // @param {PIXIApp} [opts.app=window.app]
+    //        - The PIXIApp where this message belongs to.
+    // @param {boolean} [opts.closeButton=false]
+    //        - Should a close button be displayed in the upper right corner?
+    // @param {number} [opts.minWidth=280]
+    //        - The minimum width of the message box. Automatically
+    //          expands with the content.
+    // @param {number} [opts.minHeight=100]
+    //        - The minimum height of the message box. Automatically
+    //          expands with the content.
+    // @param {number} [opts.margin=Theme.margin]
+    //        - The outer spacing of the message box.
+    // @param {string} [opts.align=right]
+    //        - The horizontal position of the message box relative to the app. Possible
+    //     values are left, center, right.
+    // @param {string} [opts.verticalAlign=top]
+    //        - The vertical position of the message box relative to the app. Possible
+    //          values are top, middle, bottom.
+    // @param {number} [opts.duration=5]
+    //        - The duration in seconds when the message box should disappear.
+    // @param {boolean} [opts.autoClose=true]
+    //        - Should the message box be closed automatically?
+    // @param {number} [opts.closeDuration=Theme.fast]
+    //        - The duration in seconds of the closing of the message box.
     //
-    function ThemeLight() {
-        return _super.call(this, { color1: 0xf6f6f6, color2: 0x282828 }) || this;
-    }
-    return ThemeLight;
-}(Theme));
-exports.ThemeLight = ThemeLight;
-//
-// Class that represents a PixiJS ThemeRed.
-// The primaryColor is set to 0xd92f31.
-//
-// @example
-// // Create the app with a new red theme
-// const app = new PIXIApp( {
-//     view: canvas,
-//     width: 450,
-//     height: 150,
-//     theme: new ThemeRed( )
-// } ).setup( ).run( )
-//
-// @class
-// @extends Theme
-// @see { @link https://www.iwm-tuebingen.de/iwmbrowser/lib/pixi/theme.html|DocTest }
-//
-var ThemeRed = /** @class */ (function (_super) {
-    __extends(ThemeRed, _super);
-    //
-    // Creates an instance of a ThemeRed.
-    //
-    // @constructor
-    //
-    function ThemeRed() {
-        return _super.call(this, { primaryColor: 0xd92f31 }) || this;
-    }
-    return ThemeRed;
-}(Theme));
-exports.ThemeRed = ThemeRed;
-
-
-/***/ }),
-
-/***/ "./src/tooltip.ts":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var abstractpopup_1 = __webpack_require__("./src/abstractpopup.ts");
-var theme_1 = __webpack_require__("./src/theme.ts");
-var Tooltip = /** @class */ (function (_super) {
-    __extends(Tooltip, _super);
-    function Tooltip(opts) {
+    function Message(opts) {
         if (opts === void 0) { opts = {}; }
         var _this = this;
         var theme = theme_1.default.fromString(opts.theme);
         opts = Object.assign({}, {
-            minWidth: 0,
-            minHeight: 0,
-            //B padding does not exist on theme
-            //B padding: theme.padding / 2,
-            padding: theme.opts.padding / 2,
-            object: null,
-            container: null,
-            offsetLeft: 8,
-            offsetTop: -8,
-            delay: 0
+            //O app: window.app,
+            // opts.app should be required
+            app: opts.app,
+            closeButton: false,
+            minWidth: 280,
+            minHeight: 100,
+            margin: theme.opts.margin,
+            align: 'right',
+            verticalAlign: 'top',
+            duration: 5,
+            autoClose: true,
+            closeDuration: theme.opts.fast
         }, opts);
-        opts.container = opts.container || opts.object;
         _this = _super.call(this, opts) || this;
+        return _this;
+    }
+    //
+    // Relayouts the position of the message box.
+    //
+    // @return {Message} Returns the message box for chaining.
+    //
+    Message.prototype.layout = function () {
+        _super.prototype.layout.call(this);
+        // horizontal
+        switch (this.opts.align) {
+            case 'left':
+                this.x = this.opts.margin;
+                break;
+            case 'center':
+                this.x = (this.opts.app.size.width / 2) - (this.width / 2);
+                break;
+            case 'right':
+                this.x = this.opts.app.size.width - this.opts.margin - this.width;
+                break;
+        }
+        // vertical
+        switch (this.opts.verticalAlign) {
+            case 'top':
+                this.y = this.opts.margin;
+                break;
+            case 'middle':
+                this.y = (this.opts.app.size.height / 2) - (this.height / 2);
+                break;
+            case 'bottom':
+                this.y = this.opts.app.size.height - this.opts.margin - this.height;
+                break;
+        }
+        return this;
+    };
+    //
+    // Shows the message box.
+    //
+    // @private
+    //
+    // Must be public as Modal uses popup an extension of abstractpopup
+    Message.prototype.show = function (cb) {
+        var _this = this;
+        _super.prototype.show.call(this, cb);
+        if (this.opts.autoClose) {
+            window.setTimeout(function () {
+                _this.hide();
+            }, this.opts.duration * 1000);
+        }
+        return this;
+    };
+    return Message;
+}(popup_1.InteractivePopup));
+exports.default = Message;
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var PIXI = __webpack_require__(0);
+var theme_1 = __webpack_require__(1);
+var Tween_1 = __webpack_require__(2);
+var ProgressBar = /** @class */ (function (_super) {
+    __extends(ProgressBar, _super);
+    function ProgressBar(opts) {
+        if (opts === void 0) { opts = {}; }
+        var _this = _super.call(this) || this;
+        var theme = theme_1.default.fromString(opts.theme);
+        _this.theme = theme;
+        _this.opts = Object.assign({}, {
+            id: PIXI.utils.uid(),
+            width: null,
+            height: 2,
+            x: opts.x || 0,
+            y: opts.y || 0,
+            //O fill: theme.fill,
+            fill: theme.opts.fill,
+            //O fillAlpha: theme.fillAlpha,
+            fillAlpha: theme.opts.fillAlpha,
+            //O fillActive: theme.primaryColor,
+            fillActive: theme.opts.primaryColor,
+            //O fillActiveAlpha: theme.fillActiveAlpha,
+            fillActiveAlpha: theme.opts.fillActiveAlpha,
+            //O stroke: theme.stroke,
+            stroke: theme.opts.stroke,
+            strokeWidth: 0,
+            //O strokeAlpha: theme.strokeAlpha,
+            strokeAlpha: theme.opts.strokeAlpha,
+            //O strokeActive: theme.strokeActive,
+            strokeActive: theme.opts.strokeActive,
+            strokeActiveWidth: 0,
+            //O strokeActiveAlpha: theme.strokeActiveAlpha,
+            strokeActiveAlpha: theme.opts.strokeActiveAlpha,
+            //O radius: theme.radius,
+            radius: theme.opts.radius,
+            destroyOnComplete: true,
+            visible: true
+        }, opts);
+        _this.id = _this.opts.id;
+        _this.bar = null;
+        _this.barActive = null;
+        _this.alpha = 0;
+        _this.visible = _this.opts.visible;
+        _this._progress = 0;
         // setup
         //-----------------
         _this.setup();
@@ -6620,88 +3351,249 @@ var Tooltip = /** @class */ (function (_super) {
     //
     // Creates children and instantiates everything.
     //
-    // @protected
-    // @return {Tooltip} A reference to the tooltip for chaining.
+    // @private
+    // @return { ProgressBar } A reference to the progress bar for chaining.
     //
-    Tooltip.prototype.setup = function () {
+    ProgressBar.prototype.setup = function () {
         var _this = this;
-        _super.prototype.setup.call(this);
-        // bind events this
+        // interaction
         //-----------------
-        this.interactive = true;
-        var mouseoverTooltip = false;
-        //O this.on('mouseover', e =>
         // @ts-ignore error TS6133: 'e' is declared but never read
-        this.on('mouseover', function (e) {
-            mouseoverTooltip = true;
+        this.on('added', function (e) {
+            _this.show();
         });
-        //O this.on('mouseout', e =>
-        // @ts-ignore error TS6133: 'e' is declared but never read
-        this.on('mouseout', function (e) {
-            mouseoverTooltip = false;
-            if (!mouseoverObject) {
-                _this.hide(function () {
-                    _this.opts.container.removeChild(_this);
-                });
-            }
-        });
-        //Fixme   Change objects to be a required parameter. TBD as this currently
-        //Fixme   would break comparison testing.
-        if (this.opts.object === null)
-            throw ("Error: Volatile, no object(s) passed in. This should be changed to a required parameter instead of an option");
-        // bind events object
+        // bar
         //-----------------
-        var object = this.opts.object;
-        object.interactive = true;
-        var mouseoverObject = false;
-        //O object.on('mouseover', e =>
-        object.on('mouseover', function (e) {
-            _this.timeout = window.setTimeout(function () {
-                mouseoverObject = true;
-                _this.visible = true;
-                _this.opts.container.addChild(_this);
-                _this.setPosition(e);
-            }, _this.opts.delay * 1000);
-        });
-        //O object.on('mousemove', e =>
-        object.on('mousemove', function (e) {
-            if (mouseoverObject) {
-                _this.setPosition(e);
-            }
-        });
-        //O object.on('mouseout', e =>
-        // @ts-ignore error TS6133: 'e' is declared but never read
-        object.on('mouseout', function (e) {
-            mouseoverObject = false;
-            window.clearTimeout(_this.timeout);
-            if (!mouseoverTooltip) {
-                _this.hide(function () {
-                    _this.opts.container.removeChild(_this);
-                });
-            }
-        });
+        var bar = new PIXI.Graphics();
+        this.bar = bar;
+        this.addChild(bar);
+        var barActive = new PIXI.Graphics();
+        this.barActive = barActive;
+        this.bar.addChild(barActive);
         return this;
     };
     //
-    // Calculates and sets the position of the tooltip.
+    // Should be called to refresh the layout of the progress. Can be used after resizing.
+    //
+    // @return { ProgressBar } A reference to the progress bar for chaining.
+    //
+    ProgressBar.prototype.layout = function () {
+        this.draw();
+        return this;
+    };
+    //
+    // Draws the canvas.
+    //
+    // @public - Used by progressDialog
+    // @return { ProgressBar } A reference to the progress bar for chaining.
+    //
+    ProgressBar.prototype.draw = function () {
+        this.bar.clear();
+        this.barActive.clear();
+        this.drawBar();
+        this.drawBarActive();
+        return this;
+    };
+    //
+    // Draws the bar.
     //
     // @private
-    // @return {Tooltip} A reference to the tooltip for chaining.
+    // @return { ProgressBar } A reference to the progress bar for chaining.
     //
-    Tooltip.prototype.setPosition = function (e) {
-        var position = e.data.getLocalPosition(this.opts.container);
-        this.x = position.x + this.opts.offsetLeft;
-        this.y = position.y + this.opts.offsetTop - this.height;
+    ProgressBar.prototype.drawBar = function () {
+        this.radius = this.opts.radius;
+        if ((this.radius * 2) > this.opts.height) {
+            this.radius = this.opts.height * .5;
+        }
+        var wantedWidth = this.opts.width;
+        var wantedHeight = this.opts.height;
+        this.bar.lineStyle(this.opts.strokeWidth, this.opts.stroke, this.opts.strokeAlpha);
+        //V5 this.bar.beginFill( this.opts.fill, this.opts.fillAlpha )
+        this.bar.beginFill(this.opts.fill);
+        this.bar.alpha = this.opts.fillAlpha;
+        if (this.radius > 1) {
+            this.bar.drawRoundedRect(this.opts.x, this.opts.y, wantedWidth, wantedHeight, this.radius);
+        }
+        else {
+            this.bar.drawRect(this.opts.x, this.opts.y, wantedWidth, wantedHeight);
+        }
+        this.bar.endFill();
         return this;
     };
-    return Tooltip;
-}(abstractpopup_1.default));
-exports.default = Tooltip;
+    //
+    // Draws the active bar.
+    //
+    // @private
+    // @return { ProgressBar } A reference to the progress bar for chaining.
+    //
+    ProgressBar.prototype.drawBarActive = function () {
+        var wantedWidth = this.bar.width;
+        var wantedHeight = this.bar.height;
+        var barActiveWidth = wantedWidth * this._progress / 100;
+        this.barActive.lineStyle(this.opts.strokeActiveWidth, this.opts.strokeActive, this.opts.strokeActiveAlpha);
+        //V5 this.barActive.beginFill( this.opts.fillActive, this.opts.fillActiveAlpha )
+        this.barActive.beginFill(this.opts.fillActive);
+        this.barActive.alpha = this.opts.fillActiveAlpha;
+        if (barActiveWidth > 0) {
+            if (this.radius > 1) {
+                this.barActive.drawRoundedRect(this.opts.x, this.opts.y, barActiveWidth, wantedHeight, this.radius);
+            }
+            else {
+                this.barActive.drawRect(this.opts.x, this.opts.y, barActiveWidth, wantedHeight);
+            }
+        }
+        this.barActive.endFill();
+        return this;
+    };
+    //
+    // Shows the progress ( sets his alpha values to 1 ).
+    //
+    // @return { ProgressBar } A reference to the progress bar for chaining.
+    //
+    ProgressBar.prototype.show = function () {
+        Tween_1.default.to(this, this.theme.opts.fast, {
+            alpha: 1
+        });
+        return this;
+    };
+    //
+    // Hides the progress ( sets his alpha values to 1 ).
+    //
+    // @return { ProgressBar } A reference to the progress bar for chaining.
+    //
+    ProgressBar.prototype.hide = function () {
+        var _this = this;
+        Tween_1.default.to(this, this.theme.opts.fast, {
+            alpha: 0,
+            onComplete: function () {
+                _this.visible = false;
+            }
+        });
+        return this;
+    };
+    Object.defineProperty(ProgressBar.prototype, "progress", {
+        //
+        // Gets or sets the progress. Has to be a number between 0 and 100.
+        //
+        // @member { number }
+        //
+        get: function () {
+            return this._progress;
+        },
+        set: function (value) {
+            var _this = this;
+            value = Math.round(value);
+            if (value < 0)
+                value = 0;
+            if (value > 100)
+                value = 100;
+            Tween_1.default.to(this, this.theme.opts.normal, {
+                _progress: value,
+                onUpdate: function () { return _this.draw(); },
+                onComplete: function () {
+                    if (value === 100 && _this.opts.destroyOnComplete) {
+                        Tween_1.default.to(_this, _this.theme.opts.fast, {
+                            alpha: 0,
+                            onComplete: function () { return _this.destroy({ children: true }); }
+                        });
+                    }
+                }
+            });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return ProgressBar;
+}(PIXI.Container));
+exports.default = ProgressBar;
 
 
 /***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
 
-/***/ "./src/utils.ts":
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var PIXI = __webpack_require__(0);
+var UI_1 = __webpack_require__(17);
+var Library = {
+    UI: UI_1.UI,
+};
+//dump everything into extras
+Object.assign(PIXI, Library);
+module.exports = Library;
+
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(18);
+var EaseBase_1 = __webpack_require__(7);
+var ExponentialEase_1 = __webpack_require__(10);
+var Ease_1 = __webpack_require__(8);
+var Ticker_1 = __webpack_require__(19);
+var Tween_1 = __webpack_require__(2);
+var theme_1 = __webpack_require__(1);
+var tooltip_1 = __webpack_require__(3);
+var volatile_1 = __webpack_require__(20);
+var abstractpopup_1 = __webpack_require__(4);
+var popup_1 = __webpack_require__(5);
+var popover_1 = __webpack_require__(21);
+var popupmenu_1 = __webpack_require__(22);
+var slider_1 = __webpack_require__(23);
+var badge_1 = __webpack_require__(11);
+var button_1 = __webpack_require__(6);
+var buttongroup_1 = __webpack_require__(12);
+var modal_1 = __webpack_require__(9);
+var app_1 = __webpack_require__(24);
+var message_1 = __webpack_require__(14);
+var progress_1 = __webpack_require__(13);
+var progressbar_1 = __webpack_require__(15);
+var progressdialog_1 = __webpack_require__(25);
+var capabilities_1 = __webpack_require__(26);
+var labeledgraphics_1 = __webpack_require__(28);
+var list_1 = __webpack_require__(29);
+var switch_1 = __webpack_require__(30);
+exports.UI = {
+    // types: types,
+    //   utils: utils,
+    isEmpty: utils_1.isEmpty, uuid: utils_1.uuid, lerp: utils_1.lerp, sample: utils_1.sample, debounce: utils_1.debounce, getId: utils_1.getId, randomInt: utils_1.randomInt, randomFloat: utils_1.randomFloat, Dates: utils_1.Dates, Colors: utils_1.Colors, Cycle: utils_1.Cycle, Points: utils_1.Points, Sets: utils_1.Sets, Angle: utils_1.Angle, Elements: utils_1.Elements,
+    EaseBase: EaseBase_1.EaseBase,
+    ExponentialEase: ExponentialEase_1.ExponentialEase,
+    Ease: Ease_1.default,
+    Ticker: Ticker_1.default,
+    Tween: Tween_1.default,
+    Theme: theme_1.default,
+    Tooltip: tooltip_1.default,
+    Volatile: volatile_1.default,
+    AbstractPopup: abstractpopup_1.default,
+    Popup: popup_1.default,
+    PopupMenu: popupmenu_1.default,
+    Popover: popover_1.default,
+    Slider: slider_1.default,
+    Badge: badge_1.default,
+    Button: button_1.default,
+    ButtonGroup: buttongroup_1.default,
+    Modal: modal_1.default,
+    App: app_1.default,
+    Message: message_1.default,
+    Progress: progress_1.default,
+    ProgressBar: progressbar_1.default,
+    ProgressDialog: progressdialog_1.default,
+    Capabilities: capabilities_1.default,
+    LabeledGraphics: labeledgraphics_1.default,
+    List: list_1.default,
+    Switch: switch_1.default,
+};
+
+
+/***/ }),
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8020,8 +4912,105 @@ exports.Strings = Strings;
 
 
 /***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
 
-/***/ "./src/volatile.ts":
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var PIXI = __webpack_require__(0);
+var Tween_1 = __webpack_require__(2);
+var Ticker = /** @class */ (function (_super) {
+    __extends(Ticker, _super);
+    function Ticker(autoStart) {
+        var _this = _super.call(this) || this;
+        _this._disabled = true;
+        _this._now = 0;
+        _this.DeltaTime = 0;
+        _this.Time = performance.now();
+        _this.Ms = 0;
+        if (autoStart) {
+            _this.disabled = false;
+        }
+        Ticker.shared = _this;
+        return _this;
+    }
+    //
+    // Updates the text
+    //
+    // @private
+    //
+    Ticker.prototype.update = function (time) {
+        Ticker.shared._now = time;
+        Ticker.shared.Ms = Ticker.shared._now - Ticker.shared.Time;
+        Ticker.shared.Time = Ticker.shared._now;
+        Ticker.shared.DeltaTime = Ticker.shared.Ms * 0.001;
+        Ticker.shared.emit("update", Ticker.shared.DeltaTime);
+        Tween_1.default._update(Ticker.shared.DeltaTime);
+        if (!Ticker.shared._disabled) {
+            requestAnimationFrame(Ticker.shared.update);
+        }
+    };
+    Ticker.prototype.on = function (event, fn, context) {
+        _super.prototype.on.call(this, event, fn, context);
+        return this;
+    };
+    Ticker.prototype.once = function (event, fn, context) {
+        _super.prototype.once.call(this, event, fn, context);
+        return this;
+    };
+    Ticker.prototype.removeListener = function (event, fn, context) {
+        _super.prototype.removeListener.call(this, event, fn, context);
+        return this;
+    };
+    ;
+    Object.defineProperty(Ticker.prototype, "shared", {
+        get: function () {
+            return Ticker.shared;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Ticker.prototype, "disabled", {
+        get: function () {
+            return this._disabled;
+        },
+        set: function (val) {
+            val = val;
+            if (!this._disabled) {
+                this._disabled = true;
+            }
+            else {
+                this._disabled = false;
+                Ticker.shared = this;
+                this.update(performance.now());
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return Ticker;
+}(PIXI.utils.EventEmitter));
+exports.Ticker = Ticker;
+Ticker.shared = new Ticker(true);
+exports.default = Ticker.shared;
+
+
+/***/ }),
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8038,10 +5027,10 @@ var __values = (this && this.__values) || function(o) {
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__("pixi.js");
-var Tween_1 = __webpack_require__("./src/Ease/Tween.ts");
-var Ease_1 = __webpack_require__("./src/Ease/Ease.ts");
-var theme_1 = __webpack_require__("./src/theme.ts");
+var PIXI = __webpack_require__(0);
+var Tween_1 = __webpack_require__(2);
+var Ease_1 = __webpack_require__(8);
+var theme_1 = __webpack_require__(1);
 var Volatile = /** @class */ (function () {
     function Volatile(opts) {
         if (opts === void 0) { opts = {}; }
@@ -8169,13 +5158,3368 @@ exports.default = Volatile;
 
 
 /***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
 
-/***/ "pixi.js":
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var PIXI = __webpack_require__(0);
+var Popover = /** @class */ (function (_super) {
+    __extends(Popover, _super);
+    function Popover(opts) {
+        var _this = _super.call(this) || this;
+        _this.opts = Object.assign({}, {
+            title: opts.title || null,
+            text: opts.text || null,
+            x: opts.x || 0,
+            y: opts.y || 0,
+            placement: opts.placement || 'top',
+            width: opts.width || 250,
+            titleStyle: opts.titleStyle || {},
+            textStyle: opts.textStyle || { fontSize: '1.6em' }
+        });
+        _this.padding = 12;
+        var style = {
+            fontFamily: 'Arial',
+            fontSize: '2em',
+            stroke: '#f6f6f6',
+            strokeThickness: 3,
+            wordWrap: true,
+            wordWrapWidth: _this.opts.width - (_this.padding * 2)
+        };
+        _this.titleTextStyle = new PIXI.TextStyle(Object.assign({}, style, _this.opts.titleStyle));
+        _this.textTextStyle = new PIXI.TextStyle(Object.assign({}, style, _this.opts.textStyle));
+        if (_this.opts.title || _this.opts.text) {
+            _this.setup();
+            _this.draw();
+            _this.positioning();
+        }
+        return _this;
+    }
+    Popover.prototype.setup = function () {
+        this.removeChildren();
+        if (this.opts.title) {
+            this.titleText = new PIXI.Text(this.opts.title, this.titleTextStyle);
+            this.titleText.position.set(this.padding, this.padding);
+            this.addChild(this.titleText);
+        }
+        this.titleY = this.titleText ? this.titleText.y : 0;
+        this.titleHeight = this.titleText ? this.titleText.height : 0;
+        if (this.opts.text) {
+            this.textText = new PIXI.Text(this.opts.text, this.textTextStyle);
+            this.textText.position.set(this.padding, this.titleY + this.titleHeight + this.padding);
+            this.addChild(this.textText);
+        }
+        this.textY = this.textText ? this.textText.y : 0;
+        this.textHeight = this.textText ? this.textText.height : 0;
+        return this;
+    };
+    Popover.prototype.close = function () {
+        this.parent.removeChild(this);
+        return this;
+    };
+    Popover.prototype.draw = function () {
+        this.clear();
+        //V5 Changes
+        //O this.beginFill( 0xffffff, 1 )
+        this.beginFill(0xffffff);
+        this.alpha = 1;
+        this.lineStyle(1, 0x282828, .5);
+        // Draw rounded rectangle
+        var height = this.height + this.padding;
+        this.drawRoundedRect(0, 0, this.opts.width, height, 8);
+        // Draw anchor
+        this.drawAnchor(this.opts.placement);
+        // Draw title background
+        if (this.opts.title) {
+            this.lineStyle(0);
+            //V5 Changes
+            //O this.beginFill( 0xf7f7f7, 1 )
+            this.beginFill(0xf7f7f7);
+            this.alpha = 1;
+            var x = 1;
+            var y = this.titleText.x + this.titleText.height + (this.padding / 2);
+            this.moveTo(x, y);
+            y = 9;
+            this.lineTo(x, y);
+            this.quadraticCurveTo(x, y - 8, x + 8, y - 8);
+            x += this.opts.width - 7;
+            y -= 8;
+            this.lineTo(x, y);
+            this.quadraticCurveTo(x + 5, y, x + 5, y + 8);
+            x += 5;
+            y += this.titleText.x + this.titleText.height + (this.padding / 2);
+            this.lineTo(x, y);
+            if (this.opts.text) {
+                x = 1;
+                this.lineTo(x, y);
+            }
+            else {
+                this.quadraticCurveTo(x, y, x - 5, y + 4);
+                x = 6;
+                y += 4;
+                this.lineTo(x, y);
+                this.quadraticCurveTo(x, y, x - 5, y - 4);
+            }
+        }
+        this.endFill();
+        return this;
+    };
+    Popover.prototype.drawAnchor = function (placement) {
+        var x = 0;
+        var y = 0;
+        switch (placement) {
+            case 'bottom':
+                if (this.opts.title) {
+                    //V5 Changes
+                    //O this.beginFill( 0xf7f7f7, 1 )
+                    this.beginFill(0xf7f7f7);
+                    this.alpha = 1;
+                }
+                x = (this.width / 2) - 10;
+                y = 1;
+                this.moveTo(x, y);
+                x += 10;
+                y -= 10;
+                this.lineTo(x, y);
+                x += 10;
+                y += 10;
+                this.lineTo(x, y);
+                break;
+            case 'right':
+                x = 1;
+                y = (this.height / 2) - 10;
+                if (this.titleY + this.titleHeight > y) {
+                    //V5 Changes
+                    //O this.beginFill( 0xf7f7f7, 1 )
+                    this.beginFill(0xf7f7f7);
+                    this.alpha = 1;
+                }
+                this.moveTo(x, y);
+                x -= 10;
+                y += 10;
+                this.lineTo(x, y);
+                x += 10;
+                y += 10;
+                this.lineTo(x, y);
+                break;
+            case 'left':
+                x = this.width - 2;
+                y = (this.height / 2) - 10;
+                if (this.titleY + this.titleHeight > y) {
+                    //V5 Changes
+                    //O this.beginFill( 0xf7f7f7, 1 )
+                    this.beginFill(0xf7f7f7);
+                    this.alpha = 1;
+                }
+                this.moveTo(x, y);
+                x += 10;
+                y += 10;
+                this.lineTo(x, y);
+                x -= 10;
+                y += 10;
+                this.lineTo(x, y);
+                break;
+            default:
+                x = (this.width / 2) - 10;
+                y = this.height - 2;
+                this.moveTo(x, y);
+                x += 10;
+                y += 10;
+                this.lineTo(x, y);
+                x += 10;
+                y -= 10;
+                this.lineTo(x, y);
+                break;
+        }
+        return this;
+    };
+    Popover.prototype.positioning = function () {
+        var x = this.opts.x;
+        var y = this.opts.y;
+        switch (this.opts.placement) {
+            case 'bottom':
+                this.position.set(x - (this.width / 2), y + 10);
+                break;
+            case 'right':
+                this.position.set(x, y - (this.height / 2));
+                break;
+            case 'left':
+                this.position.set(x - this.width, y - (this.height / 2));
+                break;
+            default:
+                this.position.set(x - (this.width / 2), y - this.height);
+                break;
+        }
+        return this;
+    };
+    return Popover;
+}(PIXI.Graphics));
+exports.default = Popover;
+
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var PIXI = __webpack_require__(0);
+var theme_1 = __webpack_require__(1);
+var popup_1 = __webpack_require__(5);
+var Tween_1 = __webpack_require__(2);
+var PopupMenu = /** @class */ (function (_super) {
+    __extends(PopupMenu, _super);
+    //
+    // Creates an instance of a PopupMenu.
+    //
+    // @constructor
+    //
+    // @param { object } [ opts ]
+    //        - An options object to specify to style and behaviour of the modal.
+    // @param { object[ ] } [ opts.items=[ ] ]
+    //        - A list of the menu items. Each item must be of type object.
+    //          If an object has a label property, a PIXI.Text object is
+    //          created ( using the textStyle property ).
+    //          If an object hasn't a label property, it must contain a
+    //          content property which has to be a PIXI.DisplayObject.
+    // @param { number } [ opts.margin=Theme.margin / 2 ]
+    //        - The app where the modal belongs to.
+    // @param { object } [ opts.textStyle=Theme.textStyle ]
+    //        - The color of the background.
+    // @param { boolean } [ opts.closeOnPopup=true ]
+    //        - The opacity of the background.
+    //
+    function PopupMenu(opts) {
+        if (opts === void 0) { opts = {}; }
+        var _this = this;
+        var theme = theme_1.default.fromString(opts.theme);
+        opts = Object.assign({}, {
+            items: [],
+            margin: theme.opts.margin / 2,
+            textStyle: theme.opts.textStyle,
+            closeOnPopup: true
+        }, opts);
+        _this = _super.call(this, opts) || this;
+        _this.theme = theme;
+        return _this;
+    }
+    //
+    // Creates children and instantiates everything.
+    //
+    // @private
+    // @return { PopupMenu } A reference to the popupmenu for chaining.
+    //
+    PopupMenu.prototype.setup = function () {
+        var e_1, _a;
+        var _this = this;
+        // content
+        //-----------------
+        var content = new PIXI.Container();
+        var y = 0;
+        var _loop_1 = function (item) {
+            var object = null;
+            if (item.label) {
+                object = new PIXI.Text(item.label, item.textStyle || this_1.opts.textStyle);
+            }
+            else {
+                object = item.content;
+            }
+            object.y = y;
+            if (item.action) {
+                if (item.disabled) {
+                    object.alpha = .5;
+                }
+                else {
+                    object.interactive = true;
+                    object.buttonMode = true;
+                }
+                // @ts-ignore error TS6133: 'e' is declared but never read
+                object.on('pointerover', function (e) {
+                    //O TweenLite.to( object, this.theme.fast, { alpha: .83, overwrite: 'none' } )
+                    Tween_1.default.to(object, _this.theme.opts.fast, { alpha: .83, overwrite: false });
+                });
+                // @ts-ignore error TS6133: 'e' is declared but never read
+                object.on('pointerout', function (e) {
+                    //O TweenLite.to( object, this.theme.fast, { alpha: 1, overwrite: 'none' } )
+                    Tween_1.default.to(object, _this.theme.opts.fast, { alpha: 1, overwrite: false });
+                });
+                // @ts-ignore error TS6133: 'e' is declared but never read
+                object.on('pointerup', function (e) {
+                    item.action.call(object, e, object);
+                    //O if ( this.opts.closeOnAction )
+                    //B this was supposed to be closeOnPopup
+                    if (_this.opts.closeOnPopup) {
+                        _this.hide();
+                    }
+                });
+            }
+            content.addChild(object);
+            y += object.height + this_1.opts.margin;
+        };
+        var this_1 = this;
+        try {
+            for (var _b = __values(this.opts.items), _c = _b.next(); !_c.done; _c = _b.next()) {
+                var item = _c.value;
+                _loop_1(item);
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        this.opts.content = content;
+        _super.prototype.setup.call(this);
+        //T Must return same type as class
+        return this;
+    };
+    return PopupMenu;
+}(popup_1.default));
+exports.default = PopupMenu;
+
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var PIXI = __webpack_require__(0);
+var theme_1 = __webpack_require__(1);
+var tooltip_1 = __webpack_require__(3);
+var Tween_1 = __webpack_require__(2);
+//
+// Callback for the slider action onStart.
+//
+// @callback onStartCallback
+// @param { object } event
+//        - The event object.
+// @param { Slider } slider
+//        - A reference to the slider ( also this refers to the slider ).
+//
+//
+// Callback for the slider action onUpdate.
+//
+// @callback onUpdateCallback
+// @param { object } event
+//        - The event object.
+// @param { Slider } slider
+//        - A reference to the slider ( also this refers to the slider ).
+//
+//
+// Callback for the slider action onComplete.
+//
+// @callback onCompleteCallback
+// @param { object } event
+//        - The event object.
+// @param { Slider } slider
+//        - A reference to the slider ( also this refers to the slider ).
+//
+//
+// Class that represents a PixiJS Slider.
+//
+// @example
+// // Create the app
+// const app = new PIXIApp( {
+//     view: canvas,
+//     width: 900,
+//     height: 250
+// } ).setup( ).run( )
+//
+// // Create the slider
+// const slider = new Slider( {
+//     x: 10,
+//     y: 20
+// } )
+//
+// // Add the slider to a DisplayObject
+// app.scene.addChild( slider )
+//
+// @class
+// @extends PIXI.Container
+// @see { @link http://pixijs.download/dev/docs/PIXI.Container.html|PIXI.Container }
+// @see { @link https://www.iwm-tuebingen.de/iwmbrowser/lib/pixi/slider.html|DocTest }
+//
+// This class is created to handle the extra parameters added.
+var Control = /** @class */ (function (_super) {
+    __extends(Control, _super);
+    function Control() {
+        var _this = _super.call(this) || this;
+        _this.dragging = false;
+        _this.delta = 0;
+        _this.event = null;
+        _this.pointerdowned = false;
+        return _this;
+    }
+    return Control;
+}(PIXI.Graphics));
+exports.Control = Control;
+var Slider = /** @class */ (function (_super) {
+    __extends(Slider, _super);
+    function Slider(opts) {
+        if (opts === void 0) { opts = {}; }
+        var _this = _super.call(this) || this;
+        var theme = theme_1.default.fromString(opts.theme);
+        _this.theme = theme;
+        _this.opts = Object.assign({}, {
+            id: PIXI.utils.uid(),
+            x: 0,
+            y: 0,
+            width: 250,
+            height: 2,
+            container: null,
+            fill: theme.opts.fill,
+            fillAlpha: theme.opts.fillAlpha,
+            stroke: theme.opts.stroke,
+            strokeWidth: theme.opts.strokeWidth,
+            strokeAlpha: theme.opts.strokeAlpha,
+            controlFill: theme.opts.fill,
+            controlFillAlpha: .5,
+            controlStroke: theme.opts.primaryColor,
+            controlStrokeWidth: 2,
+            controlStrokeAlpha: theme.opts.strokeAlpha,
+            controlRadius: 16,
+            orientation: 'horizontal',
+            min: 0,
+            max: 100,
+            value: 0,
+            disabled: false,
+            onStart: null,
+            onUpdate: null,
+            onComplete: null,
+            tooltip: null,
+            visible: true
+        }, opts);
+        _this.opts.container = _this.opts.container || _this;
+        // Validation
+        //-----------------
+        if (_this.opts.height > _this.opts.width) {
+            _this.opts.height = _this.opts.width;
+        }
+        if (_this.opts.value < _this.opts.min) {
+            _this.opts.value = _this.opts.min;
+        }
+        if (_this.opts.value > _this.opts.max) {
+            _this.opts.value = _this.opts.max;
+        }
+        // Properties
+        //-----------------
+        _this.id = _this.opts.id;
+        _this.radius = _this.opts.height / 2;
+        _this._value = _this.opts.value;
+        _this._disabled = null;
+        _this.sliderObj = null;
+        _this.control = null;
+        _this.tooltip = null;
+        _this.visible = _this.opts.visible;
+        // setup
+        //-----------------
+        _this.setup();
+        // layout
+        //-----------------
+        _this.layout();
+        return _this;
+    }
+    //
+    // Creates children and instantiates everything.
+    //
+    // @private
+    // @return { Slider } A reference to the slider for chaining.
+    //
+    Slider.prototype.setup = function () {
+        var _this = this;
+        // Container events
+        //-----------------
+        var container = this.opts.container;
+        this.on('pointermove', function (e) {
+            if (_this.control.dragging) {
+                var moveX = _this.control.event.data.getLocalPosition(_this.control.parent).x;
+                _this._value = _this.pixelToValue(moveX - _this.control.delta - _this.opts.controlRadius);
+                var x = _this.valueToPixel(_this._value) + _this.opts.controlRadius;
+                _this.control.x = x;
+                if (_this.opts.onUpdate) {
+                    _this.opts.onUpdate.call(_this, e, _this);
+                }
+            }
+        });
+        if (container instanceof Element) {
+            container.addEventListener('pointerup', function (e) { return _this.onEnd(e); }, false);
+            container.addEventListener('pointercancel', function (e) { return _this.onEnd(e); }, false);
+            container.addEventListener('pointerleave', function (e) { return _this.onEnd(e); }, false);
+            container.addEventListener('pointerout', function (e) { return _this.onEnd(e); }, false);
+            container.addEventListener('mouseup', function (e) { return _this.onEnd(e); }, false);
+            container.addEventListener('mousecancel', function (e) { return _this.onEnd(e); }, false);
+            container.addEventListener('mouseleave', function (e) { return _this.onEnd(e); }, false);
+            container.addEventListener('mouseout', function (e) { return _this.onEnd(e); }, false);
+        }
+        else {
+            container.interactive = true;
+            container.on('pointerup', function (e) { return _this.onEnd(e); });
+            container.on('pointercancel', function (e) { return _this.onEnd(e); });
+            container.on('pointerleave', function (e) { return _this.onEnd(e); });
+            container.on('pointerout', function (e) { return _this.onEnd(e); });
+        }
+        // Slider
+        //-----------------
+        var sliderObj = new Control();
+        this.sliderObj = sliderObj;
+        this.addChild(sliderObj);
+        // Control
+        //-----------------
+        var control = new Control();
+        control.x = this.opts.controlRadius + this.valueToPixel(this.opts.value);
+        control.y = this.opts.controlRadius;
+        // pointerdown on the control for dragndrop
+        control.on('pointerdown', function (e) {
+            control.event = e;
+            control.delta = e.data.getLocalPosition(_this.control).x;
+            control.dragging = true;
+            if (_this.opts.onStart) {
+                _this.opts.onStart.call(_this, e, _this);
+            }
+        });
+        this.control = control;
+        this.addChild(this.control);
+        // interaction
+        //-----------------
+        // @ts-ignore error TS6133: 'e' is declared but never read
+        this.sliderObj.on('pointerover', function (e) {
+            Tween_1.default.to(_this.control, _this.theme.opts.fast, { alpha: .83 });
+        });
+        // @ts-ignore error TS6133: 'e' is declared but never read
+        this.sliderObj.on('pointerout', function (e) {
+            Tween_1.default.to(_this.control, _this.theme.opts.fast, { alpha: 1 });
+        });
+        // @ts-ignore error TS6133: 'e' is declared but never read
+        this.sliderObj.on('pointerdown', function (e) {
+            _this.sliderObj.pointerdowned = true;
+            Tween_1.default.to(_this.control, _this.theme.opts.fast, { alpha: .7 });
+        });
+        // Click on the slider bar
+        this.sliderObj.on('pointerup', function (e) {
+            if (_this.sliderObj.pointerdowned) {
+                _this.sliderObj.pointerdowned = false;
+                var position = e.data.getLocalPosition(_this.control.parent);
+                _this.value = _this.pixelToValue(position.x - _this.opts.controlRadius);
+                Tween_1.default.to(_this.control, _this.theme.opts.fast, { alpha: .83 });
+            }
+        });
+        // disabled
+        //-----------------
+        this.disabled = this.opts.disabled;
+        // tooltip
+        //-----------------
+        if (this.opts.tooltip) {
+            if (typeof this.opts.tooltip === 'string') {
+                this.tooltip = new tooltip_1.default({
+                    object: this,
+                    content: this.opts.tooltip
+                });
+            }
+            else {
+                // @ts-ignore TS2531: Object is possibly 'null'.  Why. It's checked above?
+                this.opts.tooltip.object = this;
+                this.tooltip = new tooltip_1.default(this.opts.tooltip);
+            }
+        }
+        return this;
+    };
+    //
+    // Should be called to refresh the layout of the slider. Can be used after resizing.
+    //
+    // @return { Slider } A reference to the slider for chaining.
+    //
+    Slider.prototype.layout = function () {
+        // set position
+        //-----------------
+        this.position.set(this.opts.x, this.opts.y);
+        // draw
+        //-----------------
+        this.draw();
+        return this;
+    };
+    //
+    // Draws the slider to the canvas.
+    //
+    // @private
+    // @return { Slider } - A reference to the slider for chaining.
+    //
+    Slider.prototype.draw = function () {
+        var r = this.radius;
+        var cr = this.opts.controlRadius;
+        var w = this.opts.width;
+        var h = this.opts.height;
+        var x = cr + r;
+        var y = cr + r - h;
+        this.sliderObj.clear();
+        this.sliderObj.beginFill(0xffffff, 0);
+        this.sliderObj.drawRect(0, 0, x + w + cr, cr * 2);
+        this.sliderObj.lineStyle(this.opts.strokeWidth, this.opts.stroke, this.opts.strokeAlpha);
+        this.sliderObj.beginFill(this.opts.fill, this.opts.fillAlpha);
+        this.sliderObj.moveTo(x, y);
+        this.sliderObj.lineTo(x + w, y);
+        this.sliderObj.arcTo(x + w + r, y, x + w + r, y + r, r);
+        this.sliderObj.lineTo(x + w + r, y + r + 1); // BUGFIX: If not specified, there is a small area without a stroke.
+        this.sliderObj.arcTo(x + w + r, y + h, x + w, y + h, r);
+        this.sliderObj.lineTo(x, y + h);
+        this.sliderObj.arcTo(x - r, y + h, x - r, y + r, r);
+        this.sliderObj.arcTo(x - r, y, x, y, r);
+        this.sliderObj.endFill();
+        // Draw control
+        this.control.clear();
+        this.control.lineStyle(this.opts.controlStrokeWidth, this.opts.controlStroke, this.opts.controlStrokeAlpha);
+        this.control.beginFill(this.opts.controlFill, this.opts.controlFillAlpha);
+        this.control.drawCircle(0, 0, cr - 1);
+        this.control.beginFill(this.opts.controlStroke, this.opts.controlStrokeAlpha);
+        this.control.drawCircle(0, 0, cr / 6);
+        this.control.endFill();
+        return this;
+    };
+    //
+    // Executed, when the slider control movement ended.
+    //
+    // @private
+    // @return { Slider } A reference to the slider for chaining.
+    //
+    Slider.prototype.onEnd = function (e) {
+        if (this.control.dragging) {
+            this.control.event = null;
+            this.control.dragging = false;
+            if (this.opts.onComplete) {
+                this.opts.onComplete.call(this, e, this);
+            }
+        }
+        return this;
+    };
+    //
+    // Calculates the value for a given pixel.
+    //
+    // @private
+    // @param { number } value 
+    // @returns  { number } The calculated pixel.
+    //
+    Slider.prototype.valueToPixel = function (value) {
+        if (value < this.opts.min) {
+            value = this.opts.min;
+        }
+        else if (value > this.opts.max) {
+            value = this.opts.max;
+        }
+        return this.opts.width * (value - this.opts.min) / (this.opts.max - this.opts.min);
+    };
+    //
+    // Calculates the pixel for a given value.
+    //
+    // @private
+    // @param { number } pixel
+    // @returns { number } The calculated value.
+    //
+    Slider.prototype.pixelToValue = function (pixel) {
+        if (pixel < 0) {
+            pixel = 0;
+        }
+        else if (pixel > this.opts.width) {
+            pixel = this.opts.width;
+        }
+        return this.opts.min + ((this.opts.max - this.opts.min) * pixel / this.opts.width);
+    };
+    Object.defineProperty(Slider.prototype, "value", {
+        //
+        // Gets or sets the value.
+        //
+        // @member { number }
+        //
+        get: function () {
+            return Math.round(this._value);
+        },
+        set: function (value) {
+            if (value < this.opts.min) {
+                value = this.opts.min;
+            }
+            else if (value > this.opts.max) {
+                value = this.opts.max;
+            }
+            this._value = value;
+            var x = this.valueToPixel(value) + this.opts.controlRadius;
+            Tween_1.default.to(this.control, this.theme.opts.fast, { x: x });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Slider.prototype, "disabled", {
+        //
+        // Gets or sets the disabled state. When disabled, the slider cannot be clicked.
+        //
+        // @member { boolean }
+        //
+        get: function () {
+            return this._disabled;
+        },
+        set: function (value) {
+            this._disabled = value;
+            if (this._disabled) {
+                this.interactive = false;
+                this.sliderObj.interactive = false;
+                this.control.interactive = false;
+                this.control.buttonMode = false;
+                this.alpha = .5;
+            }
+            else {
+                this.interactive = true;
+                this.sliderObj.interactive = true;
+                this.control.interactive = true;
+                this.control.buttonMode = true;
+                this.alpha = 1;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    //
+    // Shows the slider ( sets his alpha values to 1 ).
+    //
+    // @return { Slider } A reference to the slider for chaining.
+    //
+    Slider.prototype.show = function () {
+        this.opts.strokeAlpha = 1;
+        this.opts.fillAlpha = 1;
+        this.opts.controlStrokeAlpha = 1;
+        this.opts.controlFillAlpha = 1;
+        this.layout();
+        return this;
+    };
+    //
+    // Hides the slider ( sets his alpha values to 1 ).
+    //
+    // @return { Slider } A reference to the slider for chaining.
+    //
+    Slider.prototype.hide = function () {
+        this.opts.strokeAlpha = 0;
+        this.opts.fillAlpha = 0;
+        this.opts.controlStrokeAlpha = 0;
+        this.opts.controlFillAlpha = 0;
+        this.layout();
+        return this;
+    };
+    return Slider;
+}(PIXI.Container));
+exports.default = Slider;
+
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+/* global apollo, subscriptions, gql */
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var PIXI = __webpack_require__(0);
+var theme_1 = __webpack_require__(1);
+var progress_1 = __webpack_require__(13);
+var modal_1 = __webpack_require__(9);
+var message_1 = __webpack_require__(14);
+var PIXIApp = /** @class */ (function (_super) {
+    __extends(PIXIApp, _super);
+    function PIXIApp(opts) {
+        if (opts === void 0) { opts = {}; }
+        var _this = this;
+        var width = opts.width || null;
+        var height = opts.height || null;
+        //let view = opts.view || null
+        if (opts.transparent === undefined)
+            opts.transparent = true;
+        if (opts.backgroundColor === undefined)
+            opts.backgroundColor = 0x282828;
+        if (opts.autoResize === undefined)
+            opts.autoResize = true;
+        if (opts.progress === 'undefined')
+            opts.progress = {};
+        opts.monkeyPatchMapping = false;
+        //let antialias = opts.antialias || true
+        //let resolution = window.devicePixelRatio || 1
+        var autoResize = opts.autoResize || true;
+        //let fpsLogging = false
+        //let progress = opts.progress || {}
+        // let monkeyPatchMapping = opts.monkeyPatchMapping || true
+        // roundPixels is deprerecated since PIXI 5.0.  Use PIXI.settings.ROUND_PIXELS
+        if (opts.roundPixels)
+            PIXI.settings.ROUND_PIXELS = true;
+        else
+            PIXI.settings.ROUND_PIXELS = false;
+        // Do not pass roundPixels to super constructor
+        // or you will get the warning we avoided above.
+        delete opts.roundPixels;
+        var theme = theme_1.default.fromString(opts.theme);
+        var fullScreen = false;
+        //B They both need to be set or unset
+        //B fullScreen = !opts.width || !opts.height
+        fullScreen = !opts.width && !opts.height;
+        if (fullScreen) {
+            width = window.innerWidth;
+            height = window.innerHeight;
+        }
+        _this = _super.call(this, {
+            view: opts.view || null,
+            width: width,
+            height: height,
+            transparent: opts.transparent,
+            backgroundColor: opts.backgroundColor,
+            antialias: opts.antialias || true,
+            resolution: window.devicePixelRatio || 1,
+            forceCanvas: opts.forceCanvas || false,
+        }) || this;
+        _this.theme = theme;
+        _this.width = width;
+        _this.height = height;
+        //this.monkeyPatchMapping = opts.monkeyPatchMapping || true
+        _this.monkeyPatchMapping = false;
+        _this.fpsLogging = opts.fpsLogging || false;
+        _this.fullScreen = fullScreen;
+        _this.progressOpts = opts.progress || {};
+        _this.orient = null;
+        _this.originalMapPositionToPoint = null;
+        _this.autoResize = autoResize || true;
+        if (_this.fullScreen || _this.autoResize) {
+            console.log('App is in fullScreen mode');
+            window.addEventListener('resize', _this.resize.bind(_this));
+            document.body.addEventListener('orientationchange', _this.checkOrientation.bind(_this));
+        }
+        if (_this.monkeyPatchMapping) {
+            console.log('Using monkey patched coordinate mapping');
+            //O Pluggin the specializtion does not work. Monkey patching does
+            //O this.renderer.plugins.interaction = new FullscreenInteractionManager( this.renderer )
+            _this.monkeyPatchPixiMapping();
+        }
+        return _this;
+    }
+    //
+    // Extra setup method to construct complex scenes, etc...
+    // Overwrite this method if you need additonal views and components.
+    //
+    // @return { PIXIApp } A reference to the PIXIApp for chaining.
+    //
+    PIXIApp.prototype.setup = function () {
+        this.scene = this.sceneFactory();
+        this.stage.addChild(this.scene);
+        // fpsLogging
+        if (this.fpsLogging)
+            this.addFpsDisplay();
+        // GraphQL
+        //O if ( this.graphql && typeof apollo !== 'undefined' )
+        //O {
+        //O    const networkInterface = apollo.createNetworkInterface( {
+        //O       uri: '/graphql'
+        //O    } )
+        //O    const wsClient = new subscriptions.SubscriptionClient( `wss://${location.hostname}/subscriptions`, {
+        //O       reconnect: true,
+        //O       connectionParams: { }
+        //O    })
+        //O    const networkInterfaceWithSubscriptions = subscriptions.addGraphQLSubscriptions({ networkInterface, wsClient})
+        //O    this.apolloClient = new apollo.ApolloClient({
+        //O       networkInterface: networkInterfaceWithSubscriptions
+        //O    })
+        //O }
+        // progress
+        this._progress = new progress_1.default(Object.assign({ theme: this.theme }, this.progressOpts, { app: this }));
+        this._progress.visible = false;
+        this.stage.addChild(this._progress);
+        return this;
+    };
+    //
+    // Tests whether the width is larger than the height of the application.
+    //
+    // @return { boolean } Returns true if app is in landscape mode.
+    //
+    PIXIApp.prototype.orientation = function () {
+        return this.width > this.height;
+    };
+    //
+    // Checks orientation and adapts view size if necessary. Implements a
+    // handler for the orientationchange event.
+    //
+    // @param { event= } - orientationchange event
+    //
+    //O checkOrientation( event?: PIXI.interaction.InteractionEvent ): void
+    // @ts-ignore error TS6133: 'event' is declared but never read
+    PIXIApp.prototype.checkOrientation = function (event) {
+        var _this = this;
+        var value = this.orientation();
+        if (value != this.orient) {
+            //B setTimeout( 100, function( )
+            //B setTimeout is function, interval
+            //B setTimeout( 100, function( )
+            //B {
+            //B    this.orientationChanged( true )
+            //B }.bind( this ) )
+            setTimeout(function () {
+                _this.orientationChanged(true);
+            }, 100);
+            this.orient = value;
+        }
+    };
+    //
+    // Called if checkOrientation detects an orientation change event.
+    //
+    // @param { boolean= } [ force=false ]
+    //        - Called if checkOrientation detects an orientation change event.
+    //
+    PIXIApp.prototype.orientationChanged = function (force) {
+        if (force === void 0) { force = false; }
+        if (this.expandRenderer() || force) {
+            this.layout();
+        }
+    };
+    //
+    // Called after a resize. Empty method but can be overwritten to
+    // adapt their layout to the new app size.
+    //
+    // @param { number } [ width ] - The width of the app.
+    // @param { number } [ height ] - The height of the app.
+    //
+    // @ts-ignore error TS6133: 'width' & height is declared but never read
+    PIXIApp.prototype.layout = function (width, height) {
+    };
+    //
+    // Draws the display tree of the app. Typically this can be delegated
+    // to the layout method.
+    //
+    //
+    PIXIApp.prototype.draw = function () {
+        this.layout(this.width, this.height);
+    };
+    //
+    // Run the application. Override this method with everything
+    // that is needed to maintain your App, e.g. setup calls, main loops, etc.
+    //
+    //
+    PIXIApp.prototype.run = function () {
+        return this;
+    };
+    //
+    // Overwrite this factory method if your application needs a special
+    // scene object.
+    //
+    // @returns { PIXI.Container }
+    //          - A new PIXI Container for use as a scene.
+    //
+    PIXIApp.prototype.sceneFactory = function () {
+        return new PIXI.Container();
+    };
+    //
+    // Adds the display of the frames per second to the renderer in the upper left corner.
+    //
+    // @return { PIXIApp }
+    //         - Returns the PIXIApp for chaining.
+    //
+    PIXIApp.prototype.addFpsDisplay = function () {
+        var fpsDisplay = new FpsDisplay(this);
+        this.stage.addChild(fpsDisplay);
+        return this;
+    };
+    Object.defineProperty(PIXIApp.prototype, "size", {
+        //
+        // Returns the size of the renderer as an object with the keys width and height.
+        //
+        // @readonly
+        // @member { object }
+        //
+        get: function () {
+            return { width: this.width, height: this.height };
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PIXIApp.prototype, "center", {
+        //
+        // Returns the center of the renderer as an object with the keys x and y.
+        //
+        // @readonly
+        // @member { object }
+        //
+        get: function () {
+            return { x: this.width / 2, y: this.height / 2 };
+        },
+        enumerable: true,
+        configurable: true
+    });
+    //
+    // Resizes the renderer to fit into the window or given width and height.
+    //
+    // @param { object } [ event ]
+    //        - The event.
+    // @param { object= } [ opts = { } ]
+    //        - The event.
+    // @param { number } [ opts.width = window.innerWidth ]
+    //        - The width of the app to resize to.
+    // @param { number } [ opts.height = window.innerHeight ]
+    //        - The height of the app to resize to.
+    // @return { PIXIApp }
+    //        - Returns the PIXIApp for chaining.
+    //
+    // @ts-ignore error TS6133: 'event' is declared but never read
+    PIXIApp.prototype.resize = function (event, _a) {
+        var _b = _a === void 0 ? {} : _a, _c = _b.width, width = _c === void 0 ? window.innerWidth : _c, _d = _b.height, height = _d === void 0 ? window.innerHeight : _d;
+        this.width = width;
+        this.height = height;
+        this.expandRenderer();
+        this.layout(width, height);
+        // if ( this.scene  ) {
+        // console.log( "gl.drawingBufferWidth", this.renderer.view.getContext( 'webgl' ).drawingBufferWidth  )
+        // console.log( "scene", this.scene.scale, this.renderer, this.renderer.autoResize, this.renderer.resolution  )
+        // }
+        return this;
+    };
+    //
+    // @todo Write the documentation.
+    //
+    // @private
+    //
+    PIXIApp.prototype.monkeyPatchPixiMapping = function () {
+        var _this = this;
+        if (this.originalMapPositionToPoint === null) {
+            var interactionManager = this.renderer.plugins.interaction;
+            this.originalMapPositionToPoint = interactionManager.mapPositionToPoint;
+            interactionManager.mapPositionToPoint = function (point, x, y) {
+                return _this.fixedMapPositionToPoint(point, x, y);
+            };
+        }
+    };
+    //
+    // In some browsers the canvas is distorted if the screen resolution and
+    // overall size of the canvas exceeds the internal limits ( e.g. 4096 x 4096 pixels ).
+    // To compensate these distortions we need to fix the mapping to the actual
+    // drawing buffer coordinates.
+    // @private
+    // @param { any } local
+    // @param { number } x
+    // @param { number } y
+    //
+    // @return { } interactionManager.mapPositionToPoint
+    //
+    PIXIApp.prototype.fixedMapPositionToPoint = function (local, x, y) {
+        var resolution = this.renderer.resolution;
+        var interactionManager = this.renderer.plugins.interaction;
+        var extendWidth = 1.0;
+        var extendHeight = 1.0;
+        var dy = 0;
+        var canvas = this.renderer.view;
+        var context = canvas.getContext('webgl');
+        if (context !== null && (context.drawingBufferWidth < canvas.width ||
+            context.drawingBufferHeight < canvas.height)) {
+            extendWidth = context.drawingBufferWidth / canvas.width;
+            extendHeight = context.drawingBufferHeight / canvas.height;
+            //dx = wantedWidth - context.drawingBufferWidth
+            dy = (canvas.height - context.drawingBufferHeight) / resolution;
+        }
+        x *= extendWidth;
+        y *= extendHeight;
+        return this.originalMapPositionToPoint.call(interactionManager, local, x, y + dy);
+    };
+    //
+    // Expand the renderer step-wise on resize.
+    //
+    // @param { number } [ expand ] - The amount of additional space for the renderer [ px].
+    // @return { boolean } true if the renderer was resized.
+    //
+    PIXIApp.prototype.expandRenderer = function (expand) {
+        if (expand === void 0) { expand = 256; }
+        var renderer = this.renderer;
+        // Set but never read
+        //O let resolution = this.renderer.resolution
+        var ww = this.width;
+        var hh = this.height;
+        var sw = this.screen.width;
+        var sh = this.screen.height;
+        if (ww > sw || hh > sh) {
+            console.log('App.expandRenderer');
+            renderer.resize(ww + expand, hh + expand);
+            return true;
+        }
+        renderer.resize(ww, hh);
+        return false;
+    };
+    //
+    // Set the loading progress of the application. If called for
+    // the first time, display the progress bar.
+    //
+    // @param { number } [ value ]
+    //        - Should be a value between 0 and 100. If 100, the
+    //          progress bar will disappear.
+    // @return { PIXIApp|Progress }
+    //        - The PixiApp object for chaining or the Progress object
+    //          when the method was called without a parameter.
+    //
+    PIXIApp.prototype.progress = function (value) {
+        if (typeof value === 'undefined') {
+            return this._progress;
+        }
+        this._progress.visible = true;
+        this._progress.progress = value;
+        return this;
+    };
+    //
+    // Opens a new Modal object binded to this app.
+    //
+    // @param { object } [ opts ] - An options object for the Modal object.
+    // @return { Modal } Returns the Modal object.
+    //
+    PIXIApp.prototype.modal = function (opts) {
+        if (opts === void 0) { opts = {}; }
+        var modal = new modal_1.default(Object.assign({ theme: this.theme }, opts, { app: this }));
+        this.scene.addChild(modal);
+        return modal;
+    };
+    //
+    // Opens a new Message object binded to this app.
+    //
+    // @param { object } [ opts ] - An options object for the Message object.
+    // @return { Message } Returns the Message object.
+    //
+    PIXIApp.prototype.message = function (opts) {
+        if (opts === void 0) { opts = {}; }
+        var message = new message_1.default(Object.assign({ theme: this.theme }, opts, { app: this }));
+        this.scene.addChild(message);
+        return message;
+    };
+    //
+    // Loads sprites, e.g. images into the PIXI TextureCache.
+    //
+    // @param { string|string[ ] } resources
+    //        - A String or an Array of urls to the images to load.
+    // @param { function } [ loaded ]
+    //        - A callback which is executed after all resources has been loaded.
+    //          Receives one paramter, a Map of sprites where the key is
+    //          the path of the image which was loaded and the value is
+    //          the PIXI.Sprite object.
+    // @param { object } [ opts ]
+    //        - An options object for more specific parameters.
+    // @param { boolean } [ opts.resolutionDependent=true ]
+    //        - Should the sprites be loaded dependent of the
+    //          renderer resolution?
+    // @param { boolean } [ opts.progress=false ]
+    //        - Should a progress bar display the loading status?
+    //
+    // @return { PIXIApp }
+    //         - The PIXIApp object for chaining.
+    //
+    PIXIApp.prototype.loadSprites = function (resources, loaded, _a) {
+        var _this = this;
+        if (loaded === void 0) { loaded = null; }
+        var _b = _a === void 0 ? {} : _a, _c = _b.resolutionDependent, resolutionDependent = _c === void 0 ? true : _c, _d = _b.progress, progress = _d === void 0 ? false : _d;
+        this.loadTextures(resources, function (textures) {
+            var e_1, _a;
+            var sprites = new Map();
+            try {
+                for (var textures_1 = __values(textures), textures_1_1 = textures_1.next(); !textures_1_1.done; textures_1_1 = textures_1.next()) {
+                    var _b = __read(textures_1_1.value, 2), key = _b[0], texture = _b[1];
+                    sprites.set(key, new PIXI.Sprite(texture));
+                }
+            }
+            catch (e_1_1) { e_1 = { error: e_1_1 }; }
+            finally {
+                try {
+                    if (textures_1_1 && !textures_1_1.done && (_a = textures_1.return)) _a.call(textures_1);
+                }
+                finally { if (e_1) throw e_1.error; }
+            }
+            if (loaded) {
+                loaded.call(_this, sprites);
+            }
+        }, { resolutionDependent: resolutionDependent, progress: progress });
+        return this;
+    };
+    //
+    // Loads textures, e.g. images into the PIXI TextureCache.
+    //
+    // @param { string|string[ ] } resources
+    //        - A String or an Array of urls to the images to load.
+    // @param { function } [ loaded ]
+    //        - A callback which is executed after all resources has been loaded.
+    //          Receives one paramter, a Map of textures where the key
+    //          is the path of the image which was loaded and the value
+    //          is the PIXI.Texture object.
+    // @param { object } [ opts ]
+    //        - An options object for more specific parameters.
+    // @param { boolean } [ opts.resolutionDependent=true ]
+    //        - Should the textures be loaded dependent of the
+    //          renderer resolution?
+    // @param { boolean } [ opts.progress=false ]
+    //        - Should a progress bar display the loading status?
+    //
+    // @return { PIXIApp }
+    //         - The PIXIApp object for chaining.
+    //
+    PIXIApp.prototype.loadTextures = function (resources, loaded, _a) {
+        var e_2, _b;
+        var _this = this;
+        if (loaded === void 0) { loaded = null; }
+        var _c = _a === void 0 ? {} : _a, _d = _c.resolutionDependent, resolutionDependent = _d === void 0 ? true : _d, _e = _c.progress, progress = _e === void 0 ? false : _e;
+        if (!Array.isArray(resources)) {
+            resources = [resources];
+        }
+        var loader = this.loader;
+        try {
+            for (var resources_1 = __values(resources), resources_1_1 = resources_1.next(); !resources_1_1.done; resources_1_1 = resources_1.next()) {
+                var resource = resources_1_1.value;
+                if (!loader.resources[resource]) {
+                    if (resolutionDependent) {
+                        var resolution = Math.round(this.renderer.resolution);
+                        switch (resolution) {
+                            case 2:
+                                loader.add(resource, resource.replace(/\.([^.]*)$/, '@2x.$1'));
+                                break;
+                            case 3:
+                                loader.add(resource, resource.replace(/\.([^.]*)$/, '@3x.$1'));
+                                break;
+                            default:
+                                loader.add(resource);
+                                break;
+                        }
+                    }
+                    else {
+                        loader.add(resource);
+                    }
+                }
+            }
+        }
+        catch (e_2_1) { e_2 = { error: e_2_1 }; }
+        finally {
+            try {
+                if (resources_1_1 && !resources_1_1.done && (_b = resources_1.return)) _b.call(resources_1);
+            }
+            finally { if (e_2) throw e_2.error; }
+        }
+        if (progress) {
+            loader.on('progress', function (e) {
+                _this.progress(e.progress);
+            });
+        }
+        // Interesting. without loader, an error occurs that type string (resources)
+        // cannot be used to index type loader.
+        // @ts-ignore error TS6133: 'loader' is declared but never read
+        loader.load(function (loader, resources) {
+            var textures = new Map();
+            for (var key in resources) {
+                textures.set(key, resources[key].texture);
+            }
+            if (loaded) {
+                loaded.call(_this, textures);
+            }
+        });
+        return this;
+    };
+    return PIXIApp;
+}(PIXI.Application));
+exports.default = PIXIApp;
+//
+// The class fpsdisplay shows in the upper left corner
+// of the renderer the current image refresh rate.
+//
+// @private
+// @class
+// @extends PIXI.Graphics
+// @see { @link http://pixijs.download/dev/docs/PIXI.Graphics.html|PIXI.Graphics }
+//
+var FpsDisplay = /** @class */ (function (_super) {
+    __extends(FpsDisplay, _super);
+    function FpsDisplay(app) {
+        var _this = _super.call(this) || this;
+        _this.app = app;
+        _this.lineStyle(3, 0x434f4f, 1)
+            .beginFill(0x434f4f, .6)
+            .drawRoundedRect(0, 0, 68, 32, 5)
+            .endFill()
+            .position.set(20, 20);
+        _this.text = new PIXI.Text(_this.fps, new PIXI.TextStyle({
+            fontFamily: 'Arial',
+            fontSize: 14,
+            fontWeight: 'bold',
+            fill: '#f6f6f6',
+            stroke: '#434f4f',
+            strokeThickness: 3
+        }));
+        _this.text.position.set(6, 6);
+        _this.addChild(_this.text);
+        _this.refreshFps();
+        window.setInterval(_this.refreshFps.bind(_this), 1000);
+        return _this;
+    }
+    //
+    // Refreshes fps number.
+    //
+    // @return { PIXIApp }
+    //         - Returns the PIXIApp object for chaining.
+    //
+    //refreshFps( ): PIXIApp
+    FpsDisplay.prototype.refreshFps = function () {
+        this.text.text = (this.app.ticker.FPS).toFixed(1) + " fps";
+        //B 'this' is not PIXIApp, but FpsDisplay.  Either the documentation is
+        //B wrong or the code is.  I'll go with the documentation. To be checked
+        //B later.
+        return this;
+    };
+    return FpsDisplay;
+}(PIXI.Graphics));
+
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var theme_1 = __webpack_require__(1);
+var Tween_1 = __webpack_require__(2);
+var modal_1 = __webpack_require__(9);
+var progressbar_1 = __webpack_require__(15);
+var button_1 = __webpack_require__(6);
+var ProgressDialog = /** @class */ (function (_super) {
+    __extends(ProgressDialog, _super);
+    function ProgressDialog(opts) {
+        if (opts === void 0) { opts = {}; }
+        var _this = this;
+        var theme = theme_1.default.fromString(opts.theme);
+        // The Title
+        if (!opts.headerStyle)
+            opts.headerStyle = theme.opts.textStyleLarge;
+        opts.headerStyle = Object.assign({
+            align: opts.headerStyle.align || 'center',
+        }, opts.headerStyle);
+        _this = _super.call(this, { app: opts.app,
+            theme: theme,
+            header: opts.header,
+            headerStyle: opts.headerStyle,
+            closeOnBackground: false,
+        }) || this;
+        _this.opts = opts;
+        if (_this.opts.destroyOnComplete === undefined)
+            _this.opts.destroyOnComplete = true;
+        // The progress bar
+        if (!_this.opts.progressBar)
+            _this.opts.progressBar = {};
+        _this.progressBarOptions = Object.assign({
+            theme: theme,
+            x: theme.opts.padding * 2,
+            y: _this.popup.height * .4,
+            width: _this.opts.progressBar.width || _this.popup.width - theme.opts.padding * 4,
+            height: _this.opts.progressBar.height || _this.popup.height * .1,
+        }, _this.opts.progressBar);
+        _this.progressBar = new progressbar_1.default(_this.progressBarOptions);
+        _this.popup.addChild(_this.progressBar);
+        _this.cancelButtonOptions = Object.assign({
+            x: _this.popup.width * .25,
+            y: _this.popup.height * .6,
+            width: _this.popup.width * .5,
+            height: _this.popup.height * .2,
+            backgroundFill: 0xFFF000,
+            action: _this.cancelCallback,
+        }, _this.opts.cancelButton);
+        _this.cancelButton = new button_1.default(_this.cancelButtonOptions);
+        // Re-center after adding
+        _this.cancelButton.x = (_this.popup.width - _this.cancelButton.width) * .5;
+        _this.popup.addChild(_this.cancelButton);
+        // When cancel is called, the this is the button
+        // and not this the modal.  Setting parent (as it should be)
+        // allows us to get the modal parent from the button
+        _this.cancelButton.grandParent = _this;
+        return _this;
+    }
+    ProgressDialog.prototype.cancelCallback = function (e, button) {
+        // Set above, so cast is valid
+        var dialog = button.grandParent;
+        if (dialog) {
+            if (dialog.opts.onCancel)
+                dialog.opts.onCancel.call(this, e, dialog);
+            dialog.destroy();
+        }
+    };
+    Object.defineProperty(ProgressDialog.prototype, "progress", {
+        //
+        // Gets or sets the progress. Has to be a number between 0 and 100.
+        //
+        // @member { number }
+        //
+        get: function () {
+            return this.progressBar.progress;
+        },
+        set: function (value) {
+            var _this = this;
+            value = Math.round(value);
+            if (value < 0)
+                value = 0;
+            if (value > 100)
+                value = 100;
+            var dialog = this;
+            Tween_1.default.to(this.progressBar, this.theme.opts.normal, {
+                //Bypass progress tween for ours so onComplete will be called
+                _progress: value,
+                onUpdate: function () { return _this.progressBar.draw(); },
+                onComplete: function () {
+                    if (value === 100 && _this.opts.destroyOnComplete) {
+                        Tween_1.default.to(dialog, _this.theme.opts.fast, {
+                            alpha: 0,
+                            onComplete: function () {
+                                dialog.destroy({ children: true });
+                                if (_this.opts.onComplete)
+                                    _this.opts.onComplete.call(_this);
+                            }
+                        });
+                    }
+                }
+            });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return ProgressDialog;
+}(modal_1.default));
+exports.default = ProgressDialog;
+
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+Object.defineProperty(exports, "__esModule", { value: true });
+// Report capabilities with guaranteed values.
+//
+var Capabilities = /** @class */ (function () {
+    function Capabilities() {
+    }
+    Object.defineProperty(Capabilities, "userAgent", {
+        // Returns the browser userAgent.
+        // @return { string }
+        //
+        get: function () {
+            return navigator.userAgent || 'Unknown Agent';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Capabilities, "isMobile", {
+        // Tests whether the app is running on a mobile device.
+        // Implemented as a readonly attribute.
+        // @return { boolean }
+        //
+        get: function () {
+            return (/Mobi/.test(navigator.userAgent));
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Capabilities, "isIOS", {
+        // Tests whether the app is running on a iOS device.
+        // Implemented as a readonly attribute.
+        // @return { boolean }
+        //
+        get: function () {
+            return (/iPad|iPhone|iPod/.test(navigator.userAgent)) && !window.MSStream;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Capabilities, "isSafari", {
+        // Tests whether the app is running in a Safari environment.
+        // See https://stackoverflow.com/questions/7944460/detect-safari-browser
+        // Implemented as a readonly attribute.
+        // @return { boolean }
+        //
+        get: function () {
+            return navigator.vendor && navigator.vendor.indexOf('Apple') > -1 && navigator.userAgent && !navigator.userAgent.match('CriOS');
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Capabilities, "isElectron", {
+        //
+        // Distincts if the app is running inside electron or not.
+        //
+        // source: https://discuss.atom.io/t/detect-electron-or-web-page-running/33180/3
+        //
+        get: function () {
+            // @ts-ignore
+            return typeof process != 'undefined' && process.versions && process.versions.electron !== undefined;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Capabilities, "devicePixelRatio", {
+        // Returns the display resolution. Necessary for retina displays.
+        // @return { number }
+        //
+        get: function () {
+            return window.devicePixelRatio || 1;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Capabilities, "isMultiTouchTable", {
+        // Returns true if the device is a multi-touch table. This method is currently not universal usable and not sure!
+        // @return { boolean }
+        //
+        get: function () {
+            return Capabilities.devicePixelRatio > 2 && Capabilities.isMobile === false && /Windows/i.test(Capabilities.userAgent);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    // Returns true if mouse events are supported
+    // @return { boolean }
+    //
+    Capabilities.supportsMouseEvents = function () {
+        return typeof (window.MouseEvent) != 'undefined';
+    };
+    // Returns true if touch events are supported
+    // @return { boolean }
+    //
+    Capabilities.supportsTouchEvents = function () {
+        return typeof (window.TouchEvent) != 'undefined';
+    };
+    // Returns true if pointer events are supported
+    // @return { boolean }
+    //
+    Capabilities.supportsPointerEvents = function () {
+        return typeof (window.PointerEvent) != 'undefined';
+    };
+    // Returns true if DOM templates are supported
+    // @return { boolean }
+    //
+    Capabilities.supportsTemplate = function () {
+        return 'content' in document.createElement('template');
+    };
+    return Capabilities;
+}());
+exports.default = Capabilities;
+// Basic tests for Capabilities.
+//
+var CapabilitiesTests = /** @class */ (function () {
+    function CapabilitiesTests() {
+    }
+    CapabilitiesTests.testConfirm = function () {
+        var bool = confirm('Please confirm');
+        document.getElementById('demo').innerHTML = (bool) ? 'Confirmed' : 'Not confirmed';
+    };
+    CapabilitiesTests.testPrompt = function () {
+        var person = prompt('Please enter your name', 'Harry Potter');
+        if (person != null) {
+            //O demo.innerHTML = 'Hello ' + person + '! How are you today?'
+            document.getElementById('demo').innerHTML = 'Hello ' + person + '! How are you today?';
+        }
+    };
+    CapabilitiesTests.testUserAgent = function () {
+        var agent = 'User-agent: ' + Capabilities.userAgent;
+        //O user_agent.innerHTML = agent
+        document.getElementById('user_agent').innerHTML = agent;
+    };
+    CapabilitiesTests.testDevicePixelRatio = function () {
+        var value = 'Device Pixel Ratio: ' + Capabilities.devicePixelRatio;
+        //O device_pixel_ratio.innerHTML = value
+        document.getElementById('device_pixel_ratio').innerHTML = value;
+    };
+    CapabilitiesTests.testMultiTouchTable = function () {
+        var value = 'Is the device a multi-touch table? ' + Capabilities.isMultiTouchTable;
+        //O multi_touch_table.innerHTML = value
+        document.getElementById('multi_touch_table').innerHTML = value;
+    };
+    CapabilitiesTests.testSupportedEvents = function () {
+        var events = [];
+        if (Capabilities.supportsMouseEvents()) {
+            events.push('MouseEvents');
+        }
+        if (Capabilities.supportsTouchEvents()) {
+            events.push('TouchEvents');
+        }
+        if (Capabilities.supportsPointerEvents()) {
+            events.push('PointerEvents');
+        }
+        //O supported_events.innerHTML = 'Supported Events: ' + events.join( ', ' )
+        document.getElementById('supported_events').innerHTML = 'Supported Events: ' + events.join(', ');
+    };
+    CapabilitiesTests.testAll = function () {
+        this.testUserAgent();
+        this.testDevicePixelRatio();
+        this.testMultiTouchTable();
+        this.testSupportedEvents();
+    };
+    return CapabilitiesTests;
+}());
+exports.CapabilitiesTests = CapabilitiesTests;
+// Optional global variables, needed in DocTests. //
+// @ts-ignore
+window.Capabilities = Capabilities;
+// @ts-ignore
+window.CapabilitiesTests = CapabilitiesTests;
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(27)))
+
+/***/ }),
+/* 27 */
 /***/ (function(module, exports) {
 
-module.exports = PIXI;
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var PIXI = __webpack_require__(0);
+var theme_1 = __webpack_require__(1);
+// Try to resolve the mess below.
+var defaultTheme = new theme_1.default();
+function deepObject(source) {
+    var result = {};
+    Object.keys(source).forEach(function (key) {
+        // @ts-ignore
+        var value = source[key];
+        // @ts-ignore
+        result[key] = deep(value);
+    }, {});
+    return result;
+}
+exports.deepObject = deepObject;
+//
+// Defines usefull default text styles.
+//
+var FontInfo = /** @class */ (function () {
+    function FontInfo() {
+    }
+    Object.defineProperty(FontInfo, "small", {
+        get: function () {
+            //O return app.theme.textStyle.textStyleSmall
+            var w = null;
+            if (window.app && (window.app).theme) {
+                w = ((window.app).theme);
+                if (w.opts && w.opts.textStyle)
+                    return w.opts.textStyleSmall;
+                else
+                    console.warn("labeledgraphics: small Doh");
+            }
+            console.warn("labeledgraphics: small called.  Should fix this....");
+            return defaultTheme.opts.textStyleSmall;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FontInfo, "fontSize", {
+        get: function () {
+            //O return app.theme.textStyle
+            var w = null;
+            if (window.app && (window.app).theme) {
+                w = ((window.app).theme);
+                if (w.opts && w.opts.textStyle)
+                    return w.opts.textStyle.fontSize;
+                else
+                    console.warn("labeledgraphics: fontSize Doh");
+            }
+            console.warn("labeledgraphics: fontSize called.  Should fix this....");
+            return defaultTheme.opts.textStyle.fontSize;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FontInfo, "normal", {
+        get: function () {
+            //O return app.theme.textStyle
+            var w = null;
+            if (window.app && (window.app).theme) {
+                w = ((window.app).theme);
+                if (w.opts && w.opts.textStyle)
+                    return w.opts.textStyle;
+                else
+                    console.warn("labeledgraphics: normal Doh");
+            }
+            console.warn("labeledgraphics: normal called.  Should fix this....");
+            return defaultTheme.opts.textStyle;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FontInfo, "centered", {
+        get: function () {
+            //O return Object.assign( { }, app.theme.textStyle, { align: 'center' } )
+            var w = null;
+            if (window.app && (window.app).theme) {
+                w = ((window.app).theme);
+                if (w.opts.textStyle)
+                    return Object.assign({}, w.opts.textStyle, { align: 'center' });
+                else
+                    console.warn("labeledgraphics: centered Doh");
+            }
+            console.warn("labeledgraphics: centered called.  Should fix this....");
+            return defaultTheme.opts.textStyle;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FontInfo, "fontFamily", {
+        get: function () {
+            // This was missing ...
+            var w = null;
+            if (window.app && (window.app).theme) {
+                w = ((window.app).theme);
+                if (w.opts.textStyle)
+                    return w.opts.textStyle.fontFamily;
+                else
+                    console.warn("labeledgraphics: fontFamily Doh");
+            }
+            console.warn("labeledgraphics: centered called.  Should fix this....");
+            return defaultTheme.opts.textStyle.fontFamily;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return FontInfo;
+}());
+exports.FontInfo = FontInfo;
+//
+// Static methods to support hyphenation of lines.
+//
+// @class Hypenate
+//
+var Hypenate = /** @class */ (function () {
+    function Hypenate() {
+    }
+    Hypenate.splitPart = function (part) {
+        var e_1, _a;
+        var parts = part.split('-');
+        if (parts.length == 1)
+            return [part];
+        var result = [];
+        var last = parts.pop();
+        try {
+            for (var parts_1 = __values(parts), parts_1_1 = parts_1.next(); !parts_1_1.done; parts_1_1 = parts_1.next()) {
+                var p = parts_1_1.value;
+                result.push(p + '-');
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (parts_1_1 && !parts_1_1.done && (_a = parts_1.return)) _a.call(parts_1);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        result.push(last);
+        return result.filter(function (p) { return p.length > 0; });
+    };
+    Hypenate.splitWord = function (word) {
+        //B qu'Est-ce que c'est
+        //B if ( typeof ( language ) == 'undefined' )
+        //B{
+        if (word.indexOf('-') > -1) {
+            return word.split('-');
+        }
+        return [word];
+        //B
+        /* NO IDEAL WHAT LANGUAGE IS OR MEANT TO BE IN THIS CODE
+        let parts = language.hyphenate( word )
+        let result = [ ]
+        for ( let part of parts )
+        {
+           for ( let splitted of this.splitPart( part ) )
+           {
+              result.push( splitted )
+           }
+        }
+        return result
+        */
+    };
+    Hypenate.abbreviateLine = function (label, style, width) {
+        var pixiStyle = new PIXI.TextStyle(style);
+        var metrics = PIXI.TextMetrics.measureText(label, pixiStyle);
+        while (metrics.width > width && label.length > 3) {
+            label = label.slice(0, label.length - 1);
+            metrics = PIXI.TextMetrics.measureText(label, pixiStyle);
+        }
+        label = label.slice(0, label.length - 1);
+        return label + '…';
+    };
+    //O static splitLine( line: string, pixiStyle, width: number, space, minus )
+    Hypenate.splitLine = function (line, pixiStyle, width, space) {
+        var e_2, _a, e_3, _b;
+        var x = 0;
+        var result = '';
+        var words = line.split(' ');
+        try {
+            for (var words_1 = __values(words), words_1_1 = words_1.next(); !words_1_1.done; words_1_1 = words_1.next()) {
+                var word = words_1_1.value;
+                var wordMetrics = PIXI.TextMetrics.measureText(word, pixiStyle);
+                if (x + wordMetrics.width >= width) {
+                    var parts = this.splitWord(word);
+                    var newWord = '';
+                    if (parts.length == 1) {
+                        newWord += '\n' + word + ' ';
+                        x = wordMetrics.width + space.width;
+                    }
+                    else {
+                        var first = true;
+                        var lastPart = '';
+                        try {
+                            for (var parts_2 = (e_3 = void 0, __values(parts)), parts_2_1 = parts_2.next(); !parts_2_1.done; parts_2_1 = parts_2.next()) {
+                                var part = parts_2_1.value;
+                                var partMetrics = PIXI.TextMetrics.measureText(part, pixiStyle);
+                                if (x + partMetrics.width + space.width > width) {
+                                    newWord += ((first || lastPart.endsWith('-')) ? '\n' : '-\n') + part;
+                                    x = partMetrics.width;
+                                }
+                                else {
+                                    newWord += part;
+                                    x += partMetrics.width;
+                                }
+                                lastPart = part;
+                                first = false;
+                            }
+                        }
+                        catch (e_3_1) { e_3 = { error: e_3_1 }; }
+                        finally {
+                            try {
+                                if (parts_2_1 && !parts_2_1.done && (_b = parts_2.return)) _b.call(parts_2);
+                            }
+                            finally { if (e_3) throw e_3.error; }
+                        }
+                        x += space.width;
+                    }
+                    result += newWord + ' ';
+                }
+                else {
+                    result += word + ' ';
+                    x += wordMetrics.width + space.width;
+                }
+            }
+        }
+        catch (e_2_1) { e_2 = { error: e_2_1 }; }
+        finally {
+            try {
+                if (words_1_1 && !words_1_1.done && (_a = words_1.return)) _a.call(words_1);
+            }
+            finally { if (e_2) throw e_2.error; }
+        }
+        return result;
+    };
+    //
+    //  Main method and entry point for text hyphenation 
+    //
+    // @static
+    // @param { * } text
+    // @param { * } style
+    // @param { * } width
+    //
+    // @returns { string }
+    // @memberof Hypenate
+    //
+    Hypenate.splitLines = function (text, style, width) {
+        var e_4, _a;
+        var pixiStyle = new PIXI.TextStyle(style);
+        var lines = text.split('\n');
+        var space = PIXI.TextMetrics.measureText(' ', pixiStyle);
+        //const minus = PIXI.TextMetrics.measureText( '-', pixiStyle )
+        var result = [];
+        try {
+            for (var lines_1 = __values(lines), lines_1_1 = lines_1.next(); !lines_1_1.done; lines_1_1 = lines_1.next()) {
+                var line = lines_1_1.value;
+                //O result.push( this.splitLine( line, pixiStyle, width, space, minus ) )
+                result.push(this.splitLine(line, pixiStyle, width, space));
+            }
+        }
+        catch (e_4_1) { e_4 = { error: e_4_1 }; }
+        finally {
+            try {
+                if (lines_1_1 && !lines_1_1.done && (_a = lines_1.return)) _a.call(lines_1);
+            }
+            finally { if (e_4) throw e_4.error; }
+        }
+        return result.join('\n');
+    };
+    return Hypenate;
+}());
+exports.Hypenate = Hypenate;
+var TextLabel = /** @class */ (function (_super) {
+    __extends(TextLabel, _super);
+    function TextLabel(text, style, canvas, _a) {
+        if (style === void 0) { style = null; }
+        if (canvas === void 0) { canvas = null; }
+        var _b = _a === void 0 ? {} : _a, _c = _b.minZoom, minZoom = _c === void 0 ? 0.1 : _c, _d = _b.maxZoom, maxZoom = _d === void 0 ? 10 : _d;
+        var _this = _super.call(this, text, style, canvas) || this;
+        _this.normFontSize = _this.style.fontSize;
+        _this.minZoom = minZoom;
+        _this.maxZoom = maxZoom;
+        return _this;
+    }
+    TextLabel.prototype.zoom = function (factor) {
+        var oldValue = parseFloat(this.style.fontSize) / this.normFontSize;
+        var value = oldValue * factor;
+        this.setZoom(value);
+    };
+    TextLabel.prototype.setZoom = function (value) {
+        var oldValue = parseFloat(this.style.fontSize) / this.normFontSize;
+        if (value > this.maxZoom) {
+            value = this.maxZoom;
+        }
+        if (value < this.minZoom) {
+            value = this.minZoom;
+        }
+        if (value != oldValue) {
+            this.style.fontSize = Math.max(value * this.normFontSize, 1);
+        }
+    };
+    TextLabel.prototype.setZoomAndScale = function (scale) {
+        this.scale.set(1 / scale);
+        this.setZoom(scale);
+    };
+    return TextLabel;
+}(PIXI.Text));
+//
+// A specialization of the PIXI.Graphics class that allows to
+// resuse and place labels across different layout variants
+//
+// @export
+// @class LabeledGraphics
+// @extends { PIXI.Graphics }
+//
+var LabeledGraphics = /** @class */ (function (_super) {
+    __extends(LabeledGraphics, _super);
+    //
+    // Creates an instance of LabeledGraphics and defines a local label cache.
+    // 
+    // @memberof LabeledGraphics
+    //
+    function LabeledGraphics() {
+        var _this = _super.call(this) || this;
+        _this.labels = new Map();
+        return _this;
+    }
+    LabeledGraphics.prototype._createText = function (label, fontInfo) {
+        return new TextLabel(label, fontInfo);
+    };
+    //
+    // Main additional method. Ensures that a text object is created that is cached
+    // under the given key.
+    //
+    // @param { * } key
+    //        - The cache key
+    // @param { * } label
+    //        - The label to show
+    // @param { * } [ attrs={ } ]
+    //        - Defines attributes of the text object. 
+    //          align: 'right', 'left', or 'center'
+    //          justify: 'top', 'bottom', or 'center'
+    //          maxLines: { integer } truncates the text and adds ellipsis
+    //          maxHeight: { number } truncates text that needs more space
+    //                                and adds ellipsis
+    //          maxWidth: { number } word wraps text using hyphenation if possible
+    // @param { * } [ fontInfo=FontInfo.normal ]
+    //        - Defines PIXI.TextStyle attributes
+    //
+    // @returns { PIXI.Text }
+    //          - instance
+    //
+    // @memberof LabeledGraphics
+    //
+    LabeledGraphics.prototype.ensureLabel = function (key, label, attrs, fontInfo) {
+        if (attrs === void 0) { attrs = {}; }
+        if (fontInfo === void 0) { fontInfo = FontInfo.normal; }
+        if (attrs.maxWidth && attrs.maxLines == 1) {
+            label = Hypenate.abbreviateLine(label, fontInfo, attrs.maxWidth);
+        }
+        else {
+            if (attrs.maxWidth) {
+                label = Hypenate.splitLines(label, fontInfo, attrs.maxWidth);
+            }
+            if (attrs.maxLines) {
+                label = this.truncateLabel(label, fontInfo, attrs.maxLines);
+            }
+            if (attrs.maxHeight) {
+                var styleInfo = new PIXI.TextStyle(fontInfo);
+                var metrics = PIXI.TextMetrics.measureText(label, styleInfo);
+                var maxLines = Math.max(attrs.maxHeight / metrics.lineHeight, 1);
+                label = this.truncateLabel(label, fontInfo, maxLines);
+            }
+        }
+        if (!this.labels.has(key)) {
+            var text_1 = this._createText(label, fontInfo);
+            this.labels.set(key, text_1);
+            this.addChild(text_1);
+        }
+        var text = this.labels.get(key);
+        for (var k in attrs) {
+            text[k] = attrs[k];
+        }
+        if (label != text.text)
+            text.text = label;
+        // We do not follow the flexbox jargon and use align for x and justify for y axis
+        // This deviation is needed to ensure backward compatability
+        switch (attrs.justify || null) {
+            case 'top':
+                text.anchor.y = 0;
+                break;
+            case 'bottom':
+                text.anchor.x = 1;
+                break;
+            default:
+                text.anchor.y = 0.5;
+                break;
+        }
+        switch (attrs.align) {
+            case 'right':
+                text.anchor.x = 1;
+                break;
+            case 'center':
+                text.anchor.x = 0.5;
+                break;
+            default:
+                text.anchor.x = 0;
+                break;
+        }
+        text.visible = true;
+        return text;
+    };
+    //
+    // Private method that truncates the text and adds an ellipsis if there are more lines
+    // than wanted
+    //
+    // @param { * } text
+    // @param { * } style
+    // @param { * } [ maxLines=Infinity ]
+    //
+    // @returns { string }
+    // @memberof LabeledGraphics
+    //
+    LabeledGraphics.prototype.truncateLabel = function (text, style, maxLines) {
+        if (maxLines === void 0) { maxLines = Infinity; }
+        if (maxLines === Infinity) {
+            return text;
+        }
+        var wordWrapWidth = style.wordWrapWidth;
+        var pixiStyle = new PIXI.TextStyle(style);
+        var lines = PIXI.TextMetrics.measureText(text, pixiStyle).lines;
+        var newText = text;
+        if (lines.length > maxLines) {
+            var truncatedLines = lines.slice(0, maxLines);
+            var lastLine = truncatedLines[truncatedLines.length - 1];
+            var words_2 = lastLine.split(' ');
+            var wordMetrics = PIXI.TextMetrics.measureText("\u00A0\n...\n" + words_2.join('\n'), pixiStyle);
+            var _a = __read(wordMetrics.lineWidths), spaceLength_1 = _a[0], dotsLength = _a[1], wordLengths = _a.slice(2);
+            var newLastLine = wordLengths.reduce(function (data, wordLength, i) {
+                if (data.length + wordLength + spaceLength_1 >= wordWrapWidth) {
+                    return __assign(__assign({}, data), { length: wordWrapWidth });
+                }
+                return {
+                    text: "" + data.text + (i > 0 ? ' ' : '') + words_2[i],
+                    length: data.length + wordLength + spaceLength_1,
+                };
+            }, { text: '', length: dotsLength }).text;
+            truncatedLines[truncatedLines.length - 1] = newLastLine + "...";
+            newText = truncatedLines.join('\n');
+        }
+        return newText;
+    };
+    //
+    // Returns the label for the given key.
+    //
+    // @param { * } key
+    //
+    // @returns { Object }
+    // @memberof LabeledGraphics
+    //
+    LabeledGraphics.prototype.getLabel = function (key) {
+        return this.labels.get(key);
+    };
+    //
+    // Hides the label with the given key.
+    //
+    // @param { * } key
+    // @memberof LabeledGraphics
+    //
+    LabeledGraphics.prototype.hideLabel = function (key) {
+        var label = this.labels.get(key);
+        if (label) {
+            label.visible = false;
+        }
+    };
+    // 
+    // Removes the label with the given key.
+    // @param { * } key
+    // @memberof LabeledGraphics
+    //
+    LabeledGraphics.prototype.removeLabel = function (key) {
+        var label = this.labels.get(key);
+        this.labels.delete(key);
+        label.destroy();
+    };
+    //
+    // Ensures that labels are hidden on clear.
+    //
+    // @memberof LabeledGraphics
+    //
+    LabeledGraphics.prototype.clear = function () {
+        var e_5, _a;
+        _super.prototype.clear.call(this);
+        try {
+            for (var _b = __values(this.labels.keys()), _c = _b.next(); !_c.done; _c = _b.next()) {
+                var key = _c.value;
+                this.hideLabel(key);
+            }
+        }
+        catch (e_5_1) { e_5 = { error: e_5_1 }; }
+        finally {
+            try {
+                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+            }
+            finally { if (e_5) throw e_5.error; }
+        }
+        return this;
+    };
+    //
+    // Logs debugging infos
+    //
+    // @memberof LabeledGraphics
+    //
+    LabeledGraphics.prototype.debugInfos = function () {
+        console.log({ size: this.labels.size, labels: this.labels });
+    };
+    return LabeledGraphics;
+}(PIXI.Graphics));
+exports.default = LabeledGraphics;
+var labelCache = new Map();
+function getTexture(label, style) {
+    if (style === void 0) { style = FontInfo.normal; }
+    //O let key = label + fontInfo.fontFamily + fontInfo.fontSize
+    var key = label + style.fontFamily + style.fontSize;
+    if (labelCache.has(key)) {
+        return labelCache.get(key);
+    }
+    // let expandedFont = Object.assign( { }, fontInfo )
+    var expandedStyle = Object.assign({}, style);
+    //O expandedFont.fontSize *= window.devicePixelRatio
+    if (typeof expandedStyle.fontSize == 'number')
+        expandedStyle.fontSize *= window.devicePixelRatio;
+    //Olet text = new PIXI.Text( label, expandedFont )
+    var text = new PIXI.Text(label, expandedStyle);
+    // The below makes no sense to me as it does exist?
+    // @ts-ignore TS2339: Property 'updateText' does not exist on type 'Text'.
+    text.updateText();
+    labelCache.set(key, text.texture);
+    return text.texture;
+}
+// This was never exported. Perhaps this is why BitmappedLabeledGraphics is here?. Maybe this is the class that is wrong.
+var SpriteLabel = /** @class */ (function (_super) {
+    __extends(SpriteLabel, _super);
+    //O constructor( label: string, fontInfo?: FontInfo )
+    //B FontInfo is static and cannot be used this way
+    function SpriteLabel(label, style) {
+        var _this = this;
+        if (!style)
+            style = FontInfo.normal;
+        //O let texture = getTexture( label, fontInfo )
+        var texture = getTexture(label, style);
+        _this = _super.call(this, texture) || this;
+        //O this.fontInfo = fontInfo
+        _this.style = style;
+        _this.label = label;
+        _this.scale.set(0.8 / window.devicePixelRatio);
+        return _this;
+    }
+    Object.defineProperty(SpriteLabel.prototype, "text", {
+        get: function () {
+            return this.label;
+        },
+        set: function (label) {
+            this.label = label;
+            //O this.texture = getTexture( label, this.fontInfo )
+            this.texture = getTexture(label, this.style);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return SpriteLabel;
+}(PIXI.Sprite));
+exports.SpriteLabel = SpriteLabel;
+/* This is just crap. it has no reason to extend LabelGraphics and then retuen a SpriteLabel with a parameter that is incompatible with SpriteLabel.
+
+timeline extends it, but thankfully does not call createText, so it can extend
+LabeledGraphics instead.
+export class BitmapLabeledGraphics extends LabeledGraphics
+{
+   //O _createText( label: string, fontInfo?: PIXI.TextStyle ): SpriteLabel
+   // @ts-ignore TS2416: Property '_createText' in type 'BitmapLabeledGraphics' is not assignable to the same property in base type 'LabeledGraphics'  Stupid TypeScript
+   _createText( label: string, style?: PIXI.TextStyle ): SpriteLabel
+   {
+      //O let texture = getTexture( label, fontInfo )
+      let texture = getTexture( label, style )
+      return new SpriteLabel( texture )
+   }
+}
+*/
+
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var PIXI = __webpack_require__(0);
+// No brackets, imports the default created Tween Instance from new.
+var Tween_1 = __webpack_require__(2);
+// No brackets, imports the default created Ease Instance from new.
+var Ease_1 = __webpack_require__(8);
+var List = /** @class */ (function (_super) {
+    __extends(List, _super);
+    function List(items, opts) {
+        if (items === void 0) { items = []; }
+        if (opts === void 0) { opts = {}; }
+        var _this = _super.call(this) || this;
+        if (items !== null && !Array.isArray(items))
+            throw ("Error: Array of items is required");
+        _this.opts = Object.assign({}, {
+            padding: 10,
+            margin: 10,
+            orientation: 'vertical',
+            align: 'left',
+            verticalAlign: 'middle',
+            width: null,
+            height: null,
+            app: null
+        }, opts);
+        _this.__items = items;
+        _this.__dragging = false;
+        // setup
+        //--------------------
+        _this.setup();
+        return _this;
+    }
+    //
+    // Creates children and instantiates everything.
+    //
+    // @private
+    // @return { List } A reference to the list for chaining.
+    //
+    List.prototype.setup = function () {
+        var e_1, _a;
+        var _this = this;
+        // inner container
+        //--------------------
+        var container = new PIXI.Container();
+        this.addChild(container);
+        this.container = container;
+        // mask
+        //--------------------
+        var mask = new PIXI.Graphics();
+        this.addChild(mask);
+        this.__mask = mask;
+        try {
+            // add items
+            //--------------------
+            for (var _b = __values(this.__items), _c = _b.next(); !_c.done; _c = _b.next()) {
+                var item = _c.value;
+                container.addChild(item);
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        // interaction
+        //--------------------
+        if (this.opts.width || this.opts.height)
+            this.interactive = true;
+        else
+            this.interactive = false;
+        this.on('pointerdown', this.onStart.bind(this));
+        this.on('pointermove', this.onMove.bind(this));
+        this.on('pointerup', this.onEnd.bind(this));
+        this.on('pointercancel', this.onEnd.bind(this));
+        this.on('pointerout', this.onEnd.bind(this));
+        this.on('pointerupoutside', this.onEnd.bind(this));
+        this.on('scroll', this.onScroll.bind(this));
+        // mousewheel
+        //--------------------
+        if (this.opts.app) {
+            var app_1 = this.opts.app;
+            //O app.view.addEventListener( 'mousewheel', event =>
+            // @ts-ignore error TS6133: 'event' is declared but never read
+            app_1.view.addEventListener('mousewheel', function (event) {
+                var bounds = null;
+                //B const bounds = this.mask ? this.mask.getBounds( ) : this.getBounds( )
+                //B Since container already has a property of mask, the result is always
+                //B true. What I believe is meant to be checked is this.__mask
+                if (_this.__mask) {
+                    // Mask is of type PIXI.Graphics, it has containsPoint()
+                    // getBounds returns PIXI.Rectangle
+                    bounds = _this.__mask.getBounds();
+                }
+                else {
+                    // this is of type PIXI.Container
+                    bounds = _this.getBounds();
+                }
+                var x = event.clientX - app_1.view.getBoundingClientRect().left;
+                var y = event.clientY - app_1.view.getBoundingClientRect().top;
+                if (bounds.contains(x, y)) {
+                    event.preventDefault();
+                    _this.emit('scroll', event);
+                }
+            });
+        }
+        this.layout();
+        return this;
+    };
+    //
+    // Replaces the existing items and relayouts the list.
+    //
+    // @param {PIXI.DisplayObject[] } items - An array of PIXI.DisplayObjects.
+    // @return { List } A reference to the list for chaining.
+    //
+    List.prototype.setItems = function (items) {
+        var e_2, _a;
+        this.container.removeChildren();
+        this.__items = items;
+        try {
+            for (var _b = __values(this.__items), _c = _b.next(); !_c.done; _c = _b.next()) {
+                var item = _c.value;
+                this.container.addChild(item);
+            }
+        }
+        catch (e_2_1) { e_2 = { error: e_2_1 }; }
+        finally {
+            try {
+                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+            }
+            finally { if (e_2) throw e_2.error; }
+        }
+        this.layout();
+        //B Previously did not return anything
+        return this;
+    };
+    //
+    // Should be called to refresh the layout of the list ( the width or the height ).
+    //
+    // @return { List } A reference to the list for chaining.
+    //
+    List.prototype.layout = function () {
+        var e_3, _a;
+        var _this = this;
+        var margin = this.opts.margin;
+        var x = margin;
+        var y = margin;
+        try {
+            for (var _b = __values(this.__items), _c = _b.next(); !_c.done; _c = _b.next()) {
+                var item = _c.value;
+                item.x = x;
+                item.y = y;
+                if (this.opts.orientation === 'vertical') {
+                    y += item.height + this.opts.padding;
+                }
+                else {
+                    x += item.width + this.opts.padding;
+                }
+            }
+        }
+        catch (e_3_1) { e_3 = { error: e_3_1 }; }
+        finally {
+            try {
+                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+            }
+            finally { if (e_3) throw e_3.error; }
+        }
+        // vertical
+        //--------------------
+        if (this.opts.orientation === 'vertical') {
+            switch (this.opts.align) {
+                case 'center':
+                    this.__items.forEach(function (it) { return it.x = margin + _this.width / 2 - it.width / 2; });
+                    break;
+                case 'right':
+                    this.__items.forEach(function (it) { return it.x = margin + _this.width - it.width; });
+                    break;
+                default:
+                    this.__items.forEach(function (it) { return it.x = margin; });
+                    break;
+            }
+            if (this.opts.height) {
+                var mask = this.__mask;
+                mask.clear();
+                mask.beginFill(0x000);
+                mask.drawRect(0, 0, this.width + 2 * margin, this.opts.height);
+                this.mask = mask;
+                this.interactive = this.innerHeight > this.opts.height;
+            }
+        }
+        // horizontal
+        //--------------------
+        if (this.opts.orientation === 'horizontal') {
+            switch (this.opts.verticalAlign) {
+                case 'top':
+                    this.__items.forEach(function (it) { return it.y = margin; });
+                    break;
+                case 'bottom':
+                    this.__items.forEach(function (it) { return it.y = margin + _this.height - it.height; });
+                    break;
+                default:
+                    this.__items.forEach(function (it) { return it.y = margin + _this.height / 2 - it.height / 2; });
+                    break;
+            }
+            if (this.opts.width) {
+                var mask = this.__mask;
+                mask.clear();
+                mask.beginFill(0x000);
+                mask.drawRect(0, 0, this.opts.width, this.height + 2 * margin);
+                this.mask = mask;
+                this.interactive = this.innerWidth > this.opts.width;
+            }
+        }
+        return this;
+    };
+    Object.defineProperty(List.prototype, "innerWidth", {
+        //
+        //
+        //
+        get: function () {
+            var size = 0;
+            this.__items.forEach(function (it) { return size += it.width; });
+            size += this.opts.padding * (this.__items.length - 1);
+            size += 2 * this.opts.margin;
+            return size;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(List.prototype, "innerHeight", {
+        //
+        //
+        //
+        get: function () {
+            var size = 0;
+            this.__items.forEach(function (it) { return size += it.height; });
+            size += this.opts.padding * (this.__items.length - 1);
+            size += 2 * this.opts.margin;
+            return size;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    //
+    // Resizes the list.
+    //
+    // @param { number } widthOrHeight
+    //        - The new width ( if orientation is horizontal ) or
+    //          height ( if orientation is vertical ) of the list.
+    //
+    List.prototype.resize = function (widthOrHeight) {
+        if (this.opts.orientation === 'horizontal') {
+            this.opts.width = widthOrHeight;
+        }
+        else {
+            this.opts.height = widthOrHeight;
+        }
+        this.layout();
+    };
+    //
+    //
+    // @private
+    // @param { * } event
+    //
+    List.prototype.onStart = function (event) {
+        this.__dragging = true;
+        //O this.capture( event )
+        this.__delta =
+            {
+                x: this.container.position.x - event.data.global.x,
+                y: this.container.position.y - event.data.global.y
+            };
+        /*
+        //killTweenOf is not on TweenLite
+              TweenLite.killTweensOf( this.container.position, { x: true, y: true })
+        
+              if ( typeof ThrowPropsPlugin != "undefined" )
+              {
+                 ThrowPropsPlugin.track( this.container.position, 'x,y' )
+              }
+        */
+    };
+    //
+    //
+    // @private
+    // @param { * } event
+    //
+    List.prototype.onMove = function (event) {
+        if (this.__dragging) {
+            //O this.capture( event )
+            if (this.opts.orientation === 'horizontal') {
+                this.container.position.x = event.data.global.x + this.__delta.x;
+            }
+            else {
+                this.container.position.y = event.data.global.y + this.__delta.y;
+            }
+        }
+    };
+    //
+    //
+    // @private
+    // @param { * } event
+    //
+    // @ts-ignore error TS6133: 'event' is declared but never read
+    List.prototype.onEnd = function (event) {
+        if (this.__dragging) {
+            this.__dragging = false;
+            //O this.capture( event )
+            /*
+                     const throwProps = { }
+            
+                     if ( this.opts.orientation === 'horizontal' )
+                     {
+                        let min = this.opts.width - this.innerWidth
+                        min = min > 0 ? 0 : min
+                        throwProps.x =
+                        {
+                           velocity: 'auto',
+                           min,
+                           max: 0
+                        }
+                     }
+                     else
+                     {
+                        let min = this.opts.height - this.innerHeight
+                        min = min > 0 ? 0 : min
+                        throwProps.y =
+                        {
+                           velocity: 'auto',
+                           min,
+                           max: 0
+                        }
+                     }
+            
+                     if ( typeof ThrowPropsPlugin != "undefined" )
+                     {
+                        ThrowPropsPlugin.to( this.container.position,
+                        {
+                           throwProps,
+                           ease: Strong.easeOut,
+                           onComplete: ( ) => ThrowPropsPlugin.untrack( this.container.position )
+                        }, .8, .4 )
+                     }
+            */
+            Tween_1.default.to(this.container, 1.5, { x: .8, y: .4 }, Ease_1.default.Power2.easeOut);
+        }
+    };
+    //
+    //
+    // @private
+    // @param { * } event
+    //
+    List.prototype.onScroll = function (event) {
+        //O this.capture( event )
+        if (this.opts.orientation === 'horizontal') {
+            this.container.position.x -= event.deltaX;
+            if (this.container.position.x > 0) {
+                this.container.position.x = 0;
+            }
+            else if (this.container.position.x + this.innerWidth < this.opts.width) {
+                this.container.position.x = this.opts.width - this.innerWidth;
+            }
+        }
+        else {
+            this.container.position.y -= event.deltaY;
+            if (this.container.position.y > 0) {
+                this.container.position.y = 0;
+            }
+            else if (this.container.position.y + this.innerHeight < this.opts.height) {
+                this.container.position.y = this.opts.height - this.innerHeight;
+            }
+        }
+    };
+    return List;
+}(PIXI.Container));
+exports.default = List;
+
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var PIXI = __webpack_require__(0);
+var theme_1 = __webpack_require__(1);
+var tooltip_1 = __webpack_require__(3);
+var Tween_1 = __webpack_require__(2);
+var Switch = /** @class */ (function (_super) {
+    __extends(Switch, _super);
+    function Switch(opts) {
+        if (opts === void 0) { opts = {}; }
+        var _this = _super.call(this) || this;
+        var theme = theme_1.default.fromString(opts.theme);
+        _this.theme = theme;
+        _this.opts = Object.assign({}, {
+            id: PIXI.utils.uid(),
+            x: 0,
+            y: 0,
+            width: 44,
+            height: 28,
+            fill: theme.opts.fill,
+            fillAlpha: theme.opts.fillAlpha,
+            fillActive: theme.opts.primaryColor,
+            fillActiveAlpha: theme.opts.fillActiveAlpha,
+            stroke: theme.opts.stroke,
+            strokeWidth: theme.opts.strokeWidth,
+            strokeAlpha: theme.opts.strokeAlpha,
+            strokeActive: theme.opts.primaryColor,
+            strokeActiveWidth: theme.opts.strokeActiveWidth,
+            strokeActiveAlpha: theme.opts.strokeActiveAlpha,
+            controlFill: theme.opts.stroke,
+            controlFillAlpha: theme.opts.strokeAlpha,
+            controlFillActive: theme.opts.stroke,
+            controlFillActiveAlpha: theme.opts.strokeAlpha,
+            controlStroke: theme.opts.stroke,
+            controlStrokeWidth: theme.opts.strokeWidth * .8,
+            controlStrokeAlpha: theme.opts.strokeAlpha,
+            controlStrokeActive: theme.opts.stroke,
+            controlStrokeActiveWidth: theme.opts.strokeActiveWidth * .8,
+            controlStrokeActiveAlpha: theme.opts.strokeActiveAlpha,
+            duration: theme.opts.fast,
+            durationActive: theme.opts.fast,
+            disabled: false,
+            active: false,
+            action: null,
+            actionActive: null,
+            beforeAction: null,
+            afterAction: null,
+            tooltip: null,
+            visible: true
+        }, opts);
+        _this.opts.controlRadius = _this.opts.controlRadius || (_this.opts.height / 2);
+        _this.opts.controlRadiusActive = _this.opts.controlRadiusActive || _this.opts.controlRadius;
+        // Validation
+        //-----------------
+        if (_this.opts.height > _this.opts.width) {
+            _this.opts.height = _this.opts.width;
+        }
+        // Properties
+        //-----------------
+        _this.id = _this.opts.id;
+        _this.radius = _this.opts.height / 2;
+        _this._active = null;
+        _this._disabled = null;
+        _this.switchObj = null;
+        _this.control = null;
+        _this.tooltip = null;
+        _this.visible = _this.opts.visible;
+        // animated
+        //-----------------
+        _this.tempAnimated =
+            {
+                fill: _this.opts.fill,
+                fillAlpha: _this.opts.fillAlpha,
+                stroke: _this.opts.stroke,
+                strokeWidth: _this.opts.strokeWidth,
+                strokeAlpha: _this.opts.strokeAlpha,
+                controlFill: _this.opts.controlFill,
+                controlFillAlpha: _this.opts.controlFillAlpha,
+                controlStroke: _this.opts.controlStroke,
+                controlStrokeWidth: _this.opts.controlStrokeWidth,
+                controlStrokeAlpha: _this.opts.controlStrokeAlpha,
+                controlRadius: _this.opts.controlRadius
+            };
+        // setup
+        //-----------------
+        _this.setup();
+        // layout
+        //-----------------
+        _this.layout();
+        return _this;
+    }
+    //
+    // Creates children and instantiates everything.
+    //
+    // @private
+    // @return { Switch } A reference to the switch for chaining.
+    //
+    Switch.prototype.setup = function () {
+        var _this = this;
+        // Switch
+        //-----------------
+        var switchObj = new PIXI.Graphics();
+        this.switchObj = switchObj;
+        this.addChild(switchObj);
+        // Control
+        //-----------------
+        this.xInactive = this.opts.controlRadius;
+        this.xActive = this.opts.width - this.opts.controlRadiusActive;
+        var control = new PIXI.Graphics();
+        control.x = this.opts.active ? this.xActive : this.xInactive;
+        control.y = this.opts.height / 2;
+        this.control = control;
+        this.addChild(this.control);
+        // interaction
+        //-----------------
+        // @ts-ignore error TS6133: 'e' is declared but never read
+        this.switchObj.on('pointerover', function (e) {
+            //TweenLite.to( this.control, this.theme.fast, { alpha: .83 } )
+            Tween_1.default.to(_this.control, _this.theme.opts.fast, { alpha: .83 });
+        });
+        // @ts-ignore error TS6133: 'e' is declared but never read
+        this.switchObj.on('pointerout', function (e) {
+            //O TweenLite.to( this.control, this.theme.fast, { alpha: 1 } )
+            Tween_1.default.to(_this.control, _this.theme.opts.fast, { alpha: 1 });
+        });
+        // @ts-ignore error TS6133: 'e' is declared but never read
+        this.switchObj.on('pointerdown', function (e) {
+            //O TweenLite.to( this.control, this.theme.fast, { alpha: .7 } )
+            Tween_1.default.to(_this.control, _this.theme.opts.fast, { alpha: .7 });
+        });
+        // @ts-ignore error TS6133: 'e' is declared but never read
+        this.switchObj.on('pointerup', function (e) {
+            if (_this.opts.beforeAction) {
+                _this.opts.beforeAction.call(_this, e, _this);
+            }
+            _this.active = !_this.active;
+            if (_this.active) {
+                if (_this.opts.action) {
+                    _this.opts.action.call(_this, e, _this);
+                }
+            }
+            else {
+                if (_this.opts.actionActive) {
+                    _this.opts.actionActive.call(_this, e, _this);
+                }
+            }
+            //O TweenLite.to( this.control, this.theme.fast, { alpha: .83 } )
+            Tween_1.default.to(_this.control, _this.theme.opts.fast, { alpha: .83 });
+            if (_this.opts.afterAction) {
+                _this.opts.afterAction.call(_this, e, _this);
+            }
+        });
+        // disabled
+        //-----------------
+        this.disabled = this.opts.disabled;
+        // active
+        //-----------------
+        this.active = this.opts.active;
+        // tooltip
+        //-----------------
+        if (this.opts.tooltip) {
+            if (typeof this.opts.tooltip === 'string') {
+                this.tooltip = new tooltip_1.default({
+                    object: this,
+                    content: this.opts.tooltip
+                });
+            }
+            else {
+                // @ts-ignore TS2531: Object is possibly 'null'.  Why. It's checked above?
+                this.opts.tooltip.object = this;
+                this.tooltip = new tooltip_1.default(this.opts.tooltip);
+            }
+        }
+        return this;
+    };
+    //
+    // Should be called to refresh the layout of the switch. Can be used after resizing.
+    //
+    // @return { Switch } A reference to the switch for chaining.
+    //
+    Switch.prototype.layout = function () {
+        // set position
+        //-----------------
+        this.position.set(this.opts.x, this.opts.y);
+        // draw
+        //-----------------
+        this.draw();
+        return this;
+    };
+    //
+    // Draws the switch to the canvas.
+    //
+    // @private
+    // @return { Switch } A reference to the switch for chaining.
+    //
+    Switch.prototype.draw = function () {
+        this.switchObj.clear();
+        if (this.active) {
+            this.switchObj.lineStyle(this.opts.strokeActiveWidth, this.opts.strokeActive, this.opts.strokeActiveAlpha);
+            //V5 this.switchObj.beginFill( this.opts.fillActive, this.opts.fillActiveAlpha )
+            this.switchObj.beginFill(this.opts.fillActive);
+            this.switchObj.alpha = this.opts.fillActiveAlpha;
+        }
+        else {
+            this.switchObj.lineStyle(this.opts.strokeWidth, this.opts.stroke, this.opts.strokeAlpha);
+            //V5 this.switchObj.beginFill( this.opts.fill, this.opts.fillAlpha )
+            this.switchObj.beginFill(this.opts.fill);
+            this.switchObj.alpha = this.opts.fillAlpha;
+        }
+        this.switchObj.moveTo(this.radius, 0);
+        this.switchObj.lineTo(this.opts.width - this.radius, 0);
+        this.switchObj.arcTo(this.opts.width, 0, this.opts.width, this.radius, this.radius);
+        this.switchObj.lineTo(this.opts.width, this.radius + 1); // BUGFIX: If not specified, there is a small area without a stroke.
+        this.switchObj.arcTo(this.opts.width, this.opts.height, this.opts.width - this.radius, this.opts.height, this.radius);
+        this.switchObj.lineTo(this.radius, this.opts.height);
+        this.switchObj.arcTo(0, this.opts.height, 0, this.radius, this.radius);
+        this.switchObj.arcTo(0, 0, this.radius, 0, this.radius);
+        this.switchObj.endFill();
+        // Draw control
+        this.control.clear();
+        if (this.active) {
+            this.control.lineStyle(this.opts.controlStrokeActiveWidth, this.opts.controlStrokeActive, this.opts.controlStrokeActiveAlpha);
+            //V5 this.control.beginFill( this.opts.controlFillActive, this.opts.controlFillActiveAlpha )
+            this.control.beginFill(this.opts.controlFillActive);
+            this.control.alpha = this.opts.controlFillActiveAlpha;
+            this.control.drawCircle(0, 0, this.opts.controlRadiusActive - 1);
+        }
+        else {
+            this.control.lineStyle(this.opts.controlStrokeWidth, this.opts.controlStroke, this.opts.controlStrokeAlpha);
+            //V5 this.control.beginFill( this.opts.controlFill, this.opts.controlFillAlpha )
+            this.control.beginFill(this.opts.controlFill);
+            this.control.alpha = this.opts.controlFillAlpha;
+            this.control.drawCircle(0, 0, this.opts.controlRadius - 1);
+        }
+        this.control.endFill();
+        return this;
+    };
+    //
+    // Draws the animation.
+    //
+    // @private
+    // @return { Switch } A reference to the switch for chaining.
+    //
+    Switch.prototype.drawAnimated = function () {
+        this.switchObj.clear();
+        this.switchObj.lineStyle(this.tempAnimated.strokeWidth, this.tempAnimated.stroke, this.tempAnimated.strokeAlpha);
+        //V5 this.switchObj.beginFill( this.tempAnimated.fill, this.tempAnimated.fillAlpha )
+        this.switchObj.beginFill(this.tempAnimated.fill);
+        this.switchObj.alpha = this.tempAnimated.fillAlpha;
+        this.switchObj.moveTo(this.radius, 0);
+        this.switchObj.lineTo(this.opts.width - this.radius, 0);
+        this.switchObj.arcTo(this.opts.width, 0, this.opts.width, this.radius, this.radius);
+        this.switchObj.lineTo(this.opts.width, this.radius + 1); // BUGFIX: If not specified, there is a small area without a stroke.
+        this.switchObj.arcTo(this.opts.width, this.opts.height, this.opts.width - this.radius, this.opts.height, this.radius);
+        this.switchObj.lineTo(this.radius, this.opts.height);
+        this.switchObj.arcTo(0, this.opts.height, 0, this.radius, this.radius);
+        this.switchObj.arcTo(0, 0, this.radius, 0, this.radius);
+        this.switchObj.endFill();
+        this.control.clear();
+        this.control.lineStyle(this.tempAnimated.controlStrokeWidth, this.tempAnimated.controlStroke, this.tempAnimated.controlStrokeAlpha);
+        //V5 this.control.beginFill( this.tempAnimated.controlFill, this.tempAnimated.controlFillAlpha )
+        this.control.beginFill(this.tempAnimated.controlFill);
+        this.control.alpha = this.tempAnimated.controlFillAlpha;
+        this.control.drawCircle(0, 0, this.tempAnimated.controlRadius - 1);
+        this.control.endFill();
+        return this;
+    };
+    Object.defineProperty(Switch.prototype, "active", {
+        //
+        // Gets or sets the active state.
+        //
+        // @member { boolean}
+        //
+        get: function () {
+            return this._active;
+        },
+        set: function (value) {
+            var _this = this;
+            this._active = value;
+            if (this._active) {
+                Tween_1.default.to(this.control, this.opts.duration, { x: this.xActive });
+                Tween_1.default.to(this.tempAnimated, this.opts.duration, {
+                    colorProps: {
+                        fill: this.opts.fillActive,
+                        stroke: this.opts.strokeActive,
+                        controlFill: this.opts.controlFillActive,
+                        controlStroke: this.opts.controlStrokeActive,
+                        format: 'number'
+                    },
+                    fillAlpha: this.opts.fillActiveAlpha,
+                    strokeWidth: this.opts.strokeActiveWidth,
+                    strokeAlpha: this.opts.strokeActiveAlpha,
+                    controlFillAlpha: this.opts.controlFillActiveAlpha,
+                    controlStrokeWidth: this.opts.controlStrokeActiveWidth,
+                    controlStrokeAlpha: this.opts.controlStrokeActiveAlpha,
+                    controlRadius: this.opts.controlRadiusActive,
+                    onUpdate: function () { return _this.drawAnimated(); },
+                    onComplete: function () { return _this.draw(); }
+                });
+            }
+            else {
+                Tween_1.default.to(this.control, this.opts.durationActive, { x: this.xInactive });
+                Tween_1.default.to(this.tempAnimated, this.opts.durationActive, {
+                    colorProps: {
+                        fill: this.opts.fill,
+                        stroke: this.opts.stroke,
+                        controlFill: this.opts.controlFill,
+                        controlStroke: this.opts.controlStroke,
+                        format: 'number'
+                    },
+                    fillAlpha: this.opts.fillAlpha,
+                    strokeWidth: this.opts.strokeWidth,
+                    strokeAlpha: this.opts.strokeAlpha,
+                    controlFillAlpha: this.opts.controlFillAlpha,
+                    controlStrokeWidth: this.opts.controlStrokeWidth,
+                    controlStrokeAlpha: this.opts.controlStrokeAlpha,
+                    controlRadius: this.opts.controlRadius,
+                    onUpdate: function () { return _this.drawAnimated(); },
+                    onComplete: function () { return _this.draw(); }
+                });
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Switch.prototype, "disabled", {
+        //
+        // Gets or sets the disabled state. When disabled, the switch cannot be clicked.
+        //
+        // @member { boolean}
+        //
+        get: function () {
+            return this._disabled;
+        },
+        set: function (value) {
+            this._disabled = value;
+            if (this._disabled) {
+                this.switchObj.interactive = false;
+                this.switchObj.buttonMode = false;
+                this.switchObj.alpha = .5;
+                this.control.alpha = .5;
+            }
+            else {
+                this.switchObj.interactive = true;
+                this.switchObj.buttonMode = true;
+                this.switchObj.alpha = 1;
+                this.control.alpha = 1;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    //
+    // Shows the switch ( sets his alpha values to 1 ).
+    //
+    // @return { Switch } A reference to the switch for chaining.
+    //
+    Switch.prototype.show = function () {
+        this.opts.strokeAlpha = 1;
+        this.opts.strokeActiveAlpha = 1;
+        this.opts.fillAlpha = 1;
+        this.opts.fillActiveAlpha = 1;
+        this.opts.controlStrokeAlpha = 1;
+        this.opts.controlStrokeActiveAlpha = 1;
+        this.opts.controlFillAlpha = 1;
+        this.opts.controlFillActiveAlpha = 1;
+        this.layout();
+        return this;
+    };
+    //
+    // Hides the switch ( sets his alpha values to 1 ).
+    //
+    // @return { Switch } A reference to the switch for chaining.
+    //
+    Switch.prototype.hide = function () {
+        this.opts.strokeAlpha = 0;
+        this.opts.strokeActiveAlpha = 0;
+        this.opts.fillAlpha = 0;
+        this.opts.fillActiveAlpha = 0;
+        this.opts.controlStrokeAlpha = 0;
+        this.opts.controlStrokeActiveAlpha = 0;
+        this.opts.controlFillAlpha = 0;
+        this.opts.controlFillActiveAlpha = 0;
+        this.layout();
+        return this;
+    };
+    return Switch;
+}(PIXI.Container));
+exports.default = Switch;
+
 
 /***/ })
-
-/******/ });
+/******/ ]);
 //# sourceMappingURL=pixi_ui.js.map

@@ -35,34 +35,35 @@ import * as PIXI from "pixi.js";
 
 export interface ThemeOptions
 {
-   margin?: number;
-   padding?: number;
-   radius?: number;
-   fast?: number;
-   normal?: number;
-   slow?: number;
+   margin?: number,
+   padding?: number,
+   radius?: number,
+   fast?: number,
+   normal?: number,
+   slow?: number,
    primaryColor?: number,
-   color1?: number;
-   color2?: number;
-   fill?: string;
-   fillAlpha?: number;
-   fillActive?: number;
-   fillActiveAlpha?: number;
-   stroke?: number;
-   strokeWidth?: number;
-   strokeAlpha?: number;
-   strokeActive?: number;
-   strokeActiveWidth?: number;
-   strokeActiveAlpha?: number;
-   iconColor?: number;
-   iconColorActive?: number;
-   background?: number;
-   textStyle?: PIXI.TextStyle
-   textStyleActive?: PIXI.TextStyle
-   textStyleSmall?: PIXI.TextStyle;
-   textStyleLarge?: PIXI.TextStyle;
-   textStyleSmallActive?: PIXI.TextStyle;
-   textStyleLargeActive?: PIXI.TextStyle;
+   color1?: number,
+   color2?: number,
+   fill?: string,
+   fillAlpha?: number,
+   fillActive?: number,
+   fillActiveAlpha?: number,
+   anchor?: PIXI.ObservablePoint,
+   stroke?: number,
+   strokeWidth?: number,
+   strokeAlpha?: number,
+   strokeActive?: number,
+   strokeActiveWidth?: number,
+   strokeActiveAlpha?: number,
+   iconColor?: number,
+   iconColorActive?: number,
+   background?: number,
+   textStyle?: PIXI.TextStyle,
+   textStyleActive?: PIXI.TextStyle,
+   textStyleSmall?: PIXI.TextStyle,
+   textStyleLarge?: PIXI.TextStyle,
+   textStyleSmallActive?: PIXI.TextStyle,
+   textStyleLargeActive?: PIXI.TextStyle,
 }
 
 export default class Theme
@@ -175,6 +176,7 @@ export default class Theme
           fillAlpha: 1,
           fillActive: color1,
           fillActiveAlpha: 1,
+          anchor: { x:0, y:0 },  // Default
           stroke: color2,
           //O strokeWidth: .6,
           //B Either a PIXI V5 or Legacy or whatever, but .6 results in most of the

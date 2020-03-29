@@ -19,6 +19,8 @@ import Modal from './modal'
 import App from './app'
 import Message from './message'
 import Progress from './progress'
+import ProgressBar from './progressbar'
+import ProgressDialog from './progressdialog'
 import Capabilities from './capabilities'
 import LabeledGraphics from './labeledgraphics'
 import List from './list'
@@ -51,6 +53,8 @@ isEmpty:isEmpty, uuid:uuid, lerp:lerp, sample:sample, debounce:debounce, getId:g
    App: App,
    Message:  Message,
    Progress: Progress,
+   ProgressBar: ProgressBar,
+   ProgressDialog: ProgressDialog,
    Capabilities: Capabilities,
    LabeledGraphics: LabeledGraphics,
    List: List,

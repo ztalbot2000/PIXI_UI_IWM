@@ -236,9 +236,16 @@ export default class Button extends PIXI.Container
    // Must be public as is accessed by ButtonGroup
    public badge: Badge
 
+   // This is hard to explain, but addChild should set the property 'parent' correctly.
+   // If you do not believe this to be true, use 'grandParent' as you wish.
+   public grandParent: PIXI.Container
+
    constructor(opts: ButtonOptions = { })
    {
       super()
+
+      // See note above.
+      this.grandParent = null
 
       const theme = Theme.fromString(opts.theme)
       this.theme = theme
