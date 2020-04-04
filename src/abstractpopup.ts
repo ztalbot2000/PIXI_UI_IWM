@@ -307,7 +307,7 @@ export default class AbstractPopup extends PIXI.Graphics
       // PIXI should do this. .anchor did not work either
       if ( this.headerStyle.align == 'center' )
       {
-         this.header.x = ( this.wantedWidth - this._header.width) * .5
+         this._header.x = ( this.wantedWidth - this._header.width) * .5
       }
 
       this.draw( )

@@ -15,6 +15,7 @@ import Slider from './slider'
 import Badge from './badge'
 import Button from './button'
 import ButtonGroup from './buttongroup'
+import Checkbox from './checkbox'
 import Modal from './modal'
 import App from './app'
 import Message from './message'
@@ -49,6 +50,7 @@ isEmpty:isEmpty, uuid:uuid, lerp:lerp, sample:sample, debounce:debounce, getId:g
    Badge: Badge,
    Button: Button,
    ButtonGroup: ButtonGroup,
+   Checkbox: Checkbox,
    Modal: Modal,
    App: App,
    Message:  Message,

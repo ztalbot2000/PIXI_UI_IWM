@@ -39,7 +39,7 @@ export interface ModalOptions
 {
    id?: number,
    theme?: Theme,
-   app?: PIXIApp | PIXI.Container,
+   app?: PIXIApp
    width?: number,
    height?: number,
    header?: string | number | PIXI.Text,

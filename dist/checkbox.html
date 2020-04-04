@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+   <title>PIXI Button</title>
+
+   <script src="./pixi.js"></script>
+   <script src="./pixi_ui.js"></script>
+</head>
+<body>
+   <h1>Checkbox</h1>
+   <p>
+      The Checkbox class is a convenience class of Button with type set to 'checkbox'.
+   </p>
+   <p>Let's look at some checkbox examples:</p><br />
+   <canvas id="canvas" class="interactive"></canvas>
+   <p>
+      What you should see: Many Checkboxes with very different styling and behaviour.
+   </p>
+   <script> window.onload = function()
+   {
+      const app = new PIXI.UI.App({
+         view: canvas,
+         width: 900,
+         height: 420,
+         transparent: false
+      }).setup().run()
+
+      let checkbox2 = new PIXI.UI.Checkbox({
+         theme: 'red',
+         x: 60,
+         y: 10,
+         label: 'Checkbox',
+         action: e => {
+             console.info('Button clicked')
+         }
+      })
+
+      let checkbox3 = new PIXI.UI.Checkbox({
+         x: 180,
+         y: 10,
+         label: 'Checkbox',
+         action: e => {
+             console.info('Button clicked', e)
+         }
+      })
+
+      let checkbox6 = new PIXI.UI.Checkbox({
+         x: 650,
+         y: 10,
+         label: 'Active disabled checkbox',
+         active: true,
+         disabled: true
+      })
+
+      let checkbox7 = new PIXI.UI.Checkbox({
+         x: 10,
+         y: 70,
+         label: 'Icon checkbox',
+         active: true,
+         icon: 'arrow_back'
+      })
+
+      let checkbox8 = new PIXI.UI.Checkbox({
+         x: 210,
+         y: 70,
+         theme: 'light',
+         label: 'Icon checkbox',
+         icon: 'arrow_forward',
+         iconPosition: 'right'
+      })
+
+      let checkbox9 = new PIXI.UI.Checkbox({
+         x: 10,
+         y: 130,
+         icon: 'play_arrow',
+         iconActive: 'pause'
+      })
+
+      let checkbox12 = new PIXI.UI.Checkbox({
+         x: 10,
+         y: 190,
+         icon: 'airplay',
+         fillAlpha: 0,
+         strokeAlpha: 0,
+         iconColor: 0xdd0000,
+         iconColorActive: 0x00dd00,
+         fillActiveAlpha: 0,
+         strokeActiveAlpha: 0,
+      })
+
+      let checkbox13 = new PIXI.UI.Checkbox({
+         x: 50,
+         y: 190,
+         label: 'Checkbox',
+         fillAlpha: 0,
+         strokeAlpha: 0,
+         fillActiveAlpha: 0,
+         strokeActiveAlpha: 0,
+         textStyle: {
+             fontSize: 20,
+             stroke: 'brown',
+             fill: 'orange',
+             strokeThickness: 4,
+             miterLimit: 1,
+             letterSpacing: 6
+         },
+         textStyleActive: {
+             fontSize: 20,
+             stroke: 'orange',
+             fill: 'brown',
+             strokeThickness: 4,
+             fontWeight: 'bold',
+             miterLimit: 1,
+             letterSpacing: 5
+         },
+      })
+
+      let checkbox14 = new PIXI.UI.Checkbox({
+         x: 10,
+         y: 250,
+         label: 'Checkbox',
+         icon: null,
+         iconActive: 'add_circle'
+      })
+
+      let checkbox15 = new PIXI.UI.Checkbox({
+         x: 200,
+         y: 250,
+         label: 'Checkbox',
+         icon: 'add_circle',
+         iconActive: null
+      })
+
+      let checkbox16 = new PIXI.UI.Checkbox({
+         x: 400,
+         y: 250,
+         label: 'Checkbox',
+         icon: null,
+         iconActive: 'add_circle',
+         active: true
+      })
+
+      let checkbox17 = new PIXI.UI.Checkbox({
+         x: 600,
+         y: 250,
+         label: 'Checkbox',
+         icon: 'add_circle',
+         iconActive: null,
+         active: true
+      })
+
+      let graphic1 = new PIXI.Graphics()
+      graphic1.beginFill(0xd7a3f9)
+      graphic1.drawCircle(10, 10, 10)
+
+      let graphic2 = new PIXI.Graphics()
+      graphic2.beginFill(0x40c3f2)
+      graphic2.drawCircle(30, 30, 30)
+
+      let checkbox18 = new PIXI.UI.Checkbox({
+         x: 10,
+         y: 310,
+         label: 'Checkbox',
+         icon: graphic1,
+         iconActive: graphic2
+      })
+
+      let graphic3 = new PIXI.Graphics()
+      graphic3.beginFill(0xfd6b6a)
+      graphic3.drawCircle(2, 2, 2)
+
+      let graphic4 = new PIXI.Graphics()
+      graphic4.beginFill(0xf8ce2d)
+      graphic4.drawCircle(40, 40, 40)
+
+      let checkbox19 = new PIXI.UI.Checkbox({
+         x: 200,
+         y: 310,
+         label: 'Checkbox',
+         icon: graphic3,
+         iconActive: graphic4,
+         active: true,
+         iconPosition: 'right'
+      })
+
+      let checkbox20 = new PIXI.UI.Checkbox({
+         x: 400,
+         y: 310,
+         label: 'Link Checkbox',
+         style: 'link'
+      })
+
+      let checkbox21 = new PIXI.UI.Checkbox({
+         x: 600,
+         y: 310,
+         minWidth: 70,
+         minHeight: 70,
+         icon: 'loop',
+         style: 'link'
+      })
+
+      app.scene.addChild( checkbox2, checkbox3, checkbox6 )
+      app.scene.addChild( checkbox7, checkbox8 )
+      app.scene.addChild( checkbox9 )
+      app.scene.addChild( checkbox12, checkbox13 )
+      app.scene.addChild( checkbox14, checkbox15, checkbox16, checkbox17 )
+      app.scene.addChild( checkbox18, checkbox19, checkbox20, checkbox21 )
+
+   } </script>
+</body>
