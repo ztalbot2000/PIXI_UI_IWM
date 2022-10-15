@@ -4,9 +4,9 @@
   "description": "Port of pixi_ui to typescript and PIXI v6",
   "main": "./dist/pixi_ui.js",
   "scripts": {
-    "devServer": "webpack-dev-server --color ",
-    "devServerPack": "webpack-dev-server --color --open-target ",
-    "start": "npm run build:prod && npm run devServer --open-target index.html",
+    "devServer": "webpack serve --color ",
+    "devServerPack": "webpack serve --color --open ",
+    "start": "npm run build:prod && webpack serve --color",
     "example":   "npm run build:dev && npm run devServerPack index.html",
     "example1":  "npm run build:dev && npm run devServerPack popup.html",
     "example2":  "npm run build:dev && npm run devServerPack popupmenu.html",
