@@ -18,6 +18,7 @@ import Message from './message.js'
  * @extends PIXI.interaction.InteractionManager
  * @see {@link http://pixijs.download/dev/docs/PIXI.interaction.InteractionManager.html|PIXI.interaction.InteractionManager}
  * @see {@link https://stackoverflow.com/questions/29710696/webgl-drawing-buffer-size-does-not-equal-canvas-size}
+ */
 class FullscreenInteractionManager extends PIXI.interaction.InteractionManager {
 
     mapPositionToPoint(point, x, y) {
@@ -40,7 +41,6 @@ class FullscreenInteractionManager extends PIXI.interaction.InteractionManager {
         super.mapPositionToPoint(point, x, y + dy)
     }
 }
-*/
 
 /**
  * The class PixiApp extends the class PIXI.Application
@@ -54,7 +54,7 @@ class FullscreenInteractionManager extends PIXI.interaction.InteractionManager {
  *     height: 150,
  *     fpsLogging: true,
  *     theme: 'light',
- *     backgroundAlpha: 1
+ *     transparent: false
  * }).setup().run()
  *
  * @class
@@ -71,7 +71,7 @@ export default class PIXIApp extends PIXI.Application {
      * @param {number} [opts.width] - The width of the renderer. If no set, the application will run in fullscreen.
      * @param {number} [opts.height] - The height of the renderer. If no set, the application will run in fullscreen.
      * @param {HTMLElement} [opts.view] - The canvas HTML element. If not set, a render-element is added inside the body.
-     * @param {number} [opts.backgroundAlpha=1] - Should the render view be transparent? (PIXI v6 backgroundAlpha)
+     * @param {boolean} [opts.transparent=true] - Should the render view be transparent?
      * @param {boolean} [opts.antialias=true] - Sets antialias (only applicable in chrome at the moment).
      * @param {number} [opts.resolution=window.devicePixelRatio | 1] - The resolution / device pixel ratio of the renderer, retina would be 2.
      * @param {boolean} [opts.autoResize=true] - Should the canvas-element be resized automatically if the resolution was set?
@@ -85,7 +85,7 @@ export default class PIXIApp extends PIXI.Application {
      */
     constructor({
         width = null, height = null, view = null,
-        backgroundAlpha = 1, backgroundColor = 0x282828, theme = 'dark',
+        transparent = true, backgroundColor = 0x282828, theme = 'dark',
         antialias = true, resolution = window.devicePixelRatio || 1, autoResize = true,
         fpsLogging = false, progress = {}, forceCanvas = false, roundPixels = true, monkeyPatchMapping = true,
         graphql = false}) {
@@ -101,7 +101,7 @@ export default class PIXIApp extends PIXI.Application {
             view: view,
             width: width,
             height: height,
-            backgroundAlpha: backgroundAlpha,
+            transparent: transparent,
             antialias: antialias,
             resolution: resolution,
             autoResize: autoResize,
@@ -499,14 +499,10 @@ export default class PIXIApp extends PIXI.Application {
             }
         }
 
-        if ( progress )
-        {
-           // loader.on('progress', e =>
-           loader.onLoad.add(() =>
-           {
-              //this.progress(e.progress)
-              this.progress( loader.progress )
-           })
+        if (progress) {
+            loader.on('progress', e => {
+                this.progress(e.progress)
+            })
         }
 
         loader.load((loader, resources) => {

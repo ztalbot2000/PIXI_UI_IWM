@@ -220,8 +220,9 @@ export default class Button extends PIXI.Container
    public opts: ButtonOptions;
    private _active: boolean
    private _disabled: boolean
-   private _width: number
-   private _height: number
+   // Defined in super class Container<DisplayObject>'
+   // private _width: number
+   // private _height: number
 
    private iconInactive: PIXI.Graphics
    // Must be public as is accessed by ButtonGroup
@@ -435,7 +436,7 @@ export default class Button extends PIXI.Container
          Tween.to([this.button, this.content], this.theme.opts.fast, {alpha: .7, overwrite: false })
       })
 
-      this.button.on('pointerup', (e?: PIXI.interaction.InteractionEvent ):void =>
+      this.button.on('pointerup', (e?: PIXI.InteractionEvent ):void =>
       {
          // We do not handle event recording
          // this.capture(e)

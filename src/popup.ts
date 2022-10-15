@@ -91,7 +91,7 @@ export class InteractivePopup extends AbstractPopup
 
       // interaction
       //-----------------
-      this.on( 'pointerup',  (e?: PIXI.interaction.InteractionEvent ):void =>
+      this.on( 'pointerup',  (e?: PIXI.InteractionEvent ):void =>
       {
          if ( this.opts.closeOnPopup )
          {
@@ -135,7 +135,7 @@ export class InteractivePopup extends AbstractPopup
          closeButton.interactive = true
          closeButton.buttonMode = true
          // @ts-ignore error TS6133: 'e' is declared but never read
-         closeButton.on( 'pointerdown',  (e?: PIXI.interaction.InteractionEvent ):void =>
+         closeButton.on( 'pointerdown',  (e?: PIXI.InteractionEvent ):void =>
          {
             this.hide( )
          })

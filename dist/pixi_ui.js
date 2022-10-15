@@ -1,289 +1,14 @@
-var pixi_ui =
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/index.ts");
-/******/ })
-/************************************************************************/
-/******/ ({
-
-/***/ "./node_modules/process/browser.js":
-/***/ (function(module, exports) {
-
-// shim for using process in browser
-var process = module.exports = {};
-
-// cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
-// function because try/catches deoptimize in certain engines.
-
-var cachedSetTimeout;
-var cachedClearTimeout;
-
-function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
-}
-function defaultClearTimeout () {
-    throw new Error('clearTimeout has not been defined');
-}
-(function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        } else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    } catch (e) {
-        cachedSetTimeout = defaultSetTimout;
-    }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        } else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    } catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
-    }
-} ())
-function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
-        return setTimeout(fun, 0);
-    }
-    // if setTimeout wasn't available but was latter defined
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedSetTimeout(fun, 0);
-    } catch(e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-            return cachedSetTimeout.call(null, fun, 0);
-        } catch(e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-            return cachedSetTimeout.call(this, fun, 0);
-        }
-    }
-
-
-}
-function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
-        return clearTimeout(marker);
-    }
-    // if clearTimeout wasn't available but was latter defined
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedClearTimeout(marker);
-    } catch (e){
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-            return cachedClearTimeout.call(null, marker);
-        } catch (e){
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-            return cachedClearTimeout.call(this, marker);
-        }
-    }
-
-
-
-}
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
-};
-
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-process.prependListener = noop;
-process.prependOnceListener = noop;
-
-process.listeners = function (name) { return [] }
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () { return '/' };
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function() { return 0; };
-
-
-/***/ }),
+var pixi_ui;
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/Ease/Ease.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Ease = void 0;
 var EaseBase_1 = __webpack_require__("./src/Ease/EaseBase.ts");
 var ExponentialEase_1 = __webpack_require__("./src/Ease/ExponentialEase.ts");
 var HALF_PI = Math.PI * 0.5;
@@ -406,17 +131,17 @@ exports.Ease = Ease;
 ;
 // Exported name cannot be same as class name, so export instance as default
 var ease = new Ease();
-exports.default = ease;
+exports["default"] = ease;
 
 
 /***/ }),
 
 /***/ "./src/Ease/EaseBase.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.EaseBase = void 0;
 var EaseBase = /** @class */ (function () {
     function EaseBase() {
         this.getPosition = function (p) {
@@ -431,24 +156,26 @@ exports.EaseBase = EaseBase;
 /***/ }),
 
 /***/ "./src/Ease/ExponentialEase.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ExponentialEase = void 0;
 var EaseBase_1 = __webpack_require__("./src/Ease/EaseBase.ts");
 var ExponentialEase = /** @class */ (function (_super) {
     __extends(ExponentialEase, _super);
@@ -482,26 +209,54 @@ exports.ExponentialEase = ExponentialEase;
 /***/ }),
 
 /***/ "./src/Ease/Ticker.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__("pixi.js");
-var Tween_1 = __webpack_require__("./src/Ease/Tween.ts");
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Ticker = void 0;
+var PIXI = __importStar(__webpack_require__("pixi.js"));
+var Tween_1 = __importDefault(__webpack_require__("./src/Ease/Tween.ts"));
 var Ticker = /** @class */ (function (_super) {
     __extends(Ticker, _super);
     function Ticker(autoStart) {
@@ -533,15 +288,18 @@ var Ticker = /** @class */ (function (_super) {
             requestAnimationFrame(Ticker.shared.update);
         }
     };
-    Ticker.prototype.on = function (event, fn, context) {
+    //public on (event: string | symbol, fn: Function, context?: any): this
+    Ticker.prototype.on = function (event, fn) {
         _super.prototype.on.call(this, event, fn, context);
         return this;
     };
-    Ticker.prototype.once = function (event, fn, context) {
+    // public once (event: string | symbol, fn: Function, context?: any): this
+    Ticker.prototype.once = function (event, fn) {
         _super.prototype.once.call(this, event, fn, context);
         return this;
     };
-    Ticker.prototype.removeListener = function (event, fn, context) {
+    // public removeListener (event: string |  symbol, fn?: Function, context?: any): this
+    Ticker.prototype.removeListener = function (event, fn) {
         _super.prototype.removeListener.call(this, event, fn, context);
         return this;
     };
@@ -550,7 +308,7 @@ var Ticker = /** @class */ (function (_super) {
         get: function () {
             return Ticker.shared;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Ticker.prototype, "disabled", {
@@ -568,24 +326,24 @@ var Ticker = /** @class */ (function (_super) {
                 this.update(performance.now());
             }
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     return Ticker;
 }(PIXI.utils.EventEmitter));
 exports.Ticker = Ticker;
 Ticker.shared = new Ticker(true);
-exports.default = Ticker.shared;
+exports["default"] = Ticker.shared;
 
 
 /***/ }),
 
 /***/ "./src/Ease/Tween.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Tween = void 0;
 // activeTweenObjects is used both by Class Tween and Class CallbackItem
 var _activeTweenObjects = [];
 var TweenObject = /** @class */ (function () {
@@ -1006,45 +764,48 @@ var Tween = /** @class */ (function () {
 exports.Tween = Tween;
 ;
 // Exported name cannot be same as class name, so export instance as default
-exports.default = new Tween();
+exports["default"] = new Tween();
 
 
 /***/ }),
 
 /***/ "./src/UI.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UI = void 0;
 var utils_1 = __webpack_require__("./src/utils.ts");
 var EaseBase_1 = __webpack_require__("./src/Ease/EaseBase.ts");
 var ExponentialEase_1 = __webpack_require__("./src/Ease/ExponentialEase.ts");
-var Ease_1 = __webpack_require__("./src/Ease/Ease.ts");
-var Ticker_1 = __webpack_require__("./src/Ease/Ticker.ts");
-var Tween_1 = __webpack_require__("./src/Ease/Tween.ts");
-var theme_1 = __webpack_require__("./src/theme.ts");
-var tooltip_1 = __webpack_require__("./src/tooltip.ts");
-var volatile_1 = __webpack_require__("./src/volatile.ts");
-var abstractpopup_1 = __webpack_require__("./src/abstractpopup.ts");
-var popup_1 = __webpack_require__("./src/popup.ts");
-var popover_1 = __webpack_require__("./src/popover.ts");
-var popupmenu_1 = __webpack_require__("./src/popupmenu.ts");
-var slider_1 = __webpack_require__("./src/slider.ts");
-var badge_1 = __webpack_require__("./src/badge.ts");
-var button_1 = __webpack_require__("./src/button.ts");
-var buttongroup_1 = __webpack_require__("./src/buttongroup.ts");
-var checkbox_1 = __webpack_require__("./src/checkbox.ts");
-var modal_1 = __webpack_require__("./src/modal.ts");
-var app_1 = __webpack_require__("./src/app.ts");
-var message_1 = __webpack_require__("./src/message.ts");
-var progress_1 = __webpack_require__("./src/progress.ts");
-var progressbar_1 = __webpack_require__("./src/progressbar.ts");
-var progressdialog_1 = __webpack_require__("./src/progressdialog.ts");
-var capabilities_1 = __webpack_require__("./src/capabilities.ts");
-var labeledgraphics_1 = __webpack_require__("./src/labeledgraphics.ts");
-var list_1 = __webpack_require__("./src/list.ts");
-var switch_1 = __webpack_require__("./src/switch.ts");
+var Ease_1 = __importDefault(__webpack_require__("./src/Ease/Ease.ts"));
+var Ticker_1 = __importDefault(__webpack_require__("./src/Ease/Ticker.ts"));
+var Tween_1 = __importDefault(__webpack_require__("./src/Ease/Tween.ts"));
+var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
+var tooltip_1 = __importDefault(__webpack_require__("./src/tooltip.ts"));
+var volatile_1 = __importDefault(__webpack_require__("./src/volatile.ts"));
+var abstractpopup_1 = __importDefault(__webpack_require__("./src/abstractpopup.ts"));
+var popup_1 = __importDefault(__webpack_require__("./src/popup.ts"));
+var popover_1 = __importDefault(__webpack_require__("./src/popover.ts"));
+var popupmenu_1 = __importDefault(__webpack_require__("./src/popupmenu.ts"));
+var slider_1 = __importDefault(__webpack_require__("./src/slider.ts"));
+var badge_1 = __importDefault(__webpack_require__("./src/badge.ts"));
+var button_1 = __importDefault(__webpack_require__("./src/button.ts"));
+var buttongroup_1 = __importDefault(__webpack_require__("./src/buttongroup.ts"));
+var checkbox_1 = __importDefault(__webpack_require__("./src/checkbox.ts"));
+var modal_1 = __importDefault(__webpack_require__("./src/modal.ts"));
+var app_1 = __importDefault(__webpack_require__("./src/app.ts"));
+var message_1 = __importDefault(__webpack_require__("./src/message.ts"));
+var progress_1 = __importDefault(__webpack_require__("./src/progress.ts"));
+var progressbar_1 = __importDefault(__webpack_require__("./src/progressbar.ts"));
+var progressdialog_1 = __importDefault(__webpack_require__("./src/progressdialog.ts"));
+var capabilities_1 = __importDefault(__webpack_require__("./src/capabilities.ts"));
+var labeledgraphics_1 = __importDefault(__webpack_require__("./src/labeledgraphics.ts"));
+var list_1 = __importDefault(__webpack_require__("./src/list.ts"));
+var switch_1 = __importDefault(__webpack_require__("./src/switch.ts"));
 exports.UI = {
     // types: types,
     //   utils: utils,
@@ -1082,27 +843,54 @@ exports.UI = {
 /***/ }),
 
 /***/ "./src/abstractpopup.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__("pixi.js");
-var theme_1 = __webpack_require__("./src/theme.ts");
-var Tween_1 = __webpack_require__("./src/Ease/Tween.ts");
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var PIXI = __importStar(__webpack_require__("pixi.js"));
+var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
+var Tween_1 = __importDefault(__webpack_require__("./src/Ease/Tween.ts"));
 //
 // Callback for the popup onHidden.
 //
@@ -1387,7 +1175,7 @@ var AbstractPopup = /** @class */ (function (_super) {
             this.opts.header = value;
             this.setup().layout();
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(AbstractPopup.prototype, "content", {
@@ -1409,35 +1197,59 @@ var AbstractPopup = /** @class */ (function (_super) {
             this.opts.content = value;
             this.setup().layout();
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     return AbstractPopup;
 }(PIXI.Graphics));
-exports.default = AbstractPopup;
+exports["default"] = AbstractPopup;
 
 
 /***/ }),
 
 /***/ "./src/app.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 /* global apollo, subscriptions, gql */
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __values = (this && this.__values) || function(o) {
     var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
     if (m) return m.call(o);
@@ -1465,12 +1277,15 @@ var __read = (this && this.__read) || function (o, n) {
     }
     return ar;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__("pixi.js");
-var theme_1 = __webpack_require__("./src/theme.ts");
-var progress_1 = __webpack_require__("./src/progress.ts");
-var modal_1 = __webpack_require__("./src/modal.ts");
-var message_1 = __webpack_require__("./src/message.ts");
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var PIXI = __importStar(__webpack_require__("pixi.js"));
+var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
+var progress_1 = __importDefault(__webpack_require__("./src/progress.ts"));
+var modal_1 = __importDefault(__webpack_require__("./src/modal.ts"));
+var message_1 = __importDefault(__webpack_require__("./src/message.ts"));
 var PIXIApp = /** @class */ (function (_super) {
     __extends(PIXIApp, _super);
     function PIXIApp(opts) {
@@ -1479,8 +1294,8 @@ var PIXIApp = /** @class */ (function (_super) {
         var width = opts.width || null;
         var height = opts.height || null;
         //let view = opts.view || null
-        if (opts.transparent === undefined)
-            opts.transparent = true;
+        if (opts.backgroundAlpha === undefined)
+            opts.backgroundAlpha = 1;
         if (opts.backgroundColor === undefined)
             opts.backgroundColor = 0x282828;
         if (opts.autoResize === undefined)
@@ -1515,7 +1330,7 @@ var PIXIApp = /** @class */ (function (_super) {
             view: opts.view || null,
             width: width,
             height: height,
-            transparent: opts.transparent,
+            backgroundAlpha: opts.backgroundAlpha,
             backgroundColor: opts.backgroundColor,
             antialias: opts.antialias || true,
             resolution: window.devicePixelRatio || 1,
@@ -1679,7 +1494,7 @@ var PIXIApp = /** @class */ (function (_super) {
         get: function () {
             return { width: this.width, height: this.height };
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(PIXIApp.prototype, "center", {
@@ -1692,7 +1507,7 @@ var PIXIApp = /** @class */ (function (_super) {
         get: function () {
             return { x: this.width / 2, y: this.height / 2 };
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     //
@@ -1943,8 +1758,10 @@ var PIXIApp = /** @class */ (function (_super) {
             finally { if (e_2) throw e_2.error; }
         }
         if (progress) {
-            loader.on('progress', function (e) {
-                _this.progress(e.progress);
+            // loader.on( 'progress', e =>
+            loader.onLoad.add(function () {
+                //this.progress( e.progress )
+                _this.progress(loader.progress);
             });
         }
         // Interesting. without loader, an error occurs that type string (resources)
@@ -1963,7 +1780,7 @@ var PIXIApp = /** @class */ (function (_super) {
     };
     return PIXIApp;
 }(PIXI.Application));
-exports.default = PIXIApp;
+exports["default"] = PIXIApp;
 //
 // The class fpsdisplay shows in the upper left corner
 // of the renderer the current image refresh rate.
@@ -2005,7 +1822,7 @@ var FpsDisplay = /** @class */ (function (_super) {
     //
     //refreshFps( ): PIXIApp
     FpsDisplay.prototype.refreshFps = function () {
-        this.text.text = (this.app.ticker.FPS).toFixed(1) + " fps";
+        this.text.text = "".concat((this.app.ticker.FPS).toFixed(1), " fps");
         //B 'this' is not PIXIApp, but FpsDisplay.  Either the documentation is
         //B wrong or the code is.  I'll go with the documentation. To be checked
         //B later.
@@ -2018,27 +1835,31 @@ var FpsDisplay = /** @class */ (function (_super) {
 /***/ }),
 
 /***/ "./src/badge.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-Object.defineProperty(exports, "__esModule", { value: true });
-var theme_1 = __webpack_require__("./src/theme.ts");
-var abstractpopup_1 = __webpack_require__("./src/abstractpopup.ts");
-var tooltip_1 = __webpack_require__("./src/tooltip.ts");
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
+var abstractpopup_1 = __importDefault(__webpack_require__("./src/abstractpopup.ts"));
+var tooltip_1 = __importDefault(__webpack_require__("./src/tooltip.ts"));
 //
 // Class that represents a PixiJS Badge.
 //
@@ -2133,29 +1954,53 @@ var Badge = /** @class */ (function (_super) {
     };
     return Badge;
 }(abstractpopup_1.default));
-exports.default = Badge;
+exports["default"] = Badge;
 
 
 /***/ }),
 
 /***/ "./src/button.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __values = (this && this.__values) || function(o) {
     var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
     if (m) return m.call(o);
@@ -2167,12 +2012,15 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__("pixi.js");
-var theme_1 = __webpack_require__("./src/theme.ts");
-var tooltip_1 = __webpack_require__("./src/tooltip.ts");
-var badge_1 = __webpack_require__("./src/badge.ts");
-var Tween_1 = __webpack_require__("./src/Ease/Tween.ts");
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var PIXI = __importStar(__webpack_require__("pixi.js"));
+var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
+var tooltip_1 = __importDefault(__webpack_require__("./src/tooltip.ts"));
+var badge_1 = __importDefault(__webpack_require__("./src/badge.ts"));
+var Tween_1 = __importDefault(__webpack_require__("./src/Ease/Tween.ts"));
 var Button = /** @class */ (function (_super) {
     __extends(Button, _super);
     function Button(opts) {
@@ -2611,7 +2459,7 @@ var Button = /** @class */ (function (_super) {
             }
             this.layout();
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Button.prototype, "disabled", {
@@ -2648,7 +2496,7 @@ var Button = /** @class */ (function (_super) {
                 }
             }
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     //
@@ -2700,7 +2548,7 @@ var Button = /** @class */ (function (_super) {
                 size = this.opts.minHeight - (2 * this.opts.padding);
             }
             //O const url = Button.iconIsUrl(icon) ? icon : `../../assets/icons/png/flat/${icon}.png`
-            var url = Button.iconIsUrl(icon) ? icon : "./assets/icons/png/flat/" + icon + ".png";
+            var url = Button.iconIsUrl(icon) ? icon : "./assets/icons/png/flat/".concat(icon, ".png");
             //PIXI V5 const iconTexture = PIXI.Texture.fromImage(url, true)
             var iconTexture = PIXI.Texture.from(url);
             var sprite = new PIXI.Sprite(iconTexture);
@@ -2737,29 +2585,32 @@ var Button = /** @class */ (function (_super) {
                 this.icon.tint = value;
             }
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     return Button;
 }(PIXI.Container));
-exports.default = Button;
+exports["default"] = Button;
 
 
 /***/ }),
 
 /***/ "./src/buttongroup.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
-/* WEBPACK VAR INJECTION */(function(PIXI) {
+/* provided dependency */ var PIXI = __webpack_require__("pixi.js");
+
+//import { AbstractPopupOptions } from './types'
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -2792,14 +2643,21 @@ var __read = (this && this.__read) || function (o, n) {
     }
     return ar;
 };
-var __spread = (this && this.__spread) || function () {
-    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
-    return ar;
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-//import { AbstractPopupOptions } from './types'
-var theme_1 = __webpack_require__("./src/theme.ts");
-var button_1 = __webpack_require__("./src/button.ts");
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
+var button_1 = __importDefault(__webpack_require__("./src/button.ts"));
 var ButtonGroup = /** @class */ (function (_super) {
     __extends(ButtonGroup, _super);
     function ButtonGroup(opts) {
@@ -2866,7 +2724,7 @@ var ButtonGroup = /** @class */ (function (_super) {
         try {
             for (var _b = __values(this.opts.buttons), _c = _b.next(); !_c.done; _c = _b.next()) {
                 var bit = _c.value;
-                var it = bit;
+                var it = bit.opts;
                 delete it.x;
                 delete it.y;
                 if (this.opts.orientation === 'horizontal') {
@@ -3021,7 +2879,7 @@ var ButtonGroup = /** @class */ (function (_super) {
             this._disabled = value;
             this.buttons.forEach(function (it) { return it.disabled = value; });
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     //
@@ -3032,7 +2890,7 @@ var ButtonGroup = /** @class */ (function (_super) {
     //
     ButtonGroup.prototype.getMaxButtonWidth = function () {
         var widths = this.buttons.map(function (it) { return it.width; });
-        return Math.max.apply(Math, __spread(widths));
+        return Math.max.apply(Math, __spreadArray([], __read(widths), false));
     };
     //
     // Shows the button group ( sets his alpha value to 1 ).
@@ -3055,18 +2913,17 @@ var ButtonGroup = /** @class */ (function (_super) {
     };
     return ButtonGroup;
 }(PIXI.Graphics));
-exports.default = ButtonGroup;
+exports["default"] = ButtonGroup;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("pixi.js")))
 
 /***/ }),
 
 /***/ "./src/capabilities.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-Object.defineProperty(exports, "__esModule", { value: true });
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CapabilitiesTests = void 0;
 // Report capabilities with guaranteed values.
 //
 var Capabilities = /** @class */ (function () {
@@ -3079,7 +2936,7 @@ var Capabilities = /** @class */ (function () {
         get: function () {
             return navigator.userAgent || 'Unknown Agent';
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Capabilities, "isMobile", {
@@ -3090,7 +2947,7 @@ var Capabilities = /** @class */ (function () {
         get: function () {
             return (/Mobi/.test(navigator.userAgent));
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Capabilities, "isIOS", {
@@ -3099,9 +2956,10 @@ var Capabilities = /** @class */ (function () {
         // @return { boolean }
         //
         get: function () {
+            // @ts-ignore - error TS2339: Property 'MSStream' does not exist on type 'Window & typeof globalThis'.
             return (/iPad|iPhone|iPod/.test(navigator.userAgent)) && !window.MSStream;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Capabilities, "isSafari", {
@@ -3113,7 +2971,7 @@ var Capabilities = /** @class */ (function () {
         get: function () {
             return navigator.vendor && navigator.vendor.indexOf('Apple') > -1 && navigator.userAgent && !navigator.userAgent.match('CriOS');
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Capabilities, "isElectron", {
@@ -3126,7 +2984,7 @@ var Capabilities = /** @class */ (function () {
             // @ts-ignore
             return typeof process != 'undefined' && process.versions && process.versions.electron !== undefined;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Capabilities, "devicePixelRatio", {
@@ -3136,7 +2994,7 @@ var Capabilities = /** @class */ (function () {
         get: function () {
             return window.devicePixelRatio || 1;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Capabilities, "isMultiTouchTable", {
@@ -3146,7 +3004,7 @@ var Capabilities = /** @class */ (function () {
         get: function () {
             return Capabilities.devicePixelRatio > 2 && Capabilities.isMobile === false && /Windows/i.test(Capabilities.userAgent);
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     // Returns true if mouse events are supported
@@ -3175,7 +3033,7 @@ var Capabilities = /** @class */ (function () {
     };
     return Capabilities;
 }());
-exports.default = Capabilities;
+exports["default"] = Capabilities;
 // Basic tests for Capabilities.
 //
 var CapabilitiesTests = /** @class */ (function () {
@@ -3236,14 +3094,12 @@ window.Capabilities = Capabilities;
 // @ts-ignore
 window.CapabilitiesTests = CapabilitiesTests;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("./node_modules/process/browser.js")))
 
 /***/ }),
 
 /***/ "./src/checkbox.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 //
 // Convenince Class that extends Button with type='checkbox'.
@@ -3260,17 +3116,22 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-Object.defineProperty(exports, "__esModule", { value: true });
-var button_1 = __webpack_require__("./src/button.ts");
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var button_1 = __importDefault(__webpack_require__("./src/button.ts"));
 var Checkbox = /** @class */ (function (_super) {
     __extends(Checkbox, _super);
     //
@@ -3385,14 +3246,12 @@ var Checkbox = /** @class */ (function (_super) {
     //
     function Checkbox(opts) {
         if (opts === void 0) { opts = {}; }
-        var _this = this;
         opts.type = 'checkbox';
-        _this = _super.call(this, opts) || this;
-        return _this;
+        return _super.call(this, opts) || this;
     }
     return Checkbox;
 }(button_1.default));
-exports.default = Checkbox;
+exports["default"] = Checkbox;
 
 
 /***/ }),
@@ -3400,10 +3259,32 @@ exports.default = Checkbox;
 /***/ "./src/index.ts":
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__("pixi.js");
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var PIXI = __importStar(__webpack_require__("pixi.js"));
 var UI_1 = __webpack_require__("./src/UI.ts");
 var Library = {
     UI: UI_1.UI,
@@ -3416,18 +3297,19 @@ module.exports = Library;
 /***/ }),
 
 /***/ "./src/labeledgraphics.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -3443,6 +3325,29 @@ var __assign = (this && this.__assign) || function () {
         return t;
     };
     return __assign.apply(this, arguments);
+};
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
 };
 var __values = (this && this.__values) || function(o) {
     var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
@@ -3471,9 +3376,14 @@ var __read = (this && this.__read) || function (o, n) {
     }
     return ar;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__("pixi.js");
-var theme_1 = __webpack_require__("./src/theme.ts");
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.SpriteLabel = exports.Hypenate = exports.FontInfo = exports.deepObject = void 0;
+var PIXI = __importStar(__webpack_require__("pixi.js"));
+var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
+var types_1 = __webpack_require__("./src/types.ts");
 // Try to resolve the mess below.
 var defaultTheme = new theme_1.default();
 function deepObject(source) {
@@ -3507,7 +3417,7 @@ var FontInfo = /** @class */ (function () {
             console.warn("labeledgraphics: small called.  Should fix this....");
             return defaultTheme.opts.textStyleSmall;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(FontInfo, "fontSize", {
@@ -3524,7 +3434,7 @@ var FontInfo = /** @class */ (function () {
             console.warn("labeledgraphics: fontSize called.  Should fix this....");
             return defaultTheme.opts.textStyle.fontSize;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(FontInfo, "normal", {
@@ -3541,7 +3451,7 @@ var FontInfo = /** @class */ (function () {
             console.warn("labeledgraphics: normal called.  Should fix this....");
             return defaultTheme.opts.textStyle;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(FontInfo, "centered", {
@@ -3558,7 +3468,7 @@ var FontInfo = /** @class */ (function () {
             console.warn("labeledgraphics: centered called.  Should fix this....");
             return defaultTheme.opts.textStyle;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(FontInfo, "fontFamily", {
@@ -3575,7 +3485,7 @@ var FontInfo = /** @class */ (function () {
             console.warn("labeledgraphics: centered called.  Should fix this....");
             return defaultTheme.opts.textStyle.fontFamily;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     return FontInfo;
@@ -3750,18 +3660,18 @@ var TextLabel = /** @class */ (function (_super) {
         if (canvas === void 0) { canvas = null; }
         var _b = _a === void 0 ? {} : _a, _c = _b.minZoom, minZoom = _c === void 0 ? 0.1 : _c, _d = _b.maxZoom, maxZoom = _d === void 0 ? 10 : _d;
         var _this = _super.call(this, text, style, canvas) || this;
-        _this.normFontSize = _this.style.fontSize;
+        _this.normFontSize = (0, types_1.strNumToNum)(_this.style.fontSize);
         _this.minZoom = minZoom;
         _this.maxZoom = maxZoom;
         return _this;
     }
     TextLabel.prototype.zoom = function (factor) {
-        var oldValue = parseFloat(this.style.fontSize) / this.normFontSize;
+        var oldValue = (0, types_1.strNumToNum)(this.style.fontSize) / this.normFontSize;
         var value = oldValue * factor;
         this.setZoom(value);
     };
     TextLabel.prototype.setZoom = function (value) {
-        var oldValue = parseFloat(this.style.fontSize) / this.normFontSize;
+        var oldValue = (0, types_1.strNumToNum)(this.style.fontSize) / this.normFontSize;
         if (value > this.maxZoom) {
             value = this.maxZoom;
         }
@@ -3907,18 +3817,18 @@ var LabeledGraphics = /** @class */ (function (_super) {
             var truncatedLines = lines.slice(0, maxLines);
             var lastLine = truncatedLines[truncatedLines.length - 1];
             var words_2 = lastLine.split(' ');
-            var wordMetrics = PIXI.TextMetrics.measureText("\u00A0\n...\n" + words_2.join('\n'), pixiStyle);
+            var wordMetrics = PIXI.TextMetrics.measureText("\u00A0\n...\n".concat(words_2.join('\n')), pixiStyle);
             var _a = __read(wordMetrics.lineWidths), spaceLength_1 = _a[0], dotsLength = _a[1], wordLengths = _a.slice(2);
             var newLastLine = wordLengths.reduce(function (data, wordLength, i) {
                 if (data.length + wordLength + spaceLength_1 >= wordWrapWidth) {
                     return __assign(__assign({}, data), { length: wordWrapWidth });
                 }
                 return {
-                    text: "" + data.text + (i > 0 ? ' ' : '') + words_2[i],
+                    text: "".concat(data.text).concat(i > 0 ? ' ' : '').concat(words_2[i]),
                     length: data.length + wordLength + spaceLength_1,
                 };
             }, { text: '', length: dotsLength }).text;
-            truncatedLines[truncatedLines.length - 1] = newLastLine + "...";
+            truncatedLines[truncatedLines.length - 1] = "".concat(newLastLine, "...");
             newText = truncatedLines.join('\n');
         }
         return newText;
@@ -3960,10 +3870,11 @@ var LabeledGraphics = /** @class */ (function (_super) {
     // Ensures that labels are hidden on clear.
     //
     // @memberof LabeledGraphics
-    //
+    // WTF is wrong with this statement
+    // @ts-ignore error TS2416: Property 'clear' in type 'LabeledGraphics' is not assignable to the same property in base type 'Graphics'.
     LabeledGraphics.prototype.clear = function () {
         var e_5, _a;
-        _super.prototype.clear.call(this);
+        var r = _super.prototype.clear.call(this);
         try {
             for (var _b = __values(this.labels.keys()), _c = _b.next(); !_c.done; _c = _b.next()) {
                 var key = _c.value;
@@ -3977,7 +3888,9 @@ var LabeledGraphics = /** @class */ (function (_super) {
             }
             finally { if (e_5) throw e_5.error; }
         }
-        return this;
+        // return this
+        //return super
+        return r;
     };
     //
     // Logs debugging infos
@@ -3989,7 +3902,7 @@ var LabeledGraphics = /** @class */ (function (_super) {
     };
     return LabeledGraphics;
 }(PIXI.Graphics));
-exports.default = LabeledGraphics;
+exports["default"] = LabeledGraphics;
 var labelCache = new Map();
 function getTexture(label, style) {
     if (style === void 0) { style = FontInfo.normal; }
@@ -4038,7 +3951,7 @@ var SpriteLabel = /** @class */ (function (_super) {
             //O this.texture = getTexture( label, this.fontInfo )
             this.texture = getTexture(label, this.style);
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     return SpriteLabel;
@@ -4065,18 +3978,20 @@ export class BitmapLabeledGraphics extends LabeledGraphics
 /***/ }),
 
 /***/ "./src/list.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
+/* provided dependency */ var PIXI = __webpack_require__("pixi.js");
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -4093,12 +4008,14 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__("pixi.js");
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 // No brackets, imports the default created Tween Instance from new.
-var Tween_1 = __webpack_require__("./src/Ease/Tween.ts");
+var Tween_1 = __importDefault(__webpack_require__("./src/Ease/Tween.ts"));
 // No brackets, imports the default created Ease Instance from new.
-var Ease_1 = __webpack_require__("./src/Ease/Ease.ts");
+var Ease_1 = __importDefault(__webpack_require__("./src/Ease/Ease.ts"));
 var List = /** @class */ (function (_super) {
     __extends(List, _super);
     function List(items, opts) {
@@ -4319,7 +4236,7 @@ var List = /** @class */ (function (_super) {
             size += 2 * this.opts.margin;
             return size;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(List.prototype, "innerHeight", {
@@ -4333,7 +4250,7 @@ var List = /** @class */ (function (_super) {
             size += 2 * this.opts.margin;
             return size;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     //
@@ -4468,31 +4385,35 @@ var List = /** @class */ (function (_super) {
     };
     return List;
 }(PIXI.Container));
-exports.default = List;
+exports["default"] = List;
 
 
 /***/ }),
 
 /***/ "./src/message.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-Object.defineProperty(exports, "__esModule", { value: true });
-var theme_1 = __webpack_require__("./src/theme.ts");
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
 var popup_1 = __webpack_require__("./src/popup.ts");
 var Message = /** @class */ (function (_super) {
     __extends(Message, _super);
@@ -4529,7 +4450,6 @@ var Message = /** @class */ (function (_super) {
     //
     function Message(opts) {
         if (opts === void 0) { opts = {}; }
-        var _this = this;
         var theme = theme_1.default.fromString(opts.theme);
         opts = Object.assign({}, {
             //O app: window.app,
@@ -4545,8 +4465,7 @@ var Message = /** @class */ (function (_super) {
             autoClose: true,
             closeDuration: theme.opts.fast
         }, opts);
-        _this = _super.call(this, opts) || this;
-        return _this;
+        return _super.call(this, opts) || this;
     }
     //
     // Relayouts the position of the message box.
@@ -4599,33 +4518,60 @@ var Message = /** @class */ (function (_super) {
     };
     return Message;
 }(popup_1.InteractivePopup));
-exports.default = Message;
+exports["default"] = Message;
 
 
 /***/ }),
 
 /***/ "./src/modal.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__("pixi.js");
-var Tween_1 = __webpack_require__("./src/Ease/Tween.ts");
-var theme_1 = __webpack_require__("./src/theme.ts");
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var PIXI = __importStar(__webpack_require__("pixi.js"));
+var Tween_1 = __importDefault(__webpack_require__("./src/Ease/Tween.ts"));
+var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
 var popup_1 = __webpack_require__("./src/popup.ts");
 var Modal = /** @class */ (function (_super) {
     __extends(Modal, _super);
@@ -4766,7 +4712,7 @@ var Modal = /** @class */ (function (_super) {
             this.popup.destroy();
             this.setup().layout();
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Modal.prototype, "content", {
@@ -4787,36 +4733,60 @@ var Modal = /** @class */ (function (_super) {
             this.popup.destroy();
             this.setup().layout();
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     return Modal;
 }(PIXI.Container));
-exports.default = Modal;
+exports["default"] = Modal;
 
 
 /***/ }),
 
 /***/ "./src/popover.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__("pixi.js");
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var PIXI = __importStar(__webpack_require__("pixi.js"));
 var Popover = /** @class */ (function (_super) {
     __extends(Popover, _super);
     function Popover(opts) {
@@ -5008,33 +4978,39 @@ var Popover = /** @class */ (function (_super) {
     };
     return Popover;
 }(PIXI.Graphics));
-exports.default = Popover;
+exports["default"] = Popover;
 
 
 /***/ }),
 
 /***/ "./src/popup.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
-/* WEBPACK VAR INJECTION */(function(PIXI) {
+/* provided dependency */ var PIXI = __webpack_require__("pixi.js");
+
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-Object.defineProperty(exports, "__esModule", { value: true });
-var abstractpopup_1 = __webpack_require__("./src/abstractpopup.ts");
-var button_1 = __webpack_require__("./src/button.ts");
-var buttongroup_1 = __webpack_require__("./src/buttongroup.ts");
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.InteractivePopup = void 0;
+var abstractpopup_1 = __importDefault(__webpack_require__("./src/abstractpopup.ts"));
+var button_1 = __importDefault(__webpack_require__("./src/button.ts"));
+var buttongroup_1 = __importDefault(__webpack_require__("./src/buttongroup.ts"));
 var InteractivePopup = /** @class */ (function (_super) {
     __extends(InteractivePopup, _super);
     function InteractivePopup(opts) {
@@ -5223,41 +5199,62 @@ var Popup = /** @class */ (function (_super) {
     //
     function Popup(opts) {
         if (opts === void 0) { opts = {}; }
-        var _this = this;
         opts = Object.assign({}, {
             closeButton: false,
             minWidth: 0,
             minHeight: 0
         }, opts);
-        _this = _super.call(this, opts) || this;
-        return _this;
+        return _super.call(this, opts) || this;
     }
     return Popup;
 }(InteractivePopup));
-exports.default = Popup;
+exports["default"] = Popup;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("pixi.js")))
 
 /***/ }),
 
 /***/ "./src/popupmenu.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __values = (this && this.__values) || function(o) {
     var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
     if (m) return m.call(o);
@@ -5269,11 +5266,14 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__("pixi.js");
-var theme_1 = __webpack_require__("./src/theme.ts");
-var popup_1 = __webpack_require__("./src/popup.ts");
-var Tween_1 = __webpack_require__("./src/Ease/Tween.ts");
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var PIXI = __importStar(__webpack_require__("pixi.js"));
+var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
+var popup_1 = __importDefault(__webpack_require__("./src/popup.ts"));
+var Tween_1 = __importDefault(__webpack_require__("./src/Ease/Tween.ts"));
 var PopupMenu = /** @class */ (function (_super) {
     __extends(PopupMenu, _super);
     //
@@ -5384,32 +5384,37 @@ var PopupMenu = /** @class */ (function (_super) {
     };
     return PopupMenu;
 }(popup_1.default));
-exports.default = PopupMenu;
+exports["default"] = PopupMenu;
 
 
 /***/ }),
 
 /***/ "./src/progress.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
-/* WEBPACK VAR INJECTION */(function(PIXI) {
+/* provided dependency */ var PIXI = __webpack_require__("pixi.js");
+
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-Object.defineProperty(exports, "__esModule", { value: true });
-var theme_1 = __webpack_require__("./src/theme.ts");
-var Tween_1 = __webpack_require__("./src/Ease/Tween.ts");
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
+var Tween_1 = __importDefault(__webpack_require__("./src/Ease/Tween.ts"));
 var Progress = /** @class */ (function (_super) {
     __extends(Progress, _super);
     function Progress(opts) {
@@ -5680,39 +5685,42 @@ var Progress = /** @class */ (function (_super) {
                 }
             });
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     return Progress;
 }(PIXI.Container));
-exports.default = Progress;
+exports["default"] = Progress;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("pixi.js")))
 
 /***/ }),
 
 /***/ "./src/progressbar.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
+/* provided dependency */ var PIXI = __webpack_require__("pixi.js");
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__("pixi.js");
-var theme_1 = __webpack_require__("./src/theme.ts");
-var Tween_1 = __webpack_require__("./src/Ease/Tween.ts");
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
+var Tween_1 = __importDefault(__webpack_require__("./src/Ease/Tween.ts"));
 var ProgressBar = /** @class */ (function (_super) {
     __extends(ProgressBar, _super);
     function ProgressBar(opts) {
@@ -5915,40 +5923,44 @@ var ProgressBar = /** @class */ (function (_super) {
                 }
             });
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     return ProgressBar;
 }(PIXI.Container));
-exports.default = ProgressBar;
+exports["default"] = ProgressBar;
 
 
 /***/ }),
 
 /***/ "./src/progressdialog.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-Object.defineProperty(exports, "__esModule", { value: true });
-var theme_1 = __webpack_require__("./src/theme.ts");
-var Tween_1 = __webpack_require__("./src/Ease/Tween.ts");
-var modal_1 = __webpack_require__("./src/modal.ts");
-var progressbar_1 = __webpack_require__("./src/progressbar.ts");
-var button_1 = __webpack_require__("./src/button.ts");
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
+var Tween_1 = __importDefault(__webpack_require__("./src/Ease/Tween.ts"));
+var modal_1 = __importDefault(__webpack_require__("./src/modal.ts"));
+var progressbar_1 = __importDefault(__webpack_require__("./src/progressbar.ts"));
+var button_1 = __importDefault(__webpack_require__("./src/button.ts"));
 var ProgressDialog = /** @class */ (function (_super) {
     __extends(ProgressDialog, _super);
     function ProgressDialog(opts) {
@@ -6044,39 +6056,44 @@ var ProgressDialog = /** @class */ (function (_super) {
                 }
             });
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     return ProgressDialog;
 }(modal_1.default));
-exports.default = ProgressDialog;
+exports["default"] = ProgressDialog;
 
 
 /***/ }),
 
 /***/ "./src/slider.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
+/* provided dependency */ var PIXI = __webpack_require__("pixi.js");
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__("pixi.js");
-var theme_1 = __webpack_require__("./src/theme.ts");
-var tooltip_1 = __webpack_require__("./src/tooltip.ts");
-var Tween_1 = __webpack_require__("./src/Ease/Tween.ts");
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Control = void 0;
+var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
+var tooltip_1 = __importDefault(__webpack_require__("./src/tooltip.ts"));
+var Tween_1 = __importDefault(__webpack_require__("./src/Ease/Tween.ts"));
 //
 // Callback for the slider action onStart.
 //
@@ -6432,7 +6449,7 @@ var Slider = /** @class */ (function (_super) {
             var x = this.valueToPixel(value) + this.opts.controlRadius;
             Tween_1.default.to(this.control, this.theme.opts.fast, { x: x });
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Slider.prototype, "disabled", {
@@ -6461,7 +6478,7 @@ var Slider = /** @class */ (function (_super) {
                 this.alpha = 1;
             }
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     //
@@ -6492,34 +6509,61 @@ var Slider = /** @class */ (function (_super) {
     };
     return Slider;
 }(PIXI.Container));
-exports.default = Slider;
+exports["default"] = Slider;
 
 
 /***/ }),
 
 /***/ "./src/switch.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__("pixi.js");
-var theme_1 = __webpack_require__("./src/theme.ts");
-var tooltip_1 = __webpack_require__("./src/tooltip.ts");
-var Tween_1 = __webpack_require__("./src/Ease/Tween.ts");
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var PIXI = __importStar(__webpack_require__("pixi.js"));
+var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
+var tooltip_1 = __importDefault(__webpack_require__("./src/tooltip.ts"));
+var Tween_1 = __importDefault(__webpack_require__("./src/Ease/Tween.ts"));
 var Switch = /** @class */ (function (_super) {
     __extends(Switch, _super);
     function Switch(opts) {
@@ -6836,7 +6880,7 @@ var Switch = /** @class */ (function (_super) {
                 });
             }
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Switch.prototype, "disabled", {
@@ -6863,7 +6907,7 @@ var Switch = /** @class */ (function (_super) {
                 this.control.alpha = 1;
             }
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     //
@@ -6902,30 +6946,32 @@ var Switch = /** @class */ (function (_super) {
     };
     return Switch;
 }(PIXI.Container));
-exports.default = Switch;
+exports["default"] = Switch;
 
 
 /***/ }),
 
 /***/ "./src/theme.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ThemeRed = exports.ThemeLight = exports.ThemeDark = void 0;
 var Theme = /** @class */ (function () {
     function Theme(opts) {
         if (opts === void 0) { opts = {}; }
@@ -7014,7 +7060,7 @@ var Theme = /** @class */ (function () {
     };
     return Theme;
 }());
-exports.default = Theme;
+exports["default"] = Theme;
 //
 // Class that represents a PixiJS ThemeDark.
 //
@@ -7104,26 +7150,30 @@ exports.ThemeRed = ThemeRed;
 /***/ }),
 
 /***/ "./src/tooltip.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-Object.defineProperty(exports, "__esModule", { value: true });
-var abstractpopup_1 = __webpack_require__("./src/abstractpopup.ts");
-var theme_1 = __webpack_require__("./src/theme.ts");
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var abstractpopup_1 = __importDefault(__webpack_require__("./src/abstractpopup.ts"));
+var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
 var Tooltip = /** @class */ (function (_super) {
     __extends(Tooltip, _super);
     function Tooltip(opts) {
@@ -7231,25 +7281,60 @@ var Tooltip = /** @class */ (function (_super) {
     };
     return Tooltip;
 }(abstractpopup_1.default));
-exports.default = Tooltip;
+exports["default"] = Tooltip;
+
+
+/***/ }),
+
+/***/ "./src/types.ts":
+/***/ ((__unused_webpack_module, exports) => {
+
+
+//
+//   IMPORTANT: DO NOT IMPORT ANYTHING IN THIS FILE !!!
+//
+//   While interfaces can be extended ( Merged ), they cannot
+//   be merged if the file contains an import.  Move them here so
+//   they will be merged accordingly
+//
+//   The things we do for typescript :-(
+//
+//                        signed
+//                            Management
+//
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.strNumToNum = void 0;
+// See https://blog.logrocket.com/mastering-mapped-types-typescript/
+// See https://typescript-v2-121.ortam.vercel.app/docs/handbook/advanced-types.html
+function strNumToNum(value) {
+    if (typeof value === "number") {
+        return value;
+    }
+    if (typeof value === "string") {
+        return parseFloat(value);
+    }
+    throw new Error("Expected string or number, got '".concat(value, "'."));
+}
+exports.strNumToNum = strNumToNum;
 
 
 /***/ }),
 
 /***/ "./src/utils.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports) {
 
-"use strict";
 
 // globals WebKitPoint
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -7309,11 +7394,17 @@ var __read = (this && this.__read) || function (o, n) {
     }
     return ar;
 };
-var __spread = (this && this.__spread) || function () {
-    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
-    return ar;
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Strings = exports.Rect = exports.Polygon = exports.Elements = exports.Angle = exports.Sets = exports.Points = exports.Cycle = exports.Colors = exports.Dates = exports.randomFloat = exports.randomInt = exports.getId = exports.debounce = exports.sample = exports.lerp = exports.uuid = exports.isEmpty = void 0;
 // Tests whether an object is empty
 // @param {Object} obj - the object to be tested
 // @return {boolean}
@@ -7733,35 +7824,35 @@ var Colors = /** @class */ (function () {
         get: function () {
             return Colors.rgb2num(89, 34, 131);
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Colors, "steelblue", {
         get: function () {
             return Colors.rgb2num(0, 130, 164);
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Colors, "ochre", {
         get: function () {
             return Colors.rgb2num(181, 157, 0);
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Colors, "turquoise", {
         get: function () {
             return Colors.rgb2num(34, 164, 131);
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Colors, "eminence", {
         get: function () {
             return Colors.rgb2num(150, 60, 134);
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Colors.random = function () {
@@ -7781,7 +7872,7 @@ var Cycle = /** @class */ (function (_super) {
         for (var _i = 0; _i < arguments.length; _i++) {
             items[_i] = arguments[_i];
         }
-        return _super.apply(this, __spread(items)) || this;
+        return _super.apply(this, __spreadArray([], __read(items), false)) || this;
     }
     Cycle.prototype.next = function () {
         if (this.index == this.length) {
@@ -8557,10 +8648,32 @@ exports.Strings = Strings;
 /***/ }),
 
 /***/ "./src/volatile.ts":
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __values = (this && this.__values) || function(o) {
     var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
     if (m) return m.call(o);
@@ -8572,11 +8685,14 @@ var __values = (this && this.__values) || function(o) {
     };
     throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__("pixi.js");
-var Tween_1 = __webpack_require__("./src/Ease/Tween.ts");
-var Ease_1 = __webpack_require__("./src/Ease/Ease.ts");
-var theme_1 = __webpack_require__("./src/theme.ts");
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var PIXI = __importStar(__webpack_require__("pixi.js"));
+var Tween_1 = __importDefault(__webpack_require__("./src/Ease/Tween.ts"));
+var Ease_1 = __importDefault(__webpack_require__("./src/Ease/Ease.ts"));
+var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
 var Volatile = /** @class */ (function () {
     function Volatile(opts) {
         if (opts === void 0) { opts = {}; }
@@ -8700,17 +8816,52 @@ var Volatile = /** @class */ (function () {
     };
     return Volatile;
 }());
-exports.default = Volatile;
+exports["default"] = Volatile;
 
 
 /***/ }),
 
 /***/ "pixi.js":
-/***/ (function(module, exports) {
+/***/ ((module) => {
 
 module.exports = PIXI;
 
 /***/ })
 
-/******/ });
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/index.ts");
+/******/ 	pixi_ui = __webpack_exports__;
+/******/ 	
+/******/ })()
+;
 //# sourceMappingURL=pixi_ui.js.map

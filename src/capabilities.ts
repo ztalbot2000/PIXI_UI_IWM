@@ -25,6 +25,7 @@ export default class Capabilities
    //
    static get isIOS( ): boolean
    {
+      // @ts-ignore - error TS2339: Property 'MSStream' does not exist on type 'Window & typeof globalThis'.
       return ( /iPad|iPhone|iPod/.test( navigator.userAgent ) ) && !window.MSStream
    }
 

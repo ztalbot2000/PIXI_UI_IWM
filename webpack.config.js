@@ -5,9 +5,9 @@ const ESLintPlugin = require('eslint-config-prettier');
 
 let devServerOptions =
 {
-   stats: {
+   //stats: {
       // Enables disables colors on the console
-      colors: true,
+   //   colors: true,
 
       // Tells stats whether to display the --env information.
       //env: true,
@@ -27,17 +27,28 @@ let devServerOptions =
 
       // Tells stats to add information about the webpack version used.
       //version: true
-   },
+   //},
    // Tell the server where to serve content from (Static files only).
    // It is recommended to use an absolute path.
-   contentBase: path.join(__dirname, 'dist'),
+   // contentBase: path.join(__dirname, 'dist'),
 
    // The bundled files will be available in the browser under this path.
    // Make sure devServer.publicPath always starts and ends with a forward slash.
-   publicPath: '/dist/',
+   // publicPath: '/dist/',
+
+   // serves everything from our dist directory in the project root:
+   static: {
+      //publicPath: '/dist/',
+      //directory: path.join(__dirname, 'dist'),
+      directory: path.join(__dirname, 'dist'),
+      watch: true
+   },
 
    // The filename that is considered the index file.
-   index: 'index.html',
+   //index: 'index.html',
+
+   // The server type( default is http)
+   server: 'http',
 
    // Enable gzip compression for everything served:
    compress: false,
@@ -63,16 +74,16 @@ let devServerOptions =
 
    // Tell dev-server to watch the files served by the devServer.contentBase option.
    // It is disabled by default. When enabled, file changes will trigger a full page reload.
-   watchContentBase: true,
+   // Not in v4
+   //watchContentBase: true,
 
    // Control options related to watching the files.
-   // webpack uses the file system to get notified of file changes.
-   // In some cases this does not work.
-   // In these cases, use polling:
-   watchOptions: {
+   // webpack-dev-server uses the file system to get notified of file changes.
+   // Now on by default.
+   //watchOptions: {
       // Set to 5 seconds
-      poll: 5000
-   },
+      //   poll: 5000
+   //},
 
    // By default, the dev-server will reload/refresh the page when file changes are detected.
    // devServer.hot option must be disabled or devServer.watchContentBase option must be enabled
@@ -83,13 +94,17 @@ let devServerOptions =
    // Note: requires a lot of other stuff too in index.html ...
    hot: false,
 
-   onListening: function(server) {
-      const port = server.listeningApp.address().port;
-      console.log('Listening on port:', port);
+   onListening: function(devServer)
+   {
+      if ( !devServer )
+        throw new Error( 'webpack-dev-server is not defined' );
+
+      const port = devServer.server.address().port;
+      console.log( 'Listening on port:', port );
    },
 
    // Tells dev-server to open the browser after server had been started.
-   open: true,
+   //open: { },
 
    // Specify a page to navigate to when opening the browser.
    // So that all the examples work.
@@ -98,7 +113,11 @@ let devServerOptions =
    //       which is stupid because we can just use --openPage.
    //       However I confused it with devServer.index which
    //       cannot be set via cli. Why the two is beyond me?
-   openPage: 'index.html'
+   //openPage: 'index.html'
+   open:
+   {
+      target: [ 'index.html' ]
+   }
 };
 
 module.exports = (env, argv) =>
@@ -107,11 +126,19 @@ module.exports = (env, argv) =>
    Externals= {"pixi.js": "PIXI",
                "fs": "require('fs')" };
 
+   watchOptions = {
+      // Add a delay before rebuilding once the first file changed
+      aggregateTimeout:  600,
+      poll: 5000
+   };
+
    // The default 'mode' to use.
    Mode='production';
 
    if ( argv )
    {
+      const r = Object.keys(argv);
+      console.log("argv = " + r);
       if ( argv.mode )
          if (argv.mode === 'development' )
             // Since this is processed as a command line option
@@ -121,10 +148,17 @@ module.exports = (env, argv) =>
          else if ( argv.mode !== 'production' )
             throw new error('unhandled mode:' + argv.mode);
 
-      if ( argv.openPage )
+      console.log("argv = " + argv);
+      console.log("argv['openTarget'] = " + argv['openTarget']);
+      if ( argv['openTarget'] )
       {
-         devServerOptions.openPage = argv.openPage
-         console.log("telling devServer to open:" + devServerOptions.openPage);
+         console.log("In if argv = " + argv[ 'openTarget' ]);
+         console.log("devServerOptions.open = " + devServerOptions.open );
+         devServerOptions.open = { target: argv[ 'openTarget' ] };
+         //devServerOptions.open.target = [ ];
+         //devServerOptions.open.target.push( argv['openTarget'] );
+         console.log("telling devServer to open:" + devServerOptions.open);
+         console.log("telling devServer to open.target:" + devServerOptions.open.target);
       }
    }
 
@@ -136,10 +170,13 @@ module.exports = (env, argv) =>
 
       entry: './src/index.ts',
       output: {
-         path: path.resolve(__dirname, './dist'),
+         path: path.resolve(__dirname, 'dist'),
          filename: 'pixi_ui.js',
          // The library name means you would access it via pixi-ui.button.
          library: 'pixi_ui',
+
+         // Add vitual path for generating the bundle files
+         publicPath: 'dist',
 
          // Turn off pathInfo, increasing build time
          pathinfo: false,

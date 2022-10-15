@@ -16,6 +16,11 @@ interface IRunClass
    instance: object;
    Options: IRunOptions;
 }
+interface IRunStaticClassMember
+{
+   ClassName: Class;
+   Options: IRunOptions;
+}
 
 import  { isEmpty, uuid, lerp, sample, debounce, getId, randomInt, randomFloat, Dates, Colors, Cycle, Points, Sets, Angle, Elements, Polygon, Rect, Strings } from '../../src/utils';
 
@@ -75,7 +80,7 @@ let run_randomInt: IRunFunction = [ { Proc: randomInt,
       Options: {Description: "randomInt (New)         ", Type: 'N'} } ];
 let run_randomFloat: IRunFunction = [ { Proc: randomFloat,
       Options: {Description: "randomFloat (New)       ", Type: 'N'} } ];
-let run_Dates: IRunClass = [ { Constructor: Dates, instance: null,
+let run_Dates: IRunStaticClassMember = [ { ClassName: Dates,
       Options: {Description: "Dates (New)             ", Type: 'N'} } ];
 let run_Colors: IRunClass = [ { Constructor: Colors, instance: null,
       Options: {Description: "Colors (New)            ", Type: 'N'} } ];
@@ -117,7 +122,7 @@ if ( typeof COMPARE_ORIGINAL !== 'undefined' )
       Options: {Description: "randomInt (Original)    ", Type: 'O'} } );
    run_randomFloat.unshift( { Proc: original_randomFloat,
       Options: {Description: "randomFloat (Original)  ", Type: 'O'} } );
-   run_Dates.unshift( { Constructor: Original_Dates, instance: null,
+   run_Dates.unshift( { ClassName: Original_Dates,
       Options: {Description: "Dates (Original)        ", Type: 'O'} } );
    run_Colors.unshift( { Constructor: Original_Colors, instance: null,
       Options: {Description: "Colors (Original)       ", Type: 'O'} } );
@@ -143,20 +148,8 @@ before(function()
 {
    console.log("   Utils Setup (Before)");
 
-   run_Dates.forEach(function (run, index, arr)
-   {
-      it( run.Options.Description + " Constructor should not be null", function ()
-      {
-         assert.isNotNull(run.Constructor, "constructor is " + run.Constructor );
-      });
-
-      it( run.Options.Description + " Creating instance to be used should not be null", function ()
-      {
-         arr[index].instance = new ( run.Constructor ) ();
-         assert.isNotNull(arr[index].instance, "instance resulted in null");
-      });
-   });
-
+   // Note: This should be changed to like Dates as it
+   //       tests static class members
    run_Colors.forEach(function ( run, index, arr )
    {
       it( run.Options.Description + " Constructor should not be null", function ()
@@ -185,6 +178,8 @@ before(function()
       });
    });
 
+   // Note: This should be changed to like Dates as it
+   //       tests static class members
    run_Points.forEach(function ( run, index, arr )
    {
       it( run.Options.Description + " Constructor should not be null", function ()
@@ -199,6 +194,8 @@ before(function()
       });
    });
 
+   // Note: This should be changed to like Dates as it
+   //       tests static class members
    run_Sets.forEach(function ( run, index, arr )
    {
       it( run.Options.Description + " Constructor should not be null", function ()
@@ -213,6 +210,8 @@ before(function()
       });
    });
 
+   // Note: This should be changed to like Dates as it
+   //       tests static class members
    run_Angle.forEach(function ( run, index, arr )
    {
       it( run.Options.Description + " Constructor should not be null", function ()
@@ -226,6 +225,9 @@ before(function()
          assert.isNotNull(arr[index].instance, "instance resulted in null");
       });
    });
+
+   // Note: This should be changed to like Dates as it
+   //       tests static class members
    run_Elements.forEach(function ( run, index, arr )
    {
       it( run.Options.Description + " Constructor should not be null", function ()
@@ -252,6 +254,9 @@ before(function()
          assert.isNotNull(arr[index].instance, "instance resulted in null");
       });
    });
+
+   // Note: This should be changed to like Dates as it
+   //       tests static class members
    run_Rect.forEach(function ( run, index, arr )
    {
       it( run.Options.Description + " Constructor should not be null", function ()
@@ -265,6 +270,9 @@ before(function()
          assert.isNotNull(arr[index].instance, "instance resulted in null");
       });
    });
+
+   // Note: This should be changed to like Dates as it
+   //       tests static class members
    run_Strings.forEach(function ( run, index, arr )
    {
       it( run.Options.Description + " Constructor should not be null", function ()
@@ -347,15 +355,6 @@ describe("Testing Utils", function ()
          it( run.Options.Description + " should be a " + FUNCTION, function ()
          {
             assert.isTrue((typeof run.Proc === FUNCTION), "utils.randomFloat is not an " + FUNCTION + ". result: " + typeof run.Proc );
-         });
-      });
-
-      run_Dates.forEach(function ( run, index, arr )
-      {
-         it( run.Options.Description + " Created instance should be an instance of Dates", function ()
-         {
-           expect((arr[index].instance)).to.be.an.instanceof(run.Constructor);
-           assert.isNotNull((typeof arr[index].instance), "utils.Dates instance is null result: " + typeof arr[index].instance );
          });
       });
 
@@ -536,77 +535,135 @@ describe("Testing Utils", function ()
       });
       describe("Testing Dates functionality", function ()
       {
-         it( "Dates.create of YYYY/MM/DD should create the same Date" , function ()
+         run_Dates.forEach(function ( run, index )
          {
-            let originalDate = (run_Dates[0].Constructor).create(1964, 6, 21);
-            let newDate      = (run_Dates[1].Constructor).create(1964, 6, 21);
-            assert.deepEqual(originalDate, newDate, "utils.Dates are different. originalDate: " + originalDate + " newDate: " + newDate );
-         });
+            it( "Dates.create of YYYY/MM/DD should create the same Date" , function ()
+            {
+               let year = 1964;
+               let month = 6;
+               let day = 21;
+               let result =  ( run.ClassName ).create(year, month, day);
 
-         it( "Dates.create of YYYY/MM/DD+1 should not create the same Date" , function ()
-         {
-            let originalDate = (run_Dates[0].Constructor).create(1964, 6, 21);
-            let newDate      = (run_Dates[1].Constructor).create(1964, 6, 22);
-            assert.notDeepEqual(originalDate, newDate, "utils.Dates are different. originalDate: " + originalDate + " newDate: " + newDate );
-         });
+               expect((result)).to.be.an.instanceof( Date, "Dates instance resulted in null " + result);
 
-         it( "Dates.daysInMonth of 2020/02/01 should be the same. (29)" , function ()
-         {
-            let originalDate = (run_Dates[0].Constructor).create(2020, 2, 1);
-            let newDate      = (run_Dates[1].Constructor).create(2020, 2, 1);
-            let originalDaysInMonth = (run_Dates[0].Constructor).daysInMonth( originalDate );
-            let newDaysInMonth =      (run_Dates[1].Constructor).daysInMonth( newDate );
-            assert.equal(originalDaysInMonth, newDaysInMonth, "utils.Dates are different. originalDaysInMonth: " + originalDaysInMonth + " newDaysInMonth: " + newDaysInMonth );
-            assert.equal(originalDaysInMonth, 29, "utils.Dates are different. originalDaysInMonth: " + originalDaysInMonth + " newDaysInMonth: " + newDaysInMonth );
-         });
-         it( "Dates.daysInMonth of 2026/02/01 should be the same. (28)" , function ()
-         {
-            let originalDate = (run_Dates[0].Constructor).create(2026, 2, 1);
-            let newDate      = (run_Dates[1].Constructor).create(2026, 2, 1);
-            let originalDaysInMonth = (run_Dates[0].Constructor).daysInMonth( originalDate );
-            let newDaysInMonth =      (run_Dates[1].Constructor).daysInMonth( newDate );
-            assert.equal(originalDaysInMonth, newDaysInMonth, "utils.Dates are different. originalDaysInMonth: " + originalDaysInMonth + " originalDaysInMonth: " + originalDaysInMonth );
-            assert.equal(originalDaysInMonth, 28, "utils.Dates are different. originalDaysInMonth: " + originalDaysInMonth + " newDaysInMonth: " + newDaysInMonth );
-         });
-         it( "Dates.startYearRange of 2022/08/01 should be the same." , function ()
-         {
-            let originalDate = (run_Dates[0].Constructor).create(2022, 8, 1);
-            let newDate      = (run_Dates[1].Constructor).create(2022, 8, 1);
-            let originalStartYearRange = (run_Dates[0].Constructor).startYearRange( originalDate );
-            let newStartYearRange =      (run_Dates[1].Constructor).startYearRange( newDate );
-            assert.deepEqual(originalStartYearRange, newStartYearRange, "utils.Dates are different. originalStartYearRange: " + originalStartYearRange + " newStartYearRange: " + newStartYearRange );
-         });
-         it( "Dates.endYearRange of 2022/08/01 should be the same." , function ()
-         {
-            let originalDate = (run_Dates[0].Constructor).create(2022, 8, 1);
-            let newDate      = (run_Dates[1].Constructor).create(2022, 8, 1);
-            let originalEndYearRange = (run_Dates[0].Constructor).endYearRange( originalDate );
-            let newEndYearRange =      (run_Dates[1].Constructor).endYearRange( newDate );
-            assert.deepEqual(originalEndYearRange, newEndYearRange, "utils.Dates are different. originalEndYearRange: " + originalEndYearRange + " newEndYearRange: " + newEndYearRange );
-         });
-         it( "Dates.prevYear of 2027/12/30, -2 should be the same." , function ()
-         {
-            let originalDate = (run_Dates[0].Constructor).create(2027, 12, 30);
-            let newDate      = (run_Dates[1].Constructor).create(2027, 12, 30);
-            let originalPrevYear = (run_Dates[0].Constructor).prevYear( originalDate, -2 );
-            let newPrevYear =      (run_Dates[1].Constructor).prevYear( newDate, -2 );
-            assert.deepEqual(originalPrevYear, newPrevYear, "utils.Dates are different. originalPrevYear: " + originalPrevYear + " newPrevYear: " + newPrevYear );
-         });
-         it( "Dates.nextYear of 1997/12/30, 2 should be the same." , function ()
-         {
-            let originalDate = (run_Dates[0].Constructor).create(1997, 12, 30);
-            let newDate      = (run_Dates[1].Constructor).create(1997, 12, 30);
-            let originalNextYear = (run_Dates[0].Constructor).nextYear( originalDate, 2 );
-            let newNextYear =      (run_Dates[1].Constructor).nextYear( newDate, 2 );
-            assert.deepEqual(originalNextYear, newNextYear, "utils.Dates are different. originalNextYear: " + originalNextYear + " newNextYear: " + newNextYear );
-         });
-         it( "Dates.nextDay of 1997/12/30 should be the same." , function ()
-         {
-            let originalDate = (run_Dates[0].Constructor).create(1997, 12, 30);
-            let newDate      = (run_Dates[1].Constructor).create(1997, 12, 30);
-            let originalNextDay = (run_Dates[0].Constructor).nextDay( originalDate );
-            let newNextDay =      (run_Dates[1].Constructor).nextDay( newDate );
-            assert.deepEqual(originalNextDay, newNextDay, "utils.Dates are different. originalNextDay: " + originalNextDay + " newNextDay: " + newNextDay );
+               assert.equal(result.getFullYear(), year, "utils.Date.year is incorrect. Date: " + result );
+               assert.equal(result.getMonth(), 6, "utils.Date.month is incorrect. Date: " + result );
+               assert.equal(result.getDate(), day-1, "utils.Date.date is incorrect. Date: " + result );
+            });
+
+            it( "Dates.daysInMonth of 2020/02/01 should be the same. (29)" , function ()
+            {
+               let year = 2020;
+               let month = 2;
+               let day = 1;
+               let date = ( run.ClassName ).create(year, month, day);
+
+               expect((date)).to.be.an.instanceof( Date, "Dates instance resulted in null " + date);
+
+               let result = ( run.ClassName ).daysInMonth( date );
+
+               // Feb of 2020 has 29 days
+               assert.equal(result, 29, "utils.Date.daysInMonth is incorrect. Date: " + result );
+            });
+            it( "Dates.daysInMonth of 2026/02/01 should be the same. (28)" , function ()
+            {
+               let year = 2026;
+               let month = 2;
+               let day = 1;
+               let date = ( run.ClassName ).create(year, month, day);
+
+               expect((date)).to.be.an.instanceof( Date, "Dates instance resulted in null " + date);
+
+               let result = ( run.ClassName ).daysInMonth( date );
+
+               // Feb of 2026 has 29 days (Counted from 1, so subtract 1)
+               assert.equal(result, 28, "utils.Date.daysInMonth is incorrect. Date: " + result );
+            });
+            it( "Dates.startYearRange of 2022/08/01 should be the same." ,    function ()
+            {
+               let year = 2022;
+               let month = 8;
+               let day = 22;
+
+               let date = ( run.ClassName ).create(year, month, day);
+
+               expect((date)).to.be.an.instanceof( Date, "Dates instance resulted in null " + date);
+
+               let result = ( run.ClassName ).startYearRange( date );
+
+
+               // Feb of 2026 has 29 days
+               assert.equal(result.getYear(), 121, "utils.Date.startYearRange is incorrect. Date: " + result );
+            });
+            it( "Dates.endYearRange of 2022/08/01 should be the same." , function ()
+            {
+               let year = 2022;
+               let month = 8;
+               let day = 1;
+
+               let date = ( run.ClassName ).create(year, month, day);
+
+               expect((date)).to.be.an.instanceof( Date, "Dates instance resulted in null " + date);
+
+               let result = ( run.ClassName ).endYearRange( date );
+
+
+               // Feb of 2026 has 29 days
+               assert.equal(result.getYear(), 122, "utils.Date.endYearRange is incorrect. Date: " + result );
+            });
+            it( "Dates.prevYear of 2027/12/30, -2 should be the same." , function ()
+            {
+               let year = 2027;
+               let month = 12;
+               let day = 30;
+
+               let date = ( run.ClassName ) .create(year, month, day);
+
+               expect((date)).to.be.an.instanceof( Date, "Dates instance resulted in null " + date);
+
+               let result = ( run.ClassName ).prevYear( date, -2 );
+
+
+               // Feb of 2026 has 29 days
+               assert.equal(result.getYear(), 129, "utils.Date.prevYear is incorrect. Date: " + result );
+
+            });
+            it( "Dates.nextYear of 1997/12/30, 2 should be the same." , function ()
+            {
+               let year = 1997;
+               let month = 12;
+               let day = 30;
+
+               let date = ( run.ClassName ).create(year, month, day);
+
+               expect((date)).to.be.an.instanceof( Date, "Dates instance resulted in null " + date);
+
+               let result = ( run.ClassName ).nextYear( date, 2 );
+
+               //
+               assert.equal(result.getYear(), 99, "utils.Date.nextYear is incorrect. Date: " + result );
+            });
+            it( "Dates.nextDay of 1997/12/30 should be the same." , function ()
+            {
+               let year = 1997;
+               let month = 12;
+               let day = 30;
+
+               let date = ( run.ClassName ).create(year, month, day);
+
+               expect((date)).to.be.an.instanceof( Date, "Dates instance resulted in null " + date);
+
+               let result = ( run.ClassName ).nextDay( date );
+
+               // Feb of 2026 has 29 days
+               assert.equal(result.getYear(), 98, "utils.Date.nextYear is incorrect. Date: " + result );
+
+               assert.equal(result.getFullYear(), year +1, "utils.Date.year is incorrect. Date: " + result );
+               assert.equal(result.getMonth(), 0, "utils.Date.month is incorrect. Date: " + result );
+               assert.equal(result.getDate(), day-1, "utils.Date.date is incorrect. Date: " + result );
+
+
+            });
          });
       });
       describe("Testing DOm Rect functionality for DomRect (x:1,y:1,left:1,right:5,top:5,bottom:10", function ()

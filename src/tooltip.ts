@@ -155,7 +155,7 @@ export default class Tooltip extends AbstractPopup
         let mouseoverObject = false
 
         //O object.on('mouseover', e =>
-        object.on('mouseover', (e: PIXI.interaction.InteractionEvent ):void =>
+        object.on('mouseover', (e: PIXI.InteractionEvent ):void =>
         {
             this.timeout = window.setTimeout(() =>
             {
@@ -167,7 +167,7 @@ export default class Tooltip extends AbstractPopup
         })
 
         //O object.on('mousemove', e =>
-        object.on('mousemove', (e: PIXI.interaction.InteractionEvent ):void =>
+        object.on('mousemove', (e: PIXI.InteractionEvent ):void =>
         {
             if (mouseoverObject)
             {
@@ -199,7 +199,7 @@ export default class Tooltip extends AbstractPopup
     // @private
     // @return {Tooltip} A reference to the tooltip for chaining.
     //
-    private setPosition(e: PIXI. interaction.InteractionEvent): Tooltip
+    private setPosition(e: PIXI.InteractionEvent): Tooltip
     {
         const position = e.data.getLocalPosition(this.opts.container)
 

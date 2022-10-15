@@ -1,7 +1,7 @@
 .DS_Store
 *.swp
 *.save*
-*.[1-9]
+*.[0-9]
 3rdparty
 jsmin
 js

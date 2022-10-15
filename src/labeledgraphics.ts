@@ -2,6 +2,8 @@ import * as PIXI from 'pixi.js'
 
 import Theme from './theme'
 
+import { strNumToNum } from './types'
+
 interface INameToValueMap
 {
     [key: string]: any;
@@ -277,21 +279,24 @@ class TextLabel extends PIXI.Text
    constructor( text: string, style: PIXI.TextStyle = null, canvas: HTMLCanvasElement = null, { minZoom = 0.1, maxZoom = 10 } = { } )
    {
       super( text, style, canvas  )
-      this.normFontSize = this.style.fontSize
+      
+      this.normFontSize = strNumToNum( this.style.fontSize );
+      
       this.minZoom = minZoom
       this.maxZoom = maxZoom
    }
 
    zoom( factor: number ): void
    {
-      let oldValue = parseFloat( this.style.fontSize ) / this.normFontSize
+      let oldValue = strNumToNum( this.style.fontSize ) / this.normFontSize;
+      
       let value = oldValue * factor
       this.setZoom( value )
    }
 
    setZoom( value: number ): void
    {
-      let oldValue = parseFloat( this.style.fontSize ) / this.normFontSize
+      let oldValue = strNumToNum( this.style.fontSize ) / this.normFontSize;
       if ( value > this.maxZoom )
       {
          value = this.maxZoom
@@ -526,16 +531,20 @@ export default class LabeledGraphics extends PIXI.Graphics
    // Ensures that labels are hidden on clear.
    //
    // @memberof LabeledGraphics
-   //
+   // WTF is wrong with this statement
+   // @ts-ignore error TS2416: Property 'clear' in type 'LabeledGraphics' is not assignable to the same property in base type 'Graphics'.
    clear( ): PIXI.Graphics
+   //clear( ): LabeledGraphics
    {
-      super.clear( )
+      let r = super.clear( )
 
       for ( let key of this.labels.keys( ) )
       {
          this.hideLabel( key )
       }
-      return this
+      // return this
+      //return super
+      return r
    }
 
    //
@@ -582,7 +591,8 @@ export class SpriteLabel extends PIXI.Sprite
 {
    private label: string
    //private scale: PIXI.Point
-   public texture: PIXI.Texture
+   // Defined in super class Sprite
+   //public texture: PIXI.Texture
    //O private fontInfo: FontInfo
    private style: PIXI.TextStyle
 

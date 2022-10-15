@@ -1,4 +1,5 @@
 //import { AbstractPopupOptions } from './types'
+
 import Theme from './theme'
 import Button from './button'
 import { ButtonOptions } from './button'
@@ -237,7 +238,7 @@ export default class ButtonGroup extends PIXI.Graphics
 
       for ( let bit of this.opts.buttons )
       {
-         let it:ButtonOptions = <ButtonOptions> bit;
+         let it:ButtonOptions = <ButtonOptions> bit.opts;
 
          delete it.x
          delete it.y

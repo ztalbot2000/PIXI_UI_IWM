@@ -1,4 +1,3 @@
-import * as PIXI from 'pixi.js'
 import Theme from './theme'
 
 import Tween from './Ease/Tween'

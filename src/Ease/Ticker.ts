@@ -51,21 +51,24 @@ export class Ticker extends PIXI.utils.EventEmitter
        }
    }
 
-   public on (event: string | symbol, fn: Function, context?: any): this
+   //public on (event: string | symbol, fn: Function, context?: any): this
+   public on (event: string | symbol, fn: (...context: any[]) => void ): this
    {
       super.on(event, fn, context);
 
       return this;
    }
 
-   public once (event: string | symbol, fn: Function, context?: any): this
+   // public once (event: string | symbol, fn: Function, context?: any): this
+   public once (event: string | symbol, fn: (...context: any[]) => void ): this
    {
       super.once(event, fn, context);
 
       return this;
    }
 
-   public removeListener (event: string |  symbol, fn?: Function, context?: any): this
+   // public removeListener (event: string |  symbol, fn?: Function, context?: any): this
+   public removeListener (event: string |  symbol, fn: (...context: any[]) => void ): this
    {
       super.removeListener(event, fn, context);
 

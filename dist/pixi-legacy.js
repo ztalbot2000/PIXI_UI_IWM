@@ -1,1 +1,0 @@
-pixi-legacy-v5.2.1.js

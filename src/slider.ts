@@ -1,4 +1,3 @@
-import * as PIXI from 'pixi.js'
 import Theme from './theme'
 import Tooltip from './tooltip'
 import Tween from './Ease/Tween'
@@ -63,7 +62,7 @@ import Tween from './Ease/Tween'
 export class Control extends PIXI.Graphics
 {
    public dragging: boolean
-   public event: PIXI.interaction.InteractionEvent
+   public event: PIXI.InteractionEvent
    public delta: number
    public pointerdowned: boolean
    constructor()
@@ -320,7 +319,7 @@ export default class Slider extends PIXI.Container
       control.y = this.opts.controlRadius
 
       // pointerdown on the control for dragndrop
-      control.on( 'pointerdown', (e: PIXI.interaction.InteractionEvent ):void =>
+      control.on( 'pointerdown', (e: PIXI.InteractionEvent ):void =>
       {
          control.event = e
          control.delta = e.data.getLocalPosition( this.control ).x
@@ -339,26 +338,26 @@ export default class Slider extends PIXI.Container
       // interaction
       //-----------------
       // @ts-ignore error TS6133: 'e' is declared but never read
-      this.sliderObj.on( 'pointerover', (e: PIXI.interaction.InteractionEvent ):void =>
+      this.sliderObj.on( 'pointerover', (e: PIXI.InteractionEvent ):void =>
       {
          Tween.to( this.control, this.theme.opts.fast, { alpha: .83 } )
       } )
 
       // @ts-ignore error TS6133: 'e' is declared but never read
-      this.sliderObj.on( 'pointerout', (e: PIXI.interaction.InteractionEvent ):void =>
+      this.sliderObj.on( 'pointerout', (e: PIXI.InteractionEvent ):void =>
       {
          Tween.to( this.control, this.theme.opts.fast, { alpha: 1 } )
       } )
 
       // @ts-ignore error TS6133: 'e' is declared but never read
-      this.sliderObj.on( 'pointerdown', (e: PIXI.interaction.InteractionEvent ):void =>
+      this.sliderObj.on( 'pointerdown', (e: PIXI.InteractionEvent ):void =>
       {
          this.sliderObj.pointerdowned = true
          Tween.to( this.control, this.theme.opts.fast, { alpha: .7 } )
       } )
 
       // Click on the slider bar
-      this.sliderObj.on( 'pointerup', (e: PIXI.interaction.InteractionEvent ):void =>
+      this.sliderObj.on( 'pointerup', (e: PIXI.InteractionEvent ):void =>
       {
          if ( this.sliderObj.pointerdowned )
          {

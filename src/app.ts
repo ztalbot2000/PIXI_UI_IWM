@@ -62,7 +62,7 @@ class FullscreenInteractionManager extends PIXI.interaction.InteractionManager
 //     height: 150,
 //     fpsLogging: true,
 //     theme: 'light',
-//     transparent: false
+//     backgroundAlpha: 1
 // } ).setup( ).run( )
 //
 // @class
@@ -74,7 +74,7 @@ interface AppOptions
    width?: number;
    height?: number;
    view?: HTMLCanvasElement;
-   transparent?: boolean;
+   backgroundAlpha?: number;
    backgroundColor?: number;
    theme?: Theme | string;
    antialias?: boolean;
@@ -105,8 +105,8 @@ export default class PIXIApp extends PIXI.Application
    // @param { HTMLElement } [ opts.view ]
    //        - The canvas HTML element. If not set, a render-element is
    //          added inside the body.
-   // @param { boolean } [ opts.transparent=true ]
-   //        - Should the render view be transparent?
+   // @param { number } [ opts.backgroundAlpha=1 ]
+   //        - Should the render view be transparent?  (PIXI v6 backgroundAlpha)
    // @param { boolean } [ opts.antialias=true ]
    //        - Sets antialias ( only applicable in chrome at the moment ).
    // @param { number } [ opts.resolution=window.devicePixelRatio | 1 ]
@@ -152,8 +152,8 @@ export default class PIXIApp extends PIXI.Application
       let width = opts.width || null
       let height = opts.height || null
       //let view = opts.view || null
-      if (opts.transparent === undefined )
-            opts.transparent = true
+      if (opts.backgroundAlpha === undefined )
+            opts.backgroundAlpha = 1
 
       if ( opts.backgroundColor === undefined )
            opts.backgroundColor = 0x282828
@@ -197,7 +197,7 @@ export default class PIXIApp extends PIXI.Application
          view: opts.view || null,
          width: width,
          height: height,
-         transparent: opts.transparent,
+         backgroundAlpha: opts.backgroundAlpha,
          backgroundColor: opts.backgroundColor,
          antialias: opts.antialias || true,
          resolution: window.devicePixelRatio || 1,
@@ -456,7 +456,7 @@ export default class PIXIApp extends PIXI.Application
 
          this.originalMapPositionToPoint = interactionManager.mapPositionToPoint
 
-         interactionManager.mapPositionToPoint = ( point, x, y  ) =>
+         interactionManager.mapPositionToPoint = ( point: PIXI.Point, x: number, y  : number ) =>
          {
             return this.fixedMapPositionToPoint( point, x, y  )
          }
@@ -685,10 +685,12 @@ export default class PIXIApp extends PIXI.Application
 
       if ( progress )
       {
-         loader.on( 'progress', e =>
+         // loader.on( 'progress', e =>
+         loader.onLoad.add(() =>
          {
-            this.progress( e.progress )
-         } )
+            //this.progress( e.progress )
+            this.progress( loader.progress );
+         })
       }
 
       // Interesting. without loader, an error occurs that type string (resources)

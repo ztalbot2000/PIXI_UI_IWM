@@ -69,6 +69,11 @@
 
       // Incremental compile is placed in <thisfile>
       "tsBuildInfoFile": "./js/tsbuildinfo",
+
+      //  provide a shim to ensure compatibility in the emitted JavaScript
+      // Fixes: eventEmitter3 - can only be default-imported using the 'esModuleInterop' flag
+
+      "esModuleInterop": true,
    },
    "include": [
       "src",

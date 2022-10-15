@@ -198,7 +198,7 @@ export default class Progress extends PIXI.Container
       // interaction
       //-----------------
       // @ts-ignore error TS6133: 'e' is declared but never read
-      this.on( 'added', ( e?: PIXI.interaction.InteractionEvent ): void =>
+      this.on( 'added', ( e?: PIXI.InteractionEvent ): void =>
       {
          this.show( )
       } )

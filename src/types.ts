@@ -9,7 +9,9 @@
 //
 //                        signed
 //                            Management
+//
 
+import * as PIXI from 'pixi.js';
 
 // The Options used by AbstractPopup
 export interface AbstractPopupOptions
@@ -127,4 +129,18 @@ export interface Size
 {
    width: number,
    height: number,
+}
+
+// See https://blog.logrocket.com/mastering-mapped-types-typescript/
+// See https://typescript-v2-121.ortam.vercel.app/docs/handbook/advanced-types.html
+export function strNumToNum(value: string | number) : number
+{
+  if ( typeof value === "number" )
+  {
+      return value;
+  }
+  if ( typeof value === "string" ) {
+      return parseFloat( value );
+  }
+  throw new Error(`Expected string or number, got '${value}'.`);
 }

@@ -11,7 +11,7 @@
  *     view: canvas,
  *     width: 480,
  *     height: 270,
- *     backgroundAlpha: 1
+ *     transparent: false
  * }).setup().run()
  * 
  * // Add a video sprite

@@ -1,4 +1,3 @@
-import * as PIXI from 'pixi.js'
 import PIXIApp from './app'
 import { Point } from './types'
 
@@ -351,7 +350,7 @@ export default class List extends PIXI.Container
    // @private
    // @param { * } event
    //
-   onStart( event: PIXI.interaction.InteractionEvent ): void
+   onStart( event: PIXI.InteractionEvent ): void
    {
       this.__dragging = true
 
@@ -379,7 +378,7 @@ export default class List extends PIXI.Container
    // @private
    // @param { * } event
    //
-   onMove( event: PIXI.interaction.InteractionEvent ): void
+   onMove( event: PIXI.InteractionEvent ): void
    {
       if ( this.__dragging )
       {
@@ -402,7 +401,7 @@ export default class List extends PIXI.Container
    // @param { * } event
    //
    // @ts-ignore error TS6133: 'event' is declared but never read
-   onEnd( event: PIXI.interaction.InteractionEvent ): void
+   onEnd( event: PIXI.InteractionEvent ): void
    {
       if ( this.__dragging )
       {
@@ -492,7 +491,7 @@ export default class List extends PIXI.Container
    // @param { event|PIXI.InteractionEvent } event
    //        - The PIXI event to capture.
    //
-   //O capture( event: PIXI.interaction.InteractionEvent )
+   //O capture( event: PIXI.InteractionEvent )
    //O {
    //O    const originalEvent = event.data && event.data.originalEvent ? event.data.originalEvent : event
    //O    Events.capturedBy( originalEvent, this )
