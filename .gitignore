@@ -1,10 +1,20 @@
+# Ignore OSX created files
 .DS_Store
+# Ignore swap files
 *.swp
+# Ignore any files I create as .save*
 *.save*
+# Ignore any files I create ending in a number
 *.[0-9]
-3rdparty
-jsmin
-js
-node_modules
-package-lock.json
+# Ignore stupid files like crap
 crap
+# Ignore any 3rdparty files
+3rdparty
+# Ignore jsmin as it gets locally compiled
+jsmin
+# Ignore files created by tsc
+js
+# Ignore files under node_modules
+node_modules
+# I hate this file
+package-lock.json

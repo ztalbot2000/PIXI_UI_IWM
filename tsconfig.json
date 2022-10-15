@@ -3,6 +3,9 @@
       // Target latest version of ECMAScript.
       "target": "es5",
 
+      // mimic the Node.js module resolution mechanism at runtime
+      "moduleResolution": "node",
+
       // For Generator functions
       // (Ones like: static *doiit ( ... ): Generator<Date,number, boolean
       "downlevelIteration": true,
