@@ -1,3 +1,5 @@
+import * as PIXI from 'pixi.js'
+
 import PIXIApp from './app'
 import { Point } from './types'
 

@@ -3,14 +3,14 @@ var pixi_ui;
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/Ease/Ease.ts":
+/***/ 223:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Ease = void 0;
-var EaseBase_1 = __webpack_require__("./src/Ease/EaseBase.ts");
-var ExponentialEase_1 = __webpack_require__("./src/Ease/ExponentialEase.ts");
+var EaseBase_1 = __webpack_require__(165);
+var ExponentialEase_1 = __webpack_require__(167);
 var HALF_PI = Math.PI * 0.5;
 var Ease = /** @class */ (function () {
     function Ease() {
@@ -136,7 +136,7 @@ exports["default"] = ease;
 
 /***/ }),
 
-/***/ "./src/Ease/EaseBase.ts":
+/***/ 165:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -155,7 +155,7 @@ exports.EaseBase = EaseBase;
 
 /***/ }),
 
-/***/ "./src/Ease/ExponentialEase.ts":
+/***/ 167:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -176,7 +176,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ExponentialEase = void 0;
-var EaseBase_1 = __webpack_require__("./src/Ease/EaseBase.ts");
+var EaseBase_1 = __webpack_require__(165);
 var ExponentialEase = /** @class */ (function (_super) {
     __extends(ExponentialEase, _super);
     function ExponentialEase(power, easeIn, easeOut) {
@@ -208,7 +208,7 @@ exports.ExponentialEase = ExponentialEase;
 
 /***/ }),
 
-/***/ "./src/Ease/Ticker.ts":
+/***/ 405:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -255,8 +255,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Ticker = void 0;
-var PIXI = __importStar(__webpack_require__("pixi.js"));
-var Tween_1 = __importDefault(__webpack_require__("./src/Ease/Tween.ts"));
+var PIXI = __importStar(__webpack_require__(36));
+var Tween_1 = __importDefault(__webpack_require__(662));
 var Ticker = /** @class */ (function (_super) {
     __extends(Ticker, _super);
     function Ticker(autoStart) {
@@ -338,7 +338,7 @@ exports["default"] = Ticker.shared;
 
 /***/ }),
 
-/***/ "./src/Ease/Tween.ts":
+/***/ 662:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -769,7 +769,7 @@ exports["default"] = new Tween();
 
 /***/ }),
 
-/***/ "./src/UI.ts":
+/***/ 996:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -778,34 +778,34 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UI = void 0;
-var utils_1 = __webpack_require__("./src/utils.ts");
-var EaseBase_1 = __webpack_require__("./src/Ease/EaseBase.ts");
-var ExponentialEase_1 = __webpack_require__("./src/Ease/ExponentialEase.ts");
-var Ease_1 = __importDefault(__webpack_require__("./src/Ease/Ease.ts"));
-var Ticker_1 = __importDefault(__webpack_require__("./src/Ease/Ticker.ts"));
-var Tween_1 = __importDefault(__webpack_require__("./src/Ease/Tween.ts"));
-var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
-var tooltip_1 = __importDefault(__webpack_require__("./src/tooltip.ts"));
-var volatile_1 = __importDefault(__webpack_require__("./src/volatile.ts"));
-var abstractpopup_1 = __importDefault(__webpack_require__("./src/abstractpopup.ts"));
-var popup_1 = __importDefault(__webpack_require__("./src/popup.ts"));
-var popover_1 = __importDefault(__webpack_require__("./src/popover.ts"));
-var popupmenu_1 = __importDefault(__webpack_require__("./src/popupmenu.ts"));
-var slider_1 = __importDefault(__webpack_require__("./src/slider.ts"));
-var badge_1 = __importDefault(__webpack_require__("./src/badge.ts"));
-var button_1 = __importDefault(__webpack_require__("./src/button.ts"));
-var buttongroup_1 = __importDefault(__webpack_require__("./src/buttongroup.ts"));
-var checkbox_1 = __importDefault(__webpack_require__("./src/checkbox.ts"));
-var modal_1 = __importDefault(__webpack_require__("./src/modal.ts"));
-var app_1 = __importDefault(__webpack_require__("./src/app.ts"));
-var message_1 = __importDefault(__webpack_require__("./src/message.ts"));
-var progress_1 = __importDefault(__webpack_require__("./src/progress.ts"));
-var progressbar_1 = __importDefault(__webpack_require__("./src/progressbar.ts"));
-var progressdialog_1 = __importDefault(__webpack_require__("./src/progressdialog.ts"));
-var capabilities_1 = __importDefault(__webpack_require__("./src/capabilities.ts"));
-var labeledgraphics_1 = __importDefault(__webpack_require__("./src/labeledgraphics.ts"));
-var list_1 = __importDefault(__webpack_require__("./src/list.ts"));
-var switch_1 = __importDefault(__webpack_require__("./src/switch.ts"));
+var utils_1 = __webpack_require__(567);
+var EaseBase_1 = __webpack_require__(165);
+var ExponentialEase_1 = __webpack_require__(167);
+var Ease_1 = __importDefault(__webpack_require__(223));
+var Ticker_1 = __importDefault(__webpack_require__(405));
+var Tween_1 = __importDefault(__webpack_require__(662));
+var theme_1 = __importDefault(__webpack_require__(575));
+var tooltip_1 = __importDefault(__webpack_require__(437));
+var volatile_1 = __importDefault(__webpack_require__(17));
+var abstractpopup_1 = __importDefault(__webpack_require__(114));
+var popup_1 = __importDefault(__webpack_require__(632));
+var popover_1 = __importDefault(__webpack_require__(345));
+var popupmenu_1 = __importDefault(__webpack_require__(550));
+var slider_1 = __importDefault(__webpack_require__(123));
+var badge_1 = __importDefault(__webpack_require__(526));
+var button_1 = __importDefault(__webpack_require__(152));
+var buttongroup_1 = __importDefault(__webpack_require__(496));
+var checkbox_1 = __importDefault(__webpack_require__(52));
+var modal_1 = __importDefault(__webpack_require__(66));
+var app_1 = __importDefault(__webpack_require__(992));
+var message_1 = __importDefault(__webpack_require__(796));
+var progress_1 = __importDefault(__webpack_require__(827));
+var progressbar_1 = __importDefault(__webpack_require__(696));
+var progressdialog_1 = __importDefault(__webpack_require__(674));
+var capabilities_1 = __importDefault(__webpack_require__(889));
+var labeledgraphics_1 = __importDefault(__webpack_require__(370));
+var list_1 = __importDefault(__webpack_require__(778));
+var switch_1 = __importDefault(__webpack_require__(145));
 exports.UI = {
     // types: types,
     //   utils: utils,
@@ -842,7 +842,7 @@ exports.UI = {
 
 /***/ }),
 
-/***/ "./src/abstractpopup.ts":
+/***/ 114:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -888,9 +888,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var PIXI = __importStar(__webpack_require__("pixi.js"));
-var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
-var Tween_1 = __importDefault(__webpack_require__("./src/Ease/Tween.ts"));
+var PIXI = __importStar(__webpack_require__(36));
+var theme_1 = __importDefault(__webpack_require__(575));
+var Tween_1 = __importDefault(__webpack_require__(662));
 //
 // Callback for the popup onHidden.
 //
@@ -1207,7 +1207,7 @@ exports["default"] = AbstractPopup;
 
 /***/ }),
 
-/***/ "./src/app.ts":
+/***/ 992:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1281,11 +1281,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var PIXI = __importStar(__webpack_require__("pixi.js"));
-var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
-var progress_1 = __importDefault(__webpack_require__("./src/progress.ts"));
-var modal_1 = __importDefault(__webpack_require__("./src/modal.ts"));
-var message_1 = __importDefault(__webpack_require__("./src/message.ts"));
+var PIXI = __importStar(__webpack_require__(36));
+var theme_1 = __importDefault(__webpack_require__(575));
+var progress_1 = __importDefault(__webpack_require__(827));
+var modal_1 = __importDefault(__webpack_require__(66));
+var message_1 = __importDefault(__webpack_require__(796));
 var PIXIApp = /** @class */ (function (_super) {
     __extends(PIXIApp, _super);
     function PIXIApp(opts) {
@@ -1834,7 +1834,7 @@ var FpsDisplay = /** @class */ (function (_super) {
 
 /***/ }),
 
-/***/ "./src/badge.ts":
+/***/ 526:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1857,9 +1857,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
-var abstractpopup_1 = __importDefault(__webpack_require__("./src/abstractpopup.ts"));
-var tooltip_1 = __importDefault(__webpack_require__("./src/tooltip.ts"));
+var theme_1 = __importDefault(__webpack_require__(575));
+var abstractpopup_1 = __importDefault(__webpack_require__(114));
+var tooltip_1 = __importDefault(__webpack_require__(437));
 //
 // Class that represents a PixiJS Badge.
 //
@@ -1959,7 +1959,7 @@ exports["default"] = Badge;
 
 /***/ }),
 
-/***/ "./src/button.ts":
+/***/ 152:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2016,11 +2016,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var PIXI = __importStar(__webpack_require__("pixi.js"));
-var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
-var tooltip_1 = __importDefault(__webpack_require__("./src/tooltip.ts"));
-var badge_1 = __importDefault(__webpack_require__("./src/badge.ts"));
-var Tween_1 = __importDefault(__webpack_require__("./src/Ease/Tween.ts"));
+var PIXI = __importStar(__webpack_require__(36));
+var theme_1 = __importDefault(__webpack_require__(575));
+var tooltip_1 = __importDefault(__webpack_require__(437));
+var badge_1 = __importDefault(__webpack_require__(526));
+var Tween_1 = __importDefault(__webpack_require__(662));
 var Button = /** @class */ (function (_super) {
     __extends(Button, _super);
     function Button(opts) {
@@ -2595,12 +2595,10 @@ exports["default"] = Button;
 
 /***/ }),
 
-/***/ "./src/buttongroup.ts":
+/***/ 496:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-/* provided dependency */ var PIXI = __webpack_require__("pixi.js");
 
-//import { AbstractPopupOptions } from './types'
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -2616,6 +2614,29 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __values = (this && this.__values) || function(o) {
     var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
     if (m) return m.call(o);
@@ -2656,8 +2677,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
-var button_1 = __importDefault(__webpack_require__("./src/button.ts"));
+var PIXI = __importStar(__webpack_require__(36));
+//import { AbstractPopupOptions } from './types'
+var theme_1 = __importDefault(__webpack_require__(575));
+var button_1 = __importDefault(__webpack_require__(152));
 var ButtonGroup = /** @class */ (function (_super) {
     __extends(ButtonGroup, _super);
     function ButtonGroup(opts) {
@@ -2918,7 +2941,7 @@ exports["default"] = ButtonGroup;
 
 /***/ }),
 
-/***/ "./src/capabilities.ts":
+/***/ 889:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -3097,7 +3120,7 @@ window.CapabilitiesTests = CapabilitiesTests;
 
 /***/ }),
 
-/***/ "./src/checkbox.ts":
+/***/ 52:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3131,7 +3154,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var button_1 = __importDefault(__webpack_require__("./src/button.ts"));
+var button_1 = __importDefault(__webpack_require__(152));
 var Checkbox = /** @class */ (function (_super) {
     __extends(Checkbox, _super);
     //
@@ -3256,7 +3279,7 @@ exports["default"] = Checkbox;
 
 /***/ }),
 
-/***/ "./src/index.ts":
+/***/ 500:
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -3284,8 +3307,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var PIXI = __importStar(__webpack_require__("pixi.js"));
-var UI_1 = __webpack_require__("./src/UI.ts");
+var PIXI = __importStar(__webpack_require__(36));
+var UI_1 = __webpack_require__(996);
 var Library = {
     UI: UI_1.UI,
 };
@@ -3296,7 +3319,7 @@ module.exports = Library;
 
 /***/ }),
 
-/***/ "./src/labeledgraphics.ts":
+/***/ 370:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3381,9 +3404,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SpriteLabel = exports.Hypenate = exports.FontInfo = exports.deepObject = void 0;
-var PIXI = __importStar(__webpack_require__("pixi.js"));
-var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
-var types_1 = __webpack_require__("./src/types.ts");
+var PIXI = __importStar(__webpack_require__(36));
+var theme_1 = __importDefault(__webpack_require__(575));
+var types_1 = __webpack_require__(96);
 // Try to resolve the mess below.
 var defaultTheme = new theme_1.default();
 function deepObject(source) {
@@ -3977,10 +4000,9 @@ export class BitmapLabeledGraphics extends LabeledGraphics
 
 /***/ }),
 
-/***/ "./src/list.ts":
+/***/ 778:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-/* provided dependency */ var PIXI = __webpack_require__("pixi.js");
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -3997,6 +4019,29 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __values = (this && this.__values) || function(o) {
     var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
     if (m) return m.call(o);
@@ -4012,10 +4057,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+var PIXI = __importStar(__webpack_require__(36));
 // No brackets, imports the default created Tween Instance from new.
-var Tween_1 = __importDefault(__webpack_require__("./src/Ease/Tween.ts"));
+var Tween_1 = __importDefault(__webpack_require__(662));
 // No brackets, imports the default created Ease Instance from new.
-var Ease_1 = __importDefault(__webpack_require__("./src/Ease/Ease.ts"));
+var Ease_1 = __importDefault(__webpack_require__(223));
 var List = /** @class */ (function (_super) {
     __extends(List, _super);
     function List(items, opts) {
@@ -4390,7 +4436,7 @@ exports["default"] = List;
 
 /***/ }),
 
-/***/ "./src/message.ts":
+/***/ 796:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4413,8 +4459,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
-var popup_1 = __webpack_require__("./src/popup.ts");
+var theme_1 = __importDefault(__webpack_require__(575));
+var popup_1 = __webpack_require__(632);
 var Message = /** @class */ (function (_super) {
     __extends(Message, _super);
     //
@@ -4523,7 +4569,7 @@ exports["default"] = Message;
 
 /***/ }),
 
-/***/ "./src/modal.ts":
+/***/ 66:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4569,10 +4615,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var PIXI = __importStar(__webpack_require__("pixi.js"));
-var Tween_1 = __importDefault(__webpack_require__("./src/Ease/Tween.ts"));
-var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
-var popup_1 = __webpack_require__("./src/popup.ts");
+var PIXI = __importStar(__webpack_require__(36));
+var Tween_1 = __importDefault(__webpack_require__(662));
+var theme_1 = __importDefault(__webpack_require__(575));
+var popup_1 = __webpack_require__(632);
 var Modal = /** @class */ (function (_super) {
     __extends(Modal, _super);
     function Modal(opts) {
@@ -4743,7 +4789,7 @@ exports["default"] = Modal;
 
 /***/ }),
 
-/***/ "./src/popover.ts":
+/***/ 345:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -4786,7 +4832,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var PIXI = __importStar(__webpack_require__("pixi.js"));
+var PIXI = __importStar(__webpack_require__(36));
 var Popover = /** @class */ (function (_super) {
     __extends(Popover, _super);
     function Popover(opts) {
@@ -4983,10 +5029,9 @@ exports["default"] = Popover;
 
 /***/ }),
 
-/***/ "./src/popup.ts":
+/***/ 632:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-/* provided dependency */ var PIXI = __webpack_require__("pixi.js");
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -5003,14 +5048,38 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.InteractivePopup = void 0;
-var abstractpopup_1 = __importDefault(__webpack_require__("./src/abstractpopup.ts"));
-var button_1 = __importDefault(__webpack_require__("./src/button.ts"));
-var buttongroup_1 = __importDefault(__webpack_require__("./src/buttongroup.ts"));
+var PIXI = __importStar(__webpack_require__(36));
+var abstractpopup_1 = __importDefault(__webpack_require__(114));
+var button_1 = __importDefault(__webpack_require__(152));
+var buttongroup_1 = __importDefault(__webpack_require__(496));
 var InteractivePopup = /** @class */ (function (_super) {
     __extends(InteractivePopup, _super);
     function InteractivePopup(opts) {
@@ -5213,7 +5282,7 @@ exports["default"] = Popup;
 
 /***/ }),
 
-/***/ "./src/popupmenu.ts":
+/***/ 550:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -5270,10 +5339,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var PIXI = __importStar(__webpack_require__("pixi.js"));
-var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
-var popup_1 = __importDefault(__webpack_require__("./src/popup.ts"));
-var Tween_1 = __importDefault(__webpack_require__("./src/Ease/Tween.ts"));
+var PIXI = __importStar(__webpack_require__(36));
+var theme_1 = __importDefault(__webpack_require__(575));
+var popup_1 = __importDefault(__webpack_require__(632));
+var Tween_1 = __importDefault(__webpack_require__(662));
 var PopupMenu = /** @class */ (function (_super) {
     __extends(PopupMenu, _super);
     //
@@ -5389,10 +5458,9 @@ exports["default"] = PopupMenu;
 
 /***/ }),
 
-/***/ "./src/progress.ts":
+/***/ 827:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-/* provided dependency */ var PIXI = __webpack_require__("pixi.js");
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -5409,12 +5477,36 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
-var Tween_1 = __importDefault(__webpack_require__("./src/Ease/Tween.ts"));
+var PIXI = __importStar(__webpack_require__(36));
+var theme_1 = __importDefault(__webpack_require__(575));
+var Tween_1 = __importDefault(__webpack_require__(662));
 var Progress = /** @class */ (function (_super) {
     __extends(Progress, _super);
     function Progress(opts) {
@@ -5695,10 +5787,9 @@ exports["default"] = Progress;
 
 /***/ }),
 
-/***/ "./src/progressbar.ts":
+/***/ 696:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-/* provided dependency */ var PIXI = __webpack_require__("pixi.js");
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -5715,12 +5806,36 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
-var Tween_1 = __importDefault(__webpack_require__("./src/Ease/Tween.ts"));
+var PIXI = __importStar(__webpack_require__(36));
+var theme_1 = __importDefault(__webpack_require__(575));
+var Tween_1 = __importDefault(__webpack_require__(662));
 var ProgressBar = /** @class */ (function (_super) {
     __extends(ProgressBar, _super);
     function ProgressBar(opts) {
@@ -5933,7 +6048,7 @@ exports["default"] = ProgressBar;
 
 /***/ }),
 
-/***/ "./src/progressdialog.ts":
+/***/ 674:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -5956,11 +6071,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
-var Tween_1 = __importDefault(__webpack_require__("./src/Ease/Tween.ts"));
-var modal_1 = __importDefault(__webpack_require__("./src/modal.ts"));
-var progressbar_1 = __importDefault(__webpack_require__("./src/progressbar.ts"));
-var button_1 = __importDefault(__webpack_require__("./src/button.ts"));
+var theme_1 = __importDefault(__webpack_require__(575));
+var Tween_1 = __importDefault(__webpack_require__(662));
+var modal_1 = __importDefault(__webpack_require__(66));
+var progressbar_1 = __importDefault(__webpack_require__(696));
+var button_1 = __importDefault(__webpack_require__(152));
 var ProgressDialog = /** @class */ (function (_super) {
     __extends(ProgressDialog, _super);
     function ProgressDialog(opts) {
@@ -6066,10 +6181,9 @@ exports["default"] = ProgressDialog;
 
 /***/ }),
 
-/***/ "./src/slider.ts":
+/***/ 123:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-/* provided dependency */ var PIXI = __webpack_require__("pixi.js");
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -6086,14 +6200,38 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Control = void 0;
-var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
-var tooltip_1 = __importDefault(__webpack_require__("./src/tooltip.ts"));
-var Tween_1 = __importDefault(__webpack_require__("./src/Ease/Tween.ts"));
+var PIXI = __importStar(__webpack_require__(36));
+var theme_1 = __importDefault(__webpack_require__(575));
+var tooltip_1 = __importDefault(__webpack_require__(437));
+var Tween_1 = __importDefault(__webpack_require__(662));
 //
 // Callback for the slider action onStart.
 //
@@ -6514,7 +6652,7 @@ exports["default"] = Slider;
 
 /***/ }),
 
-/***/ "./src/switch.ts":
+/***/ 145:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -6560,10 +6698,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var PIXI = __importStar(__webpack_require__("pixi.js"));
-var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
-var tooltip_1 = __importDefault(__webpack_require__("./src/tooltip.ts"));
-var Tween_1 = __importDefault(__webpack_require__("./src/Ease/Tween.ts"));
+var PIXI = __importStar(__webpack_require__(36));
+var theme_1 = __importDefault(__webpack_require__(575));
+var tooltip_1 = __importDefault(__webpack_require__(437));
+var Tween_1 = __importDefault(__webpack_require__(662));
 var Switch = /** @class */ (function (_super) {
     __extends(Switch, _super);
     function Switch(opts) {
@@ -6951,7 +7089,7 @@ exports["default"] = Switch;
 
 /***/ }),
 
-/***/ "./src/theme.ts":
+/***/ 575:
 /***/ (function(__unused_webpack_module, exports) {
 
 
@@ -7149,7 +7287,7 @@ exports.ThemeRed = ThemeRed;
 
 /***/ }),
 
-/***/ "./src/tooltip.ts":
+/***/ 437:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -7172,8 +7310,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var abstractpopup_1 = __importDefault(__webpack_require__("./src/abstractpopup.ts"));
-var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
+var abstractpopup_1 = __importDefault(__webpack_require__(114));
+var theme_1 = __importDefault(__webpack_require__(575));
 var Tooltip = /** @class */ (function (_super) {
     __extends(Tooltip, _super);
     function Tooltip(opts) {
@@ -7286,7 +7424,7 @@ exports["default"] = Tooltip;
 
 /***/ }),
 
-/***/ "./src/types.ts":
+/***/ 96:
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -7320,7 +7458,7 @@ exports.strNumToNum = strNumToNum;
 
 /***/ }),
 
-/***/ "./src/utils.ts":
+/***/ 567:
 /***/ (function(__unused_webpack_module, exports) {
 
 
@@ -8647,7 +8785,7 @@ exports.Strings = Strings;
 
 /***/ }),
 
-/***/ "./src/volatile.ts":
+/***/ 17:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -8689,10 +8827,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-var PIXI = __importStar(__webpack_require__("pixi.js"));
-var Tween_1 = __importDefault(__webpack_require__("./src/Ease/Tween.ts"));
-var Ease_1 = __importDefault(__webpack_require__("./src/Ease/Ease.ts"));
-var theme_1 = __importDefault(__webpack_require__("./src/theme.ts"));
+var PIXI = __importStar(__webpack_require__(36));
+var Tween_1 = __importDefault(__webpack_require__(662));
+var Ease_1 = __importDefault(__webpack_require__(223));
+var theme_1 = __importDefault(__webpack_require__(575));
 var Volatile = /** @class */ (function () {
     function Volatile(opts) {
         if (opts === void 0) { opts = {}; }
@@ -8821,7 +8959,7 @@ exports["default"] = Volatile;
 
 /***/ }),
 
-/***/ "pixi.js":
+/***/ 36:
 /***/ ((module) => {
 
 module.exports = PIXI;
@@ -8859,7 +8997,7 @@ module.exports = PIXI;
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/index.ts");
+/******/ 	var __webpack_exports__ = __webpack_require__(500);
 /******/ 	pixi_ui = __webpack_exports__;
 /******/ 	
 /******/ })()

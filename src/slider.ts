@@ -1,3 +1,5 @@
+import * as PIXI from 'pixi.js'
+
 import Theme from './theme'
 import Tooltip from './tooltip'
 import Tween from './Ease/Tween'

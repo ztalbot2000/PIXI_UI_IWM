@@ -1,3 +1,5 @@
+import * as PIXI from 'pixi.js'
+
 //import { AbstractPopupOptions } from './types'
 
 import Theme from './theme'

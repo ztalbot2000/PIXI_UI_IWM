@@ -1,3 +1,5 @@
+import * as PIXI from 'pixi.js'
+
 import AbstractPopup from './abstractpopup'
 import Button from './button'
 import ButtonGroup from './buttongroup'
