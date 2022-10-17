@@ -285,23 +285,23 @@ export class Colors {
         }
     }
 
-    static violet() {
+    static get violet() {
         return Colors.rgb2num(89, 34, 131)
     }
 
-    static steelblue() {
+    static get steelblue() {
         return Colors.rgb2num(0, 130, 164)
     }
 
-    static ochre() {
+    static get ochre() {
         return Colors.rgb2num(181, 157, 0)
     }
 
-    static turquoise() {
+    static get turquoise() {
         return Colors.rgb2num(34, 164, 131)
     }
 
-    static eminence() {
+    static get eminence() {
         return Colors.rgb2num(150, 60, 134)
     }
 

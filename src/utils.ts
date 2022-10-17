@@ -53,7 +53,7 @@ export function uuid( ): string
 
 export function lerp( start: number, stop: number, amt: number ): number
 {
-    return amt * ( stop - start ) + start
+   return amt * ( stop - start ) + start
 }
 
 export function sample(population: Array<string>, k: number): Array< string >
@@ -370,27 +370,27 @@ export class Colors
         }
     }
 
-    static get violet( ): number
+    static violet( ): number
     {
         return Colors.rgb2num( 89, 34, 131 )
     }
 
-    static get steelblue( ): number
+    static steelblue( ): number
     {
         return Colors.rgb2num( 0, 130, 164 )
     }
 
-    static get ochre( ): number
+    static ochre( ): number
     {
         return Colors.rgb2num( 181, 157, 0 )
     }
 
-    static get turquoise( ): number
+    static turquoise( ): number
     {
         return Colors.rgb2num( 34, 164, 131 )
     }
 
-    static get eminence( ): number
+    static eminence( ): number
     {
         return Colors.rgb2num( 150, 60, 134 )
     }
