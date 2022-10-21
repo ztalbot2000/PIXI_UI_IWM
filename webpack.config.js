@@ -139,7 +139,7 @@ let webpackOptions =
    output: {
       // Default in webpack V5
       //path: path.resolve(__dirname, 'dist'),
-      filename: 'pixi_ui.js',
+      filename: 'js/client/pixi_ui.js',
       // The library name means you would access it via pixi-ui.button.
       library: 'pixi_ui',
 
